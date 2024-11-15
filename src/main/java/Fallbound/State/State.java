@@ -1,18 +1,20 @@
 package Fallbound.State;
 
 import Fallbound.Controller.Controller;
+import Fallbound.Controller.Menu.StartMenuController;
 import Fallbound.GUI.GUI;
 import Fallbound.Game;
+import Fallbound.Model.Menu.StartMenu;
+import Fallbound.View.Menu.StartMenuViewer;
 import Fallbound.View.Viewer;
 import com.googlecode.lanterna.input.KeyStroke;
 
 import java.io.IOException;
 
 public class State {
+    public static State instance;
     private GameState currentState;
     private GameState previousState;
-    public static State instance;
-
     private Controller controller;
     private Viewer viewer;
 
@@ -21,18 +23,17 @@ public class State {
         previousState = GameState.START_MENU;
     }
 
-    public static State getInstance(){
-        if(instance == null){
+    public static State getInstance() {
+        if (instance == null) {
             instance = new State();
         }
         return instance;
     }
 
     public void UpdateState(GameState newState) throws IOException {
-        if(newState == GameState.START_MENU){
+        if (newState == GameState.START_MENU) {
             previousState = GameState.START_MENU;
-        }
-        else {
+        } else {
             previousState = currentState;
         }
         currentState = newState;
@@ -47,18 +48,20 @@ public class State {
     }
 
     public void step(GUI gui, Game game, long time) throws IOException {
+        if (controller == null || viewer == null) {
+            StateActions();
+        }
         KeyStroke key = gui.getNextAction();
-        controller.step(game,key,time);
+        controller.step(game, key, time);
         viewer.draw(gui, time);
     }
 
-    public void StateActions () throws IOException {
-        switch (currentState){
+    public void StateActions() throws IOException {
+        switch (currentState) {
             case START_MENU:
-//                todo:
-//                  - StartMenu class (model)
-//                  - StartMenuController class (controller)
-//                  - StartMenuViewer class (view)
+                StartMenu startMenu = new StartMenu();
+                this.controller = new StartMenuController(startMenu);
+                this.viewer = new StartMenuViewer(startMenu);
                 break;
 
             case NEW_GAME:
