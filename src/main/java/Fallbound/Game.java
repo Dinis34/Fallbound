@@ -1,11 +1,25 @@
+/**
+ *                                             .-'''-.
+ *                       .---..---.           '   _    \                   _______
+ *                       |   ||   |/|       /   /` '.   \          _..._   \  ___ `'.
+ *         _.._          |   ||   |||      .   |     \  '        .'     '.  ' |--.\  \
+ *       .' .._|         |   ||   |||      |   '      |  '      .   .-.   . | |    \  '
+ *       | '       __    |   ||   |||  __  \    \     / /       |  '   '  | | |     |  '
+ *     __| |__  .:--.'.  |   ||   |||/'__ '.`.   ` ..' /_    _  |  |   |  | | |     |  |
+ *    |__   __|/ |   \ | |   ||   ||:/`  '. '  '-...-'`| '  / | |  |   |  | | |     ' .'
+ *       | |   `" __ | | |   ||   |||     | |         .' | .' | |  |   |  | | |___.' /'
+ *       | |    .'.''| | |   ||   |||\    / '         /  | /  | |  |   |  |/_______.'/
+ *       | |   / /   | |_'---''---'|/\'..' /         |   `'.  | |  |   |  |\_______|/
+ *       | |   \ \._,\ '/          '  `'-'`          '   .'|  '/|  |   |  |
+ *       |_|    `--'  `"                              `-'  `--' '--'   '--'
+ */
+
 package Fallbound;
 
 import Fallbound.GUI.GUI;
 import Fallbound.GUI.LanternaGUI;
 import Fallbound.State.GameState;
 import Fallbound.State.State;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 
 import java.awt.*;
 import java.io.IOException;
