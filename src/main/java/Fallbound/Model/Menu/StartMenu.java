@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class StartMenu extends Menu {
     public StartMenu() {
-        options = Arrays.asList("Play", "Exit");
+        options = Arrays.asList("play", "exit");
     }
 
     public boolean isSelectedPlay() {

@@ -1,10 +1,13 @@
 package Fallbound.State;
 
 import Fallbound.Controller.Controller;
+import Fallbound.Controller.Game.SceneController;
 import Fallbound.Controller.Menu.StartMenuController;
 import Fallbound.GUI.GUI;
 import Fallbound.Game;
+import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Menu.StartMenu;
+import Fallbound.View.Game.SceneViewer;
 import Fallbound.View.Menu.StartMenuViewer;
 import Fallbound.View.Viewer;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -17,6 +20,7 @@ public class State {
     private GameState previousState;
     private Controller controller;
     private Viewer viewer;
+    private Scene scene;
 
     private State() {
         currentState = GameState.START_MENU;
@@ -65,11 +69,9 @@ public class State {
                 break;
 
             case NEW_GAME:
-//                todo:
-//                  - Arena (model)
-//                  - ArenaBuilder (model)
-//                  - ArenaController (arena)
-//                  - GameViewer (view)
+                scene = new Scene(90,30);
+                this.controller = new SceneController(scene);
+                this.viewer = new SceneViewer(scene);
                 break;
 
             case GAME_OVER:
