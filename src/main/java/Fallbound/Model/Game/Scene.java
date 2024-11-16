@@ -1,5 +1,6 @@
 package Fallbound.Model.Game;
 
+import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Player;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Position;
@@ -11,6 +12,7 @@ public class Scene {
     private int width;
     private int height;
     private int score;
+    private int coincount;
 
     public List<Wall> getWalls() {
         return walls;
@@ -28,13 +30,18 @@ public class Scene {
         this.player = player;
     }
 
+    public List<Coin> getCoins() {
+        return coins;
+    }
+
     private Player player = new Player(new Position(20, 20));
     private List<Wall> walls = new ArrayList<>();
-
+    private List<Coin> coins = new ArrayList<>();
     public Scene(int width, int height) {
         this.width = width;
         this.height = height;
         this.score = 0;
+        this.coincount = 0;
 
         int x = 10;
         int y = 20;
@@ -46,6 +53,7 @@ public class Scene {
                 this.walls.add(new Wall(new Position(x + i, y + j)));
             }
         }
+        this.coins.add(new Coin(new Position(2,  19))); // test para checkar se a coin aparece
     }
 
     private void buildWalls() {
