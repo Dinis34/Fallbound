@@ -1,7 +1,10 @@
 package Fallbound.Model.Game;
 
+import Fallbound.GUI.GUI;
 import Fallbound.Model.Game.Elements.Player;
 import Fallbound.Model.Game.Elements.Wall;
+import Fallbound.Model.Game.Hud.HighScore;
+import Fallbound.Model.Game.Hud.Time;
 import Fallbound.Model.Position;
 
 import java.util.ArrayList;
@@ -11,6 +14,14 @@ public class Scene {
     private int width;
     private int height;
     private int score;
+    private HighScore highScore;
+    private Time time;  //placeholder até fazermos o timer direitinho
+    public Time getTime() {
+        return time;
+    }
+    public HighScore getHighScore() {
+        return highScore;
+    }
 
     public List<Wall> getWalls() {
         return walls;
@@ -46,6 +57,8 @@ public class Scene {
                 this.walls.add(new Wall(new Position(x + i, y + j)));
             }
         }
+        this.highScore = new HighScore(new Position(0,1), score);
+        this.time = new Time(new Position(0, 0), 0); // placeholder
     }
 
     private void buildWalls() {
