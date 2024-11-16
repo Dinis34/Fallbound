@@ -34,6 +34,12 @@ public class Scene {
         return coins;
     }
 
+    public int getScore() {
+        return score;
+    }
+    public int getCoincount() {
+        return coincount;
+    }
     private Player player = new Player(new Position(20, 20));
     private List<Wall> walls = new ArrayList<>();
     private List<Coin> coins = new ArrayList<>();
@@ -53,7 +59,14 @@ public class Scene {
                 this.walls.add(new Wall(new Position(x + i, y + j)));
             }
         }
-        this.coins.add(new Coin(new Position(2,  19))); // test para checkar se a coin aparece
+        this.coins.add(new Coin(new Position(2,  19)));// test para checkar se a coin aparece
+        for(Coin a : this.coins) { // ns onde por este loop por isso vai ficar aqui ¯\_(ツ)_/¯
+            if(a.checkcollision(this.player)){
+                this.coincount++;
+                this.coins.remove(a);
+                break;
+            }
+        }
     }
 
     private void buildWalls() {
