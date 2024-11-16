@@ -1,5 +1,6 @@
 package Fallbound.Model.Game;
 
+import Fallbound.Model.Game.Elements.Player;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Position;
 
@@ -19,6 +20,15 @@ public class Scene {
         this.walls = walls;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    private Player player = new Player(new Position(20, 20));
     private List<Wall> walls = new ArrayList<>();
 
     public Scene(int width, int height) {
