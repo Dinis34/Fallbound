@@ -71,7 +71,10 @@ public class LanternaGUI implements GUI {
         terminalFactory.setForceAWTOverSwing(true);
         terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
         terminalFactory.setTerminalEmulatorTitle("Fallbound");
-        return terminalFactory.createTerminal();
+        Terminal terminal = terminalFactory.createTerminal();
+        AWTTerminalFrame frame = (AWTTerminalFrame) terminal;
+        frame.setResizable(false);
+        return terminal;
     }
 
     private AWTTerminalFontConfiguration loadFont() throws URISyntaxException, FontFormatException, IOException {
