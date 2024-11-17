@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class PauseMenu extends Menu {
     public PauseMenu() {
-        options = Arrays.asList("continue", "restart", "exit");
+        options = Arrays.asList("continue", "restart", "exit to main menu", "exit to desktop");
     }
 
     public boolean isSelectedContinue() {
@@ -17,5 +17,9 @@ public class PauseMenu extends Menu {
 
     public boolean isSelectedExit() {
         return isSelected(2);
+    }
+
+    public boolean isSelectedExitToDesktop() {
+        return isSelected(3);
     }
 }

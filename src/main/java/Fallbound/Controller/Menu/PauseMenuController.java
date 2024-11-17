@@ -28,6 +28,8 @@ public class PauseMenuController extends MenuController<PauseMenu> {
                 game.setState(GameState.NEW_GAME);
             } else if (getModel().isSelectedExit()) {
                 game.setState(GameState.START_MENU);
+            } else if (getModel().isSelectedExitToDesktop()) {
+                game.setState(GameState.QUIT_GAME);
             }
         }
 
