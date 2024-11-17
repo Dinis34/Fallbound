@@ -4,6 +4,7 @@ import Fallbound.GUI.GUI;
 import Fallbound.Model.Game.Scene;
 import Fallbound.View.Game.Elements.PlayerViewer;
 import Fallbound.View.Game.Elements.WallViewer;
+import Fallbound.View.Game.Hud.CoinDisplayViewer;
 import Fallbound.View.Game.Hud.HighScoreViewer;
 import Fallbound.View.Game.Hud.TimeViewer;
 import Fallbound.View.Viewer;
@@ -14,6 +15,7 @@ public class SceneViewer extends Viewer<Scene> {
     private PlayerViewer playerViewer = new PlayerViewer();
     private HighScoreViewer highScoreViewer = new HighScoreViewer();
     private TimeViewer timeViewer = new TimeViewer();
+    private CoinDisplayViewer coinDisplayViewer = new CoinDisplayViewer();
 
     public SceneViewer(Scene model) {
         super(model);
@@ -25,5 +27,6 @@ public class SceneViewer extends Viewer<Scene> {
         playerViewer.draw(gui, getModel().getPlayer());
         highScoreViewer.draw(gui, getModel().getHighScore());
         timeViewer.draw(gui, getModel().getTime());
+        coinDisplayViewer.draw(gui, getModel().getCoinDisplay());
     }
 }
