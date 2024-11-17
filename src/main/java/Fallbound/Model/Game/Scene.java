@@ -1,18 +1,21 @@
 package Fallbound.Model.Game;
 
 import Fallbound.Model.Game.Elements.Player;
-import Fallbound.Model.Game.Elements.Wall;
-import Fallbound.Model.Position;
+import Fallbound.Model.Game.Elements.Tiles.Tile;
+import Fallbound.Model.Game.Elements.Tiles.Wall;
+import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Math.round;
 
 public class Scene {
     private final int width;
     private final int height;
     private final int score;
-    private Player player = new Player(new Position(20, 15));
-    private List<Wall> walls = new ArrayList<>();
+    private Player player = new Player(new Vector(20, 15), this);
+    private List<Tile> walls = new ArrayList<>();
 
     public Scene(int width, int height) {
         this.width = width;
@@ -26,16 +29,16 @@ public class Scene {
 
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                this.walls.add(new Wall(new Position(x + i, y + j)));
+                this.walls.add(new Wall(new Vector(x + i, y + j)));
             }
         }
     }
 
-    public List<Wall> getWalls() {
+    public List<Tile> getWalls() {
         return walls;
     }
 
-    public void setWalls(List<Wall> walls) {
+    public void setWalls(List<Tile> walls) {
         this.walls = walls;
     }
 
@@ -49,5 +52,9 @@ public class Scene {
 
     private void buildWalls() {
 
+    }
+
+    public boolean isColliding(Vector position1, Vector position2) {
+        return round(position1.getX()) == round(position2.getX()) && round(position1.getY()) == round(position2.getY());
     }
 }
