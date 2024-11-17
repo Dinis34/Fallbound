@@ -1,7 +1,7 @@
 package Fallbound.View.Game.Elements;
 
 import Fallbound.GUI.GUI;
-import Fallbound.Model.Game.Elements.Wall;
+import Fallbound.Model.Game.Elements.Tiles.Wall;
 import Fallbound.View.Theme;
 
 public class WallViewer implements ElementViewer<Wall> {

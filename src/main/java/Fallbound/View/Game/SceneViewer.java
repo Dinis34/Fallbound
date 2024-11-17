@@ -1,6 +1,7 @@
 package Fallbound.View.Game;
 
 import Fallbound.GUI.GUI;
+import Fallbound.Model.Game.Elements.Tiles.Wall;
 import Fallbound.Model.Game.Scene;
 import Fallbound.View.Game.Elements.PlayerViewer;
 import Fallbound.View.Game.Elements.WallViewer;
@@ -17,7 +18,7 @@ public class SceneViewer extends Viewer<Scene> {
 
     @Override
     protected void drawElements(GUI gui, long time) {
-        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, wall));
+        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall));
         playerViewer.draw(gui, getModel().getPlayer());
     }
 }
