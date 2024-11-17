@@ -3,7 +3,7 @@ package Fallbound.Controller.Game.Elements;
 import Fallbound.Controller.Controller;
 import Fallbound.Game;
 import Fallbound.Model.Game.Elements.Player;
-import Fallbound.Model.Position;
+import Fallbound.Model.Vector;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -21,10 +21,10 @@ public class PlayerController extends Controller<Player> {
             System.out.println("Jumping");
         }
         if (keys.contains(KeyEvent.VK_LEFT)) {
-            getModel().setPosition(new Position(getModel().getPosition().getX() - 1, getModel().getPosition().getY()));
+            getModel().setPosition(new Vector(getModel().getPosition().getX() - 1, getModel().getPosition().getY()));
         }
         if (keys.contains(KeyEvent.VK_RIGHT)) {
-            getModel().setPosition(new Position(getModel().getPosition().getX() + 1, getModel().getPosition().getY()));
+            getModel().setPosition(new Vector(getModel().getPosition().getX() + 1, getModel().getPosition().getY()));
         }
     }
 }

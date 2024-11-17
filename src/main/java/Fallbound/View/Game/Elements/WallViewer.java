@@ -6,11 +6,10 @@ import Fallbound.View.Theme;
 
 public class WallViewer implements ElementViewer<Wall> {
 
-
     @Override
     public void draw(GUI gui, Wall element) {
         char coverWallChar = '\u2593';
         String coverWallColor = Theme.FALLBOUND_WHITE;
-        gui.drawElement(element.getPosition(), coverWallChar, coverWallColor);
+        gui.drawElement(element.getPosition().toPosition(), coverWallChar, coverWallColor);
     }
 }

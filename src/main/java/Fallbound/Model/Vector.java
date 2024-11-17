@@ -11,6 +11,10 @@ public class Vector {
         this.y = y;
     }
 
+    public Position toPosition() {
+        return new Position((int) this.x, (int) this.y);
+    }
+
     public double getX() {
         return x;
     }

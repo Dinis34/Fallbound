@@ -1,7 +1,6 @@
 package Fallbound.Model.Game.Elements;
 
 import Fallbound.Model.Game.Scene;
-import Fallbound.Model.Position;
 import Fallbound.Model.Vector;
 
 public class Player extends Element {
@@ -12,7 +11,7 @@ public class Player extends Element {
     private Vector velocity;
     private Scene scene;
 
-    public Player(Position position) {
+    public Player(Vector position) {
         super(position);
         this.velocity = new Vector(0, 0);
         this.maxVelocity = new Vector(2.0, 3.0);

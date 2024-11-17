@@ -3,6 +3,7 @@ package Fallbound.Model.Game;
 import Fallbound.Model.Game.Elements.Player;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Position;
+import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class Scene {
     private final int width;
     private final int height;
     private final int score;
-    private Player player = new Player(new Position(20, 15));
+    private Player player = new Player(new Vector(20, 15));
     private List<Wall> walls = new ArrayList<>();
 
     public Scene(int width, int height) {
@@ -26,7 +27,7 @@ public class Scene {
 
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                this.walls.add(new Wall(new Position(x + i, y + j)));
+                this.walls.add(new Wall(new Vector(x + i, y + j)));
             }
         }
     }
