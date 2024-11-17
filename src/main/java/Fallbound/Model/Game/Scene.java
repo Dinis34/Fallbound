@@ -8,26 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scene {
-    private int width;
-    private int height;
-    private int score;
-
-    public List<Wall> getWalls() {
-        return walls;
-    }
-
-    public void setWalls(List<Wall> walls) {
-        this.walls = walls;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
+    private final int width;
+    private final int height;
+    private final int score;
     private Player player = new Player(new Position(20, 20));
     private List<Wall> walls = new ArrayList<>();
 
@@ -46,6 +29,22 @@ public class Scene {
                 this.walls.add(new Wall(new Position(x + i, y + j)));
             }
         }
+    }
+
+    public List<Wall> getWalls() {
+        return walls;
+    }
+
+    public void setWalls(List<Wall> walls) {
+        this.walls = walls;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     private void buildWalls() {

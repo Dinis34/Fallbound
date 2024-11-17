@@ -67,10 +67,9 @@ public class Vector {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Vector)) {
+        if (!(o instanceof Vector vector)) {
             return false;
         }
-        Vector vector = (Vector) o;
         return Double.compare(vector.getX(), getX()) == 0 && Double.compare(vector.getY(), getY()) == 0;
     }
 

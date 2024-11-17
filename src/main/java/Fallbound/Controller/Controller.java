@@ -1,8 +1,6 @@
 package Fallbound.Controller;
 
 import Fallbound.Game;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 
 import java.io.IOException;
 import java.util.Set;

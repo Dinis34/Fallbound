@@ -1,6 +1,5 @@
 package Fallbound.Controller.Menu;
 
-import Fallbound.Controller.Controller;
 import Fallbound.Game;
 import Fallbound.Model.Menu.PauseMenu;
 import Fallbound.State.GameState;
@@ -9,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Set;
 
-public class PauseMenuController extends Controller<PauseMenu> {
+public class PauseMenuController extends MenuController<PauseMenu> {
     public PauseMenuController(PauseMenu menu) {
         super(menu);
     }

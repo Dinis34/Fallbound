@@ -1,16 +1,14 @@
 package Fallbound.Controller.Menu;
 
-import Fallbound.Controller.Controller;
 import Fallbound.Game;
 import Fallbound.Model.Menu.StartMenu;
 import Fallbound.State.GameState;
-import com.googlecode.lanterna.input.KeyType;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Set;
 
-public class StartMenuController extends Controller<StartMenu> {
+public class StartMenuController extends MenuController<StartMenu> {
 
     public StartMenuController(StartMenu menu) {
         super(menu);

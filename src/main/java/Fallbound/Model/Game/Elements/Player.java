@@ -4,15 +4,12 @@ import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
 import Fallbound.Model.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Player extends Element {
 
-    private Vector velocity;
     private final Vector maxVelocity;
     private final double acceleration;
     private final double jumpBoost;
+    private Vector velocity;
     private Scene scene;
 
     public Player(Position position) {

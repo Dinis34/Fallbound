@@ -2,18 +2,17 @@ package Fallbound.State;
 
 import Fallbound.Controller.Controller;
 import Fallbound.Controller.Game.SceneController;
-import Fallbound.Controller.Menu.StartMenuController;
 import Fallbound.Controller.Menu.PauseMenuController;
+import Fallbound.Controller.Menu.StartMenuController;
 import Fallbound.GUI.GUI;
 import Fallbound.Game;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Menu.PauseMenu;
 import Fallbound.Model.Menu.StartMenu;
 import Fallbound.View.Game.SceneViewer;
-import Fallbound.View.Menu.StartMenuViewer;
 import Fallbound.View.Menu.PauseMenuViewer;
+import Fallbound.View.Menu.StartMenuViewer;
 import Fallbound.View.Viewer;
-import com.googlecode.lanterna.input.KeyType;
 
 import java.io.IOException;
 import java.util.Set;
@@ -77,7 +76,7 @@ public class State {
                 this.viewer = new PauseMenuViewer(pauseMenu);   //falta o PauseMenuViewer
                 break;
             case NEW_GAME:
-                scene = new Scene(90,30);
+                scene = new Scene(90, 30);
                 this.controller = new SceneController(scene);
                 this.viewer = new SceneViewer(scene);
                 break;
