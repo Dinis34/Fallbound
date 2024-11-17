@@ -6,10 +6,10 @@ import Fallbound.Model.Vector;
 
 public class Player extends Element {
 
-    private Vector velocity;
     private final Vector maxVelocity;
     private final double acceleration;
     private final double jumpBoost;
+    private Vector velocity;
     private Scene scene;
 
     public Player(Position position) {

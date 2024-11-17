@@ -8,8 +8,8 @@ import Fallbound.View.Viewer;
 
 public class SceneViewer extends Viewer<Scene> {
 
-    private WallViewer wallViewer = new WallViewer();
-    private PlayerViewer playerViewer = new PlayerViewer();
+    private final WallViewer wallViewer = new WallViewer();
+    private final PlayerViewer playerViewer = new PlayerViewer();
 
     public SceneViewer(Scene model) {
         super(model);

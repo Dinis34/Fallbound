@@ -18,11 +18,11 @@ public class Element {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this == o){
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if(!(o instanceof Element)){
+        if (!(o instanceof Element)) {
             return false;
         }
         return this.getPosition().equals(((Element) o).getPosition());
