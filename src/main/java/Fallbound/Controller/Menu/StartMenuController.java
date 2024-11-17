@@ -4,9 +4,11 @@ import Fallbound.Controller.Controller;
 import Fallbound.Game;
 import Fallbound.Model.Menu.StartMenu;
 import Fallbound.State.GameState;
-import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.Set;
 
 public class StartMenuController extends Controller<StartMenu> {
 
@@ -15,25 +17,19 @@ public class StartMenuController extends Controller<StartMenu> {
     }
 
     @Override
-    public void step(Game game, KeyStroke key, long time) throws IOException {
-        if (key == null) {
-            return;
+    public void step(Game game, Set<Integer> keys, long time) throws IOException {
+        if (keys.contains(KeyEvent.VK_UP)) {
+            getModel().previousOption();
         }
-        switch (key.getKeyType()) {
-            case ArrowUp:
-                getModel().previousOption();
-                break;
-            case ArrowDown:
-                getModel().nextOption();
-                break;
-            case Enter:
-                if (getModel().isSelectedPlay()) {
-                    game.setState(GameState.NEW_GAME);
-                } else if (getModel().isSelectedExit()) {
-                    game.setState(GameState.QUIT_GAME);
-                }
-                break;
-            default:
+        if (keys.contains(KeyEvent.VK_DOWN)) {
+            getModel().nextOption();
+        }
+        if (keys.contains(KeyEvent.VK_ENTER)) {
+            if (getModel().isSelectedPlay()) {
+                game.setState(GameState.NEW_GAME);
+            } else if (getModel().isSelectedExit()) {
+                game.setState(GameState.QUIT_GAME);
+            }
         }
     }
 }

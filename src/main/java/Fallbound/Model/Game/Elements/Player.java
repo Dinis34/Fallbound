@@ -4,6 +4,9 @@ import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
 import Fallbound.Model.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player extends Element {
 
     private Vector velocity;

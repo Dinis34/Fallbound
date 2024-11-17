@@ -13,9 +13,10 @@ import Fallbound.View.Game.SceneViewer;
 import Fallbound.View.Menu.StartMenuViewer;
 import Fallbound.View.Menu.PauseMenuViewer;
 import Fallbound.View.Viewer;
-import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class State {
     public static State instance;
@@ -58,8 +59,8 @@ public class State {
         if (controller == null || viewer == null) {
             StateActions();
         }
-        KeyStroke key = gui.getNextAction();
-        controller.step(game, key, time);
+        Set<Integer> keys = gui.getNextAction();
+        controller.step(game, keys, time);
         viewer.draw(gui, time);
     }
 
