@@ -59,7 +59,7 @@ public class Scene {
                 this.walls.add(new Wall(new Position(x + i, y + j)));
             }
         }
-        this.coins.add(new Coin(new Position(2,  19)));// test para checkar se a coin aparece
+        this.coins.add(new Coin(new Position(15,  19)));// test para checkar se a coin aparece
         for(Coin a : this.coins) { // ns onde por este loop por isso vai ficar aqui ¯\_(ツ)_/¯
             if(a.checkcollision(this.player)){
                 this.coincount++;
