@@ -39,4 +39,8 @@ public class StartMenuViewer extends MenuViewer<StartMenu> {
         drawBanner(gui, new Position(4, 6), Theme.FALLBOUND_RED);
         drawMenuTitle(gui, "⁜ START MENU ⁜", Theme.FALLBOUND_RED, new Position(4, 24));
     }
+
+    @Override
+    protected void drawHud(GUI gui){
+    }
 }
