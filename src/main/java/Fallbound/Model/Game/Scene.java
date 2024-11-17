@@ -11,7 +11,7 @@ public class Scene {
     private final int width;
     private final int height;
     private final int score;
-    private Player player = new Player(new Position(20, 20));
+    private Player player = new Player(new Position(20, 15));
     private List<Wall> walls = new ArrayList<>();
 
     public Scene(int width, int height) {

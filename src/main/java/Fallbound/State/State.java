@@ -22,8 +22,8 @@ public class State {
     public static State instance;
     private GameState currentState;
     private GameState previousState;
-    private Controller controller;
-    private Viewer viewer;
+    private Controller<?> controller;
+    private Viewer<?> viewer;
     private Scene scene;
 
     private State() {
@@ -77,7 +77,7 @@ public class State {
             case PAUSE_MENU:
                 PauseMenu pauseMenu = new PauseMenu();
                 this.controller = new PauseMenuController(pauseMenu);
-                this.viewer = new PauseMenuViewer(pauseMenu);   //falta o PauseMenuViewer
+                this.viewer = new PauseMenuViewer(pauseMenu);
                 break;
             case NEW_GAME:
                 scene = new Scene(90, 30);
@@ -86,13 +86,13 @@ public class State {
                 break;
             case RESUME_GAME:
             case GAME_OVER:
-//                todo:
-//                  - GameOverMenu class (model)
-//                  - GameOverMenuController class (controller)
-//                  - GameOverMenuViewer class (view)
+                // todo:
+                // - GameOverMenu class (model)
+                // - GameOverMenuController class (controller)
+                // - GameOverMenuViewer class (view)
                 break;
-
             case QUIT_GAME:
+                break;
         }
     }
 

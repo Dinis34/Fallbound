@@ -16,11 +16,9 @@ public class PlayerController extends Controller<Player> {
 
     @Override
     public void step(Game game, Set<Integer> keys, long time) throws IOException {
-        if (keys.contains(KeyEvent.VK_UP)) {
-            System.out.println("Up");
-        }
-        if (keys.contains(KeyEvent.VK_DOWN)) {
-            System.out.println("Down");
+        if (keys.contains(KeyEvent.VK_SPACE)) {
+            // jump !!.. or shoot
+            System.out.println("Jumping");
         }
         if (keys.contains(KeyEvent.VK_LEFT)) {
             getModel().setPosition(new Position(getModel().getPosition().getX() - 1, getModel().getPosition().getY()));
