@@ -2,6 +2,7 @@ package Fallbound.State;
 
 import Fallbound.Controller.Controller;
 import Fallbound.Controller.Game.SceneController;
+import Fallbound.Controller.Menu.MenuController;
 import Fallbound.Controller.Menu.PauseMenuController;
 import Fallbound.Controller.Menu.StartMenuController;
 import Fallbound.GUI.GUI;
@@ -59,6 +60,9 @@ public class State {
             StateActions();
         }
         Set<Integer> keys = gui.getNextAction();
+        if (controller instanceof MenuController) {
+            keys = gui.getNextSingleAction();
+        }
         controller.step(game, keys, time);
         viewer.draw(gui, time);
     }

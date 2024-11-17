@@ -45,8 +45,14 @@ public class LanternaGUI implements GUI {
 
     @Override
     public Set<Integer> getNextAction() throws IOException {
-        screen.pollInput();
         return new HashSet<>(activeKeys);
+    }
+
+    @Override
+    public Set<Integer> getNextSingleAction() {
+        Set<Integer> keys = new HashSet<>(activeKeys);
+        activeKeys.clear();
+        return keys;
     }
 
     private Screen createScreen(Terminal terminal) throws IOException {
