@@ -4,26 +4,55 @@ import Fallbound.Model.Position;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LanternaGUI implements GUI {
     private final Screen screen;
+    private final Set<Integer> activeKeys = new HashSet<>();
 
     public LanternaGUI(int width, int height) throws IOException, FontFormatException, URISyntaxException {
         AWTTerminalFontConfiguration fontConfig = loadFont();
         Terminal terminal = createTerminal(width, height, fontConfig);
         this.screen = createScreen(terminal);
+
+        ((AWTTerminalFrame) terminal).getComponent(0).addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                activeKeys.add(e.getKeyCode());
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                activeKeys.remove(e.getKeyCode());
+            }
+        });
+    }
+
+    @Override
+    public Set<Integer> getNextAction() throws IOException {
+        return new HashSet<>(activeKeys);
+    }
+
+    @Override
+    public Set<Integer> getNextSingleAction() {
+        Set<Integer> keys = new HashSet<>(activeKeys);
+        activeKeys.clear();
+        return keys;
     }
 
     private Screen createScreen(Terminal terminal) throws IOException {
@@ -42,7 +71,10 @@ public class LanternaGUI implements GUI {
         terminalFactory.setForceAWTOverSwing(true);
         terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
         terminalFactory.setTerminalEmulatorTitle("Fallbound");
-        return terminalFactory.createTerminal();
+        Terminal terminal = terminalFactory.createTerminal();
+        AWTTerminalFrame frame = (AWTTerminalFrame) terminal;
+        frame.setResizable(false);
+        return terminal;
     }
 
     private AWTTerminalFontConfiguration loadFont() throws URISyntaxException, FontFormatException, IOException {
@@ -54,7 +86,7 @@ public class LanternaGUI implements GUI {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 25);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 20);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
 
@@ -74,11 +106,6 @@ public class LanternaGUI implements GUI {
         TextGraphics tg = screen.newTextGraphics();
         tg.setForegroundColor(TextColor.Factory.fromString(color));
         tg.putString(position.getX(), position.getY(), text);
-    }
-
-    @Override
-    public KeyStroke getNextAction() throws IOException {
-        return screen.pollInput();
     }
 
     @Override

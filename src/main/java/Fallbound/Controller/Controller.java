@@ -1,9 +1,9 @@
 package Fallbound.Controller;
 
 import Fallbound.Game;
-import com.googlecode.lanterna.input.KeyStroke;
 
 import java.io.IOException;
+import java.util.Set;
 
 public abstract class Controller<T> {
     private final T model;
@@ -16,5 +16,5 @@ public abstract class Controller<T> {
         return model;
     }
 
-    public abstract void step(Game game, KeyStroke key, long time) throws IOException;
+    public abstract void step(Game game, Set<Integer> keys, long time) throws IOException;
 }

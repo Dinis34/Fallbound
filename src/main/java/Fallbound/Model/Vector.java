@@ -11,6 +11,10 @@ public class Vector {
         this.y = y;
     }
 
+    public Position toPosition() {
+        return new Position((int) this.x, (int) this.y);
+    }
+
     public double getX() {
         return x;
     }
@@ -27,24 +31,20 @@ public class Vector {
         this.y = y;
     }
 
-    public void add(Vector vector) {
-        this.x += vector.getX();
-        this.y += vector.getY();
+    public Vector add(Vector vector) {
+        return new Vector(this.x + vector.getX(), this.y + vector.getY());
     }
 
-    public void subtract(Vector vector) {
-        this.x -= vector.getX();
-        this.y -= vector.getY();
+    public Vector subtract(Vector vector) {
+        return new Vector(this.x - vector.getX(), this.y - vector.getY());
     }
 
-    public void multiply(double scalar) {
-        this.x *= scalar;
-        this.y *= scalar;
+    public Vector multiply(double scalar) {
+        return new Vector(this.x * scalar, this.y * scalar);
     }
 
-    public void divide(double scalar) {
-        this.x /= scalar;
-        this.y /= scalar;
+    public Vector divide(double scalar) {
+        return new Vector(this.x / scalar, this.y / scalar);
     }
 
     public double magnitude() {
@@ -54,7 +54,8 @@ public class Vector {
     public void normalize() {
         double magnitude = this.magnitude();
         if (magnitude != 0) {
-            this.divide(magnitude);
+            this.x = this.divide(magnitude).getX();
+            this.y = this.divide(magnitude).getY();
         }
     }
 
@@ -63,14 +64,21 @@ public class Vector {
     }
 
     @Override
+    public String toString() {
+        return "Vector{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Vector)) {
+        if (!(o instanceof Vector vector)) {
             return false;
         }
-        Vector vector = (Vector) o;
         return Double.compare(vector.getX(), getX()) == 0 && Double.compare(vector.getY(), getY()) == 0;
     }
 
