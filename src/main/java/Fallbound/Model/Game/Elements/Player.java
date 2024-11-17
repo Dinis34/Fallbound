@@ -59,12 +59,14 @@ public class Player extends Element {
     }
 
     public void checkCollision() {
+        boolean isColliding = false;
         for (Element element : scene.getWalls()) {
             if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, 1)))) {
-                this.onGround = true;
+                isColliding = true;
                 velocity.setY(0);
             }
         }
+        this.onGround = isColliding;
     }
 
 }

@@ -55,7 +55,6 @@ public class Scene {
     }
 
     public boolean isColliding(Vector position1, Vector position2) {
-        // should round Vector to nearest integer
         return round(position1.getX()) == round(position2.getX()) && round(position1.getY()) == round(position2.getY());
     }
 }
