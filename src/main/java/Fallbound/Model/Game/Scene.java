@@ -24,7 +24,9 @@ public class Scene {
         this.height = height;
         this.score = 0;
 
-        buildWallBlock(10, 20, 68, 2);
+        buildWallBlock(10, 20, 68, 3);
+        buildWallBlock(50, 17, 12, 1);
+        buildWallBlock(30, 14, 12, 1);
 
         this.coins.add(new Coin(new Vector(15, 19)));
 
@@ -64,10 +66,7 @@ public class Scene {
 
     public void checkCoinCollision() {
         for (Coin coin : this.coins) {
-            System.out.println("coin position: " + coin.getPosition().toPosition());
-            System.out.println("player position: " + this.player.getPosition().toPosition());
             if (isColliding(coin.getPosition(), this.player.getPosition())) {
-                System.out.println("Coin collected");
                 this.coins.remove(coin);
                 break;
             }

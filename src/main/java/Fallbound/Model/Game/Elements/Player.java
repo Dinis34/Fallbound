@@ -7,7 +7,7 @@ public class Player extends Element {
     private final double GRAVITY = 0.02;
     private final double JUMP_FORCE = -0.4;
     private final double MAX_FALL_SPEED = 0.5;
-    private final double MOVE_SPEED = 0.8;
+    private final double MOVE_SPEED = 0.7;
 
     private final Vector velocity;
     private final Scene scene;
