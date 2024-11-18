@@ -19,4 +19,6 @@ public interface GUI {
     void close() throws IOException;
 
     Set<Integer> getNextSingleAction();
+
+    void renderTime(long elapsedTime);
 }

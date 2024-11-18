@@ -25,10 +25,12 @@ public class State {
     private Controller<?> controller;
     private Viewer<?> viewer;
     private Scene scene;
+    private GameTimer gameTimer;
 
     private State() {
         currentState = GameState.START_MENU;
         previousState = GameState.START_MENU;
+        gameTimer = new GameTimer();
     }
 
     public static State getInstance() {
@@ -44,8 +46,20 @@ public class State {
         } else {
             previousState = currentState;
         }
+
+        if (newState == GameState.NEW_GAME) {
+            gameTimer.start();
+        } else if (newState == GameState.PAUSE_MENU) {
+            gameTimer.pause();
+        } else if (currentState == GameState.PAUSE_MENU && newState == GameState.RESUME_GAME) {
+            gameTimer.resume();
+        }
+
         currentState = newState;
         StateActions();
+    }
+    public long getElapsedTime() {
+        return gameTimer.getElapsedTime();
     }
 
     public void UpdateToPrevious() throws IOException {
@@ -64,6 +78,10 @@ public class State {
             keys = gui.getNextSingleAction();
         }
         controller.step(game, keys, time);
+
+        long elapsedTime = getElapsedTime();
+        gui.renderTime(elapsedTime);
+
         viewer.draw(gui, time);
     }
 

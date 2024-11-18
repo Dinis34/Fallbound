@@ -122,4 +122,9 @@ public class LanternaGUI implements GUI {
     public void close() throws IOException {
         screen.close();
     }
+
+    @Override
+    public void renderTime(long elapsedTime) {
+        System.out.println(elapsedTime);
+    }
 }
