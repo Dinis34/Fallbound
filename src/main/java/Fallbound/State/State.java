@@ -2,15 +2,18 @@ package Fallbound.State;
 
 import Fallbound.Controller.Controller;
 import Fallbound.Controller.Game.SceneController;
+import Fallbound.Controller.Menu.GameOverMenuController;
 import Fallbound.Controller.Menu.MenuController;
 import Fallbound.Controller.Menu.PauseMenuController;
 import Fallbound.Controller.Menu.StartMenuController;
 import Fallbound.GUI.GUI;
 import Fallbound.Game;
 import Fallbound.Model.Game.Scene;
+import Fallbound.Model.Menu.GameOverMenu;
 import Fallbound.Model.Menu.PauseMenu;
 import Fallbound.Model.Menu.StartMenu;
 import Fallbound.View.Game.SceneViewer;
+import Fallbound.View.Menu.GameOverMenuViewer;
 import Fallbound.View.Menu.PauseMenuViewer;
 import Fallbound.View.Menu.StartMenuViewer;
 import Fallbound.View.Viewer;
@@ -86,10 +89,9 @@ public class State {
                 break;
             case RESUME_GAME:
             case GAME_OVER:
-                // todo:
-                // - GameOverMenu class (model)
-                // - GameOverMenuController class (controller)
-                // - GameOverMenuViewer class (view)
+                GameOverMenu gameOverMenu = new GameOverMenu();
+                this.controller = new GameOverMenuController(gameOverMenu);
+                this.viewer = new GameOverMenuViewer(gameOverMenu);
                 break;
             case QUIT_GAME:
                 break;
