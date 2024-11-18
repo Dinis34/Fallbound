@@ -27,7 +27,7 @@ public class Scene {
         buildWallBlock(50, 17, 12, 1);
         buildWallBlock(30, 14, 12, 1);
 
-        this.coins.add(new Coin(new Vector(15, 19)));
+        buildCoinBlock(13, 9, 1, 9);
     }
 
     public List<Coin> getCoins() {
@@ -58,6 +58,14 @@ public class Scene {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 this.walls.add(new Wall(new Vector(x + i, y + j)));
+            }
+        }
+    }
+
+    private void buildCoinBlock(int x, int y, int w, int h) {
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                this.coins.add(new Coin(new Vector(x + i, y + j)));
             }
         }
     }

@@ -32,6 +32,7 @@ public class SceneViewer extends Viewer<Scene> {
 
     @Override
     protected void drawElements(GUI gui, long time) {
+        drawHud(gui);
         getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall));
         playerViewer.draw(gui, getModel().getPlayer());
         getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin));

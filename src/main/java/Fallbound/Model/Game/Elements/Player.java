@@ -6,8 +6,8 @@ import Fallbound.Model.Vector;
 public class Player extends Element {
     private final double GRAVITY = 0.02;
     private final double JUMP_FORCE = -0.4;
-    private final double MAX_FALL_SPEED = 0.5;
-    private final double MOVE_SPEED = 0.7;
+    private final double MAX_FALL_SPEED = 0.4;
+    private final double MOVE_SPEED = 0.5;
 
     private final Vector velocity;
     private final Scene scene;
@@ -59,10 +59,10 @@ public class Player extends Element {
     public void update() {
         gravity();
         move();
-        checkCollision();
+        handleCollisions();
     }
 
-    public void checkCollision() {
+    public void updateOnGround() {
         boolean isColliding = false;
         for (Element element : scene.getWalls()) {
             if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, -1)))) {
@@ -71,7 +71,9 @@ public class Player extends Element {
             }
         }
         this.onGround = isColliding;
+    }
 
+    public void checkCoinCollision() {
         for (Coin coin : scene.getCoins()) {
             if (scene.isColliding(coin.getPosition(), getPosition())) {
                 scene.removeCoin(coin);
@@ -79,6 +81,10 @@ public class Player extends Element {
                 break;
             }
         }
+    }
 
+    public void handleCollisions() {
+        updateOnGround();
+        checkCoinCollision();
     }
 }
