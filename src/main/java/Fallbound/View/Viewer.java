@@ -17,14 +17,11 @@ public abstract class Viewer<T> {
 
     public void draw(GUI gui, long time) throws IOException {
         gui.clear();
-        drawHud(gui);
         drawElements(gui, time);
         gui.refresh();
     }
 
     protected abstract void drawElements(GUI gui, long time);
-
-    protected abstract void drawHud(GUI gui);
 }
 
 

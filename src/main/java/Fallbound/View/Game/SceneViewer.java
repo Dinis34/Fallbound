@@ -21,7 +21,6 @@ public class SceneViewer extends Viewer<Scene> {
         super(model);
     }
 
-    @Override
     protected void drawHud(GUI gui) {
         gui.drawText(new Position(2, 1), "TIME", FALLBOUND_WHITE);
         gui.drawText(new Position(7, 1), "15:45:21", FALLBOUND_WHITE); // placeholder

@@ -16,8 +16,4 @@ public class PauseMenuViewer extends MenuViewer<PauseMenu> {
         drawOptions(gui);
         drawMenuTitle(gui, "⁜ PAUSE MENU ⁜", Theme.FALLBOUND_RED, new Position(4, 24));
     }
-
-    @Override
-    protected void drawHud(GUI gui) {
-    }
 }
