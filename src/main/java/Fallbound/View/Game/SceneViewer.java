@@ -20,14 +20,15 @@ public class SceneViewer extends Viewer<Scene> {
     public SceneViewer(Scene model) {
         super(model);
     }
+
     @Override
-    protected void drawHud(GUI gui){
-        gui.drawText(new Position(0, 0), "TIME: ", FALLBOUND_WHITE);
-        gui.drawText(new Position(6, 0), String.valueOf(0), FALLBOUND_WHITE); // 0 porque ainda n tem timer
-        gui.drawText(new Position(0, 1), "HIGHSCORE: ", FALLBOUND_LIGHT_GRAY);
-        gui.drawText(new Position(12, 1), String.valueOf(getModel().getScore()), FALLBOUND_LIGHT_GRAY);
-        gui.drawText(new Position(83, 0), String.valueOf(getModel().getCoincount()), FALLBOUND_GOLD);
-        gui.drawText(new Position(85, 0), "COINS" ,FALLBOUND_WHITE);
+    protected void drawHud(GUI gui) {
+        gui.drawText(new Position(2, 1), "TIME", FALLBOUND_WHITE);
+        gui.drawText(new Position(7, 1), "15:45:21", FALLBOUND_WHITE); // placeholder
+        gui.drawText(new Position(2, 2), "HIGHSCORE", FALLBOUND_LIGHT_GRAY);
+        gui.drawText(new Position(12, 2), "17:21:11", FALLBOUND_LIGHT_GRAY); // placeholder
+        gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);
+        gui.drawText(new Position(81, 1), String.valueOf(getModel().getPlayer().getCollectedCoins()), FALLBOUND_GOLD);
     }
 
     @Override

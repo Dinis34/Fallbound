@@ -12,11 +12,16 @@ public class Player extends Element {
     private final Vector velocity;
     private final Scene scene;
     private boolean onGround = false;
+    private int collectedCoins = 0;
 
     public Player(Vector position, Scene scene) {
         super(position);
         this.scene = scene;
         this.velocity = new Vector(0, 0);
+    }
+
+    public int getCollectedCoins() {
+        return collectedCoins;
     }
 
     public Boolean isOnGround() {
@@ -66,6 +71,14 @@ public class Player extends Element {
             }
         }
         this.onGround = isColliding;
-        scene.checkCoinCollision();
+
+        for (Coin coin : scene.getCoins()) {
+            if (scene.isColliding(coin.getPosition(), getPosition())) {
+                scene.removeCoin(coin);
+                collectedCoins++;
+                break;
+            }
+        }
+
     }
 }

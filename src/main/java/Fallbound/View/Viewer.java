@@ -23,6 +23,7 @@ public abstract class Viewer<T> {
     }
 
     protected abstract void drawElements(GUI gui, long time);
+
     protected abstract void drawHud(GUI gui);
 }
 

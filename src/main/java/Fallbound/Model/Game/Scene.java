@@ -15,30 +15,27 @@ public class Scene {
 
     private final int width;
     private final int height;
-    private final int score;
+    private final List<Coin> coins = new ArrayList<>();
     private Player player = new Player(new Vector(20, 15), this);
     private List<Tile> walls = new ArrayList<>();
-    private final List<Coin> coins = new ArrayList<>();
 
     public Scene(int width, int height) {
         this.width = width;
         this.height = height;
-        this.score = 0;
 
         buildWallBlock(10, 20, 68, 3);
         buildWallBlock(50, 17, 12, 1);
         buildWallBlock(30, 14, 12, 1);
 
         this.coins.add(new Coin(new Vector(15, 19)));
-
     }
 
     public List<Coin> getCoins() {
         return coins;
     }
 
-    public int getScore() {
-        return score;
+    public void removeCoin(Coin coin) {
+        this.coins.remove(coin);
     }
 
     public List<Tile> getWalls() {
@@ -61,15 +58,6 @@ public class Scene {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 this.walls.add(new Wall(new Vector(x + i, y + j)));
-            }
-        }
-    }
-
-    public void checkCoinCollision() {
-        for (Coin coin : this.coins) {
-            if (isColliding(coin.getPosition(), this.player.getPosition())) {
-                this.coins.remove(coin);
-                break;
             }
         }
     }

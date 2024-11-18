@@ -41,6 +41,6 @@ public class StartMenuViewer extends MenuViewer<StartMenu> {
     }
 
     @Override
-    protected void drawHud(GUI gui){
+    protected void drawHud(GUI gui) {
     }
 }

@@ -18,5 +18,6 @@ public class PauseMenuViewer extends MenuViewer<PauseMenu> {
     }
 
     @Override
-    protected void drawHud(GUI gui) {}
+    protected void drawHud(GUI gui) {
+    }
 }
