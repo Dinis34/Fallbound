@@ -1,12 +1,10 @@
 package Fallbound.Model.Game.Elements;
-import Fallbound.Model.Position;
+
+import Fallbound.Model.Vector;
 
 
-public class Coin extends Element{
-    public Coin(Position position) {
+public class Coin extends Element {
+    public Coin(Vector position) {
         super(position);
-    }
-    public boolean checkcollision(Element player){
-        return this.getPosition().equals(player.getPosition());
     }
 }

@@ -2,6 +2,8 @@ package Fallbound.Model;
 
 import java.util.Objects;
 
+import static java.lang.Math.round;
+
 public class Vector {
     private double x;
     private double y;
@@ -12,7 +14,7 @@ public class Vector {
     }
 
     public Position toPosition() {
-        return new Position((int) this.x, (int) this.y);
+        return new Position(round((float) this.x), round((float) this.y));
     }
 
     public double getX() {

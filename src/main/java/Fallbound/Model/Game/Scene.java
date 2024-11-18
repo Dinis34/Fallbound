@@ -4,58 +4,38 @@ import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Player;
 import Fallbound.Model.Game.Elements.Tiles.Tile;
 import Fallbound.Model.Game.Elements.Tiles.Wall;
-import static java.lang.Math.round;
 import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.round;
+
 public class Scene {
     private final int width;
     private final int height;
     private final int score;
-    private int coincount;
     private Player player = new Player(new Vector(20, 15), this);
     private List<Tile> walls = new ArrayList<>();
-    
+    private final List<Coin> coins = new ArrayList<>();
+
+    public Scene(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.score = 0;
+
+        buildWallBlock(10, 20, 68, 2);
+
+        this.coins.add(new Coin(new Vector(15, 19)));
+
+    }
+
     public List<Coin> getCoins() {
         return coins;
     }
 
     public int getScore() {
         return score;
-    }
-  
-    public int getCoincount() {
-        return coincount;
-    }
-
-    private List<Coin> coins = new ArrayList<>();
-    
-    public Scene(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.score = 0;
-        this.coincount = 0;
-
-        int x = 10;
-        int y = 20;
-        int w = 68;
-        int h = 2;
-
-        for (int i = 0; i < w; i++) {
-            for (int j = 0; j < h; j++) {
-                this.walls.add(new Wall(new Vector(x + i, y + j)));
-            }
-        }
-        this.coins.add(new Coin(new Position(15,  19)));// test para checkar se a coin aparece
-        for(Coin a : this.coins) { // ns onde por este loop por isso vai ficar aqui ¯\_(ツ)_/¯
-            if(a.checkcollision(this.player)){
-                this.coincount++;
-                this.coins.remove(a);
-                break;
-            }
-        }
     }
 
     public List<Tile> getWalls() {
@@ -74,11 +54,27 @@ public class Scene {
         this.player = player;
     }
 
-    private void buildWalls() {
+    private void buildWallBlock(int x, int y, int w, int h) {
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                this.walls.add(new Wall(new Vector(x + i, y + j)));
+            }
+        }
+    }
 
+    public void checkCoinCollision() {
+        for (Coin coin : this.coins) {
+            System.out.println("coin position: " + coin.getPosition().toPosition());
+            System.out.println("player position: " + this.player.getPosition().toPosition());
+            if (isColliding(coin.getPosition(), this.player.getPosition())) {
+                System.out.println("Coin collected");
+                this.coins.remove(coin);
+                break;
+            }
+        }
     }
 
     public boolean isColliding(Vector position1, Vector position2) {
-        return round(position1.getX()) == round(position2.getX()) && round(position1.getY()) == round(position2.getY());
+        return round((float) position1.getX()) == round((float) position2.getX()) && round((float) position1.getY()) == round((float) position2.getY());
     }
 }

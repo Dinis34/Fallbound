@@ -10,9 +10,8 @@ public class Player extends Element {
     private final double MOVE_SPEED = 0.8;
 
     private final Vector velocity;
-    private boolean onGround = false;
-
     private final Scene scene;
+    private boolean onGround = false;
 
     public Player(Vector position, Scene scene) {
         super(position);
@@ -61,12 +60,12 @@ public class Player extends Element {
     public void checkCollision() {
         boolean isColliding = false;
         for (Element element : scene.getWalls()) {
-            if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, 1)))) {
+            if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, -1)))) {
                 isColliding = true;
                 velocity.setY(0);
             }
         }
         this.onGround = isColliding;
+        scene.checkCoinCollision();
     }
-
 }
