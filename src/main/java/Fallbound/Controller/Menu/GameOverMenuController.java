@@ -8,13 +8,13 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Set;
 
-public class GameOverMenuController extends MenuController<GameOverMenu>{
+public class GameOverMenuController extends MenuController<GameOverMenu> {
     public GameOverMenuController(GameOverMenu menu) {
         super(menu);
     }
 
     @Override
-    public void step(Game game, Set<Integer> keys, long time) throws IOException{
+    public void step(Game game, Set<Integer> keys, long time) throws IOException {
         if (keys.contains(KeyEvent.VK_UP)) {
             getModel().previousOption();
         }

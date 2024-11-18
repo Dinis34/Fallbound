@@ -27,7 +27,7 @@ public class SceneController extends Controller<Scene> {
             game.setState(GameState.PAUSE_MENU);
         }
 
-        if(Objects.requireNonNull(keys.contains(KeyEvent.VK_Q))){
+        if (Objects.requireNonNull(keys.contains(KeyEvent.VK_Q))) {
             game.setState(GameState.GAME_OVER); // q for now
         }
 
