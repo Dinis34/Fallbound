@@ -3,11 +3,10 @@ package Fallbound.Controller.Game.Elements;
 import Fallbound.Controller.Controller;
 import Fallbound.Game;
 import Fallbound.Model.Game.Elements.Player;
-import Fallbound.Model.Position;
-import Fallbound.Model.Vector;
-import com.googlecode.lanterna.input.KeyStroke;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.Set;
 
 public class PlayerController extends Controller<Player> {
     public PlayerController(Player player) {
@@ -15,27 +14,21 @@ public class PlayerController extends Controller<Player> {
     }
 
     @Override
-    public void step(Game game, KeyStroke key, long time) throws IOException {
-        if (key != null) {
-            switch (key.getKeyType()) {
-                case ArrowUp:
-                    System.out.println("Up");
-                    break;
-                case ArrowDown:
-                    System.out.println("Down");
-                    break;
-                case ArrowLeft:
-                    getModel().setPosition(new Position(getModel().getPosition().getX() - 1, getModel().getPosition().getY()));
-                    break;
-                case ArrowRight:
-                    getModel().setPosition(new Position(getModel().getPosition().getX() + 1, getModel().getPosition().getY()));
-                    break;
-                default:
+    public void step(Game game, Set<Integer> keys, long time) throws IOException {
+        if (keys.contains(KeyEvent.VK_SPACE)) {
+            if (getModel().isOnGround()) {
+                getModel().jump();
             }
         }
-
-    }
-
-    public void move(Position position) {
+        if (keys.contains(KeyEvent.VK_LEFT)) {
+            getModel().moveLeft();
+        }
+        if (keys.contains(KeyEvent.VK_RIGHT)) {
+            getModel().moveRight();
+        }
+        if (!keys.contains(KeyEvent.VK_LEFT) && !keys.contains(KeyEvent.VK_RIGHT)) {
+            getModel().stop();
+        }
+        getModel().update();
     }
 }

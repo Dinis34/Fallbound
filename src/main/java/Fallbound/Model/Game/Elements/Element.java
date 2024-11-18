@@ -1,28 +1,28 @@
 package Fallbound.Model.Game.Elements;
 
-import Fallbound.Model.Position;
+import Fallbound.Model.Vector;
 
 public class Element {
-    private Position position;
+    private Vector position;
 
-    public Element(Position position) {
+    public Element(Vector position) {
         this.position = position;
     }
 
-    public Position getPosition() {
+    public Vector getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(Vector position) {
         this.position = position;
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this == o){
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if(!(o instanceof Element)){
+        if (!(o instanceof Element)) {
             return false;
         }
         return this.getPosition().equals(((Element) o).getPosition());

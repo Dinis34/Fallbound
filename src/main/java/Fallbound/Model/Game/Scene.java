@@ -1,30 +1,51 @@
 package Fallbound.Model.Game;
 
+import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Player;
-import Fallbound.Model.Game.Elements.Wall;
-import Fallbound.Model.Position;
+import Fallbound.Model.Game.Elements.Tiles.Tile;
+import Fallbound.Model.Game.Elements.Tiles.Wall;
+import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.round;
+
 public class Scene {
-    private int width;
-    private int height;
-    private int score;
-    private int coincount;
-    public int getScore(){
+
+    private final int width;
+    private final int height;
+    private final int score;
+    private Player player = new Player(new Vector(20, 15), this);
+    private List<Tile> walls = new ArrayList<>();
+    private final List<Coin> coins = new ArrayList<>();
+
+    public Scene(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.score = 0;
+
+        buildWallBlock(10, 20, 68, 3);
+        buildWallBlock(50, 17, 12, 1);
+        buildWallBlock(30, 14, 12, 1);
+
+        this.coins.add(new Coin(new Vector(15, 19)));
+
+    }
+
+    public List<Coin> getCoins() {
+        return coins;
+    }
+
+    public int getScore() {
         return score;
     }
 
-    public int getCoincount() {
-        return coincount;
-    }
-
-    public List<Wall> getWalls() {
+    public List<Tile> getWalls() {
         return walls;
     }
 
-    public void setWalls(List<Wall> walls) {
+    public void setWalls(List<Tile> walls) {
         this.walls = walls;
     }
 
@@ -36,28 +57,24 @@ public class Scene {
         this.player = player;
     }
 
-    private Player player = new Player(new Position(20, 20));
-    private List<Wall> walls = new ArrayList<>();
-
-    public Scene(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.score = 0;
-        this.coincount = 0;
-
-        int x = 10;
-        int y = 20;
-        int w = 68;
-        int h = 2;
-
+    private void buildWallBlock(int x, int y, int w, int h) {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                this.walls.add(new Wall(new Position(x + i, y + j)));
+                this.walls.add(new Wall(new Vector(x + i, y + j)));
             }
         }
     }
 
-    private void buildWalls() {
+    public void checkCoinCollision() {
+        for (Coin coin : this.coins) {
+            if (isColliding(coin.getPosition(), this.player.getPosition())) {
+                this.coins.remove(coin);
+                break;
+            }
+        }
+    }
 
+    public boolean isColliding(Vector position1, Vector position2) {
+        return round((float) position1.getX()) == round((float) position2.getX()) && round((float) position1.getY()) == round((float) position2.getY());
     }
 }

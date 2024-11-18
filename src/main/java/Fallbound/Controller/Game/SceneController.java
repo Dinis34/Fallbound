@@ -5,11 +5,11 @@ import Fallbound.Controller.Game.Elements.PlayerController;
 import Fallbound.Game;
 import Fallbound.Model.Game.Scene;
 import Fallbound.State.GameState;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Set;
 
 public class SceneController extends Controller<Scene> {
 
@@ -20,17 +20,17 @@ public class SceneController extends Controller<Scene> {
     }
 
     @Override
-    public void step(Game game, KeyStroke key, long time) throws IOException {
-        playerController.step(game, key, time);
-        if (key != null) {
-            if (Objects.requireNonNull(key.getKeyType()) == KeyType.Escape) {
-                game.setState(GameState.PAUSE_MENU);
-            }
+    public void step(Game game, Set<Integer> keys, long time) throws IOException {
+        playerController.step(game, keys, time);
+
+        if (Objects.requireNonNull(keys.contains(KeyEvent.VK_ESCAPE))) {
+            game.setState(GameState.PAUSE_MENU);
         }
+
         // checkCollisions();
-            // - check if the player is colliding with any walls
-            // - check if the player is colliding with any enemies
-            // - check if the player is colliding with any collectibles
+        // - check if the player is colliding with any walls
+        // - check if the player is colliding with any enemies
+        // - check if the player is colliding with any collectibles
         // could be a controller for each one?
     }
 }

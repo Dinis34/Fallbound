@@ -1,8 +1,10 @@
 package Fallbound.View.Game;
 
 import Fallbound.GUI.GUI;
+import Fallbound.Model.Game.Elements.Tiles.Wall;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
+import Fallbound.View.Game.Elements.CoinViewer;
 import Fallbound.View.Game.Elements.PlayerViewer;
 import Fallbound.View.Game.Elements.WallViewer;
 import Fallbound.View.Viewer;
@@ -11,8 +13,9 @@ import static Fallbound.View.Theme.*;
 
 public class SceneViewer extends Viewer<Scene> {
 
-    private WallViewer wallViewer = new WallViewer();
-    private PlayerViewer playerViewer = new PlayerViewer();
+    private final WallViewer wallViewer = new WallViewer();
+    private final PlayerViewer playerViewer = new PlayerViewer();
+    private final CoinViewer coinViewer = new CoinViewer();
 
     public SceneViewer(Scene model) {
         super(model);
@@ -29,7 +32,8 @@ public class SceneViewer extends Viewer<Scene> {
 
     @Override
     protected void drawElements(GUI gui, long time) {
-        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, wall));
+        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall));
         playerViewer.draw(gui, getModel().getPlayer());
+        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin));
     }
 }

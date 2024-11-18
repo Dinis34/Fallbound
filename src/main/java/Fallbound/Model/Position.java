@@ -10,12 +10,21 @@ public class Position {
         this.y = y;
     }
 
+    public Vector toVector() {
+        return new Vector(this.x, this.y);
+    }
+
     public int getX() {
         return x;
     }
 
     public int getY() {
         return y;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 
     @Override

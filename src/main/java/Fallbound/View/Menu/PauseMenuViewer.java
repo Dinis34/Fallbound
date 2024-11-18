@@ -8,7 +8,7 @@ import Fallbound.View.Theme;
 public class PauseMenuViewer extends MenuViewer<PauseMenu> {
 
     public PauseMenuViewer(PauseMenu menu) {
-        super(menu, new Position(4, 26));
+        super(menu, new Position(4, 25));
     }
 
     @Override
