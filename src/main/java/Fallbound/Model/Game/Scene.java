@@ -12,6 +12,7 @@ import java.util.List;
 import static java.lang.Math.round;
 
 public class Scene {
+
     private final int width;
     private final int height;
     private final int score;
