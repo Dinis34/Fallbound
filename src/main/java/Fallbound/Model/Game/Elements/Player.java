@@ -53,7 +53,22 @@ public class Player extends Element {
     }
 
     public void move() {
-        setPosition(getPosition().add(velocity));
+        Vector nextPosition = getPosition().add(velocity);
+        boolean canMove = true;
+        for (Element wall : scene.getWalls()) {
+            if (scene.isColliding(nextPosition, wall.getPosition())) {
+                canMove = false;
+            }
+        }
+        if (canMove) {
+            setPosition(nextPosition);
+        } else {
+            velocity.setX(0);
+            velocity.setY(0);
+            gravity();
+            nextPosition = getPosition().add(velocity);
+            setPosition(nextPosition);
+        }
     }
 
     public void update() {
@@ -62,7 +77,7 @@ public class Player extends Element {
         handleCollisions();
     }
 
-    public void updateOnGround() {
+    public boolean checkBottomCollision() {
         boolean isColliding = false;
         for (Element element : scene.getWalls()) {
             if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, -1)))) {
@@ -70,7 +85,7 @@ public class Player extends Element {
                 velocity.setY(0);
             }
         }
-        this.onGround = isColliding;
+        return isColliding;
     }
 
     public void checkCoinCollision() {
@@ -84,7 +99,7 @@ public class Player extends Element {
     }
 
     public void handleCollisions() {
-        updateOnGround();
+        onGround = checkBottomCollision();
         checkCoinCollision();
     }
 }

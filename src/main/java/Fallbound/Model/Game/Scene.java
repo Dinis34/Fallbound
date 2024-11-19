@@ -16,7 +16,7 @@ public class Scene {
     private final int width;
     private final int height;
     private final List<Coin> coins = new ArrayList<>();
-    private Player player = new Player(new Vector(20, 15), this);
+    private Player player = new Player(new Vector(19, 19), this);
     private List<Tile> walls = new ArrayList<>();
 
     public Scene(int width, int height) {
@@ -26,8 +26,9 @@ public class Scene {
         buildWallBlock(10, 20, 68, 3);
         buildWallBlock(50, 17, 12, 1);
         buildWallBlock(30, 14, 12, 1);
+        buildWallBlock(10, 17, 7, 3);
 
-        buildCoinBlock(13, 9, 1, 9);
+        buildCoinBlock(13, 9, 1, 8);
     }
 
     public List<Coin> getCoins() {
