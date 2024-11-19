@@ -23,7 +23,7 @@ public class SceneViewer extends Viewer<Scene> {
 
     protected void drawHud(GUI gui) {
         gui.drawText(new Position(2, 1), "TIME", FALLBOUND_WHITE);
-        gui.drawText(new Position(7, 1), "15:45:21", FALLBOUND_WHITE); // placeholder
+        gui.drawText(new Position(7, 1), getModel().timeToString(System.currentTimeMillis() - getModel().getStartTime()), FALLBOUND_WHITE); // placeholder
         gui.drawText(new Position(2, 2), "HIGHSCORE", FALLBOUND_LIGHT_GRAY);
         gui.drawText(new Position(12, 2), "17:21:11", FALLBOUND_LIGHT_GRAY); // placeholder
         gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);

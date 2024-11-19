@@ -18,16 +18,29 @@ public class Scene {
     private final List<Coin> coins = new ArrayList<>();
     private Player player = new Player(new Vector(20, 15), this);
     private List<Tile> walls = new ArrayList<>();
+    private long startTime;
 
     public Scene(int width, int height) {
         this.width = width;
         this.height = height;
+        this.startTime = System.currentTimeMillis();
 
         buildWallBlock(10, 20, 68, 3);
         buildWallBlock(50, 17, 12, 1);
         buildWallBlock(30, 14, 12, 1);
 
         buildCoinBlock(13, 9, 1, 9);
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public String timeToString(long time) {
+        long minutes = time / 60000;
+        long seconds = (time % 60000) / 1000;
+        long milliseconds = (time % 1000) / 10;
+        return String.format("%02d:%02d.%02d", minutes, seconds, milliseconds);
     }
 
     public List<Coin> getCoins() {
