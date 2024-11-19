@@ -1,5 +1,6 @@
 package Fallbound.Model.Game.Elements;
 
+import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
@@ -98,8 +99,19 @@ public class Player extends Element {
         }
     }
 
+    public void checkFloatingEnemyCollision() {
+        for (FloatingEnemy floatingEnemy : scene.getFloatingEnemies()) {
+            if (scene.isCollidingFromAbove(floatingEnemy.getPosition(), getPosition())) {
+                scene.removeFloatingEnemy(floatingEnemy);
+                break;
+            }
+        }
+    }
+
+
     public void handleCollisions() {
         onGround = checkBottomCollision();
         checkCoinCollision();
+        checkFloatingEnemyCollision();
     }
 }

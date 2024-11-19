@@ -4,6 +4,7 @@ import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Player;
 import Fallbound.Model.Game.Elements.Tiles.Tile;
 import Fallbound.Model.Game.Elements.Tiles.Wall;
+import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
 import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Scene {
     private final List<Coin> coins = new ArrayList<>();
     private Player player = new Player(new Vector(19, 19), this);
     private List<Tile> walls = new ArrayList<>();
+    private final List<FloatingEnemy> floatingEnemies = new ArrayList<>();
     private long startTime;
 
     public Scene(int width, int height) {
@@ -31,6 +33,10 @@ public class Scene {
         buildWallBlock(10, 17, 7, 3);
 
         buildCoinBlock(13, 9, 1, 8);
+
+        buildFloatingEnemyBlock(40, 5, 1, 1);
+        buildFloatingEnemyBlock(50, 10, 1, 1);
+        buildFloatingEnemyBlock(63, 19, 1, 1);
     }
 
     public long getStartTime() {
@@ -64,6 +70,14 @@ public class Scene {
         return player;
     }
 
+    public List<FloatingEnemy> getFloatingEnemies() {
+        return floatingEnemies;
+    }
+
+    public void removeFloatingEnemy(FloatingEnemy floatingEnemy) {
+        this.floatingEnemies.remove(floatingEnemy);
+    }
+
     public void setPlayer(Player player) {
         this.player = player;
     }
@@ -84,7 +98,19 @@ public class Scene {
         }
     }
 
+    private void buildFloatingEnemyBlock(int x, int y, int w, int h) {
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                this.floatingEnemies.add(new FloatingEnemy(new Vector(x + i, y + j), this));
+            }
+        }
+    }
+
     public boolean isColliding(Vector position1, Vector position2) {
         return round((float) position1.getX()) == round((float) position2.getX()) && round((float) position1.getY()) == round((float) position2.getY());
+    }
+
+    public boolean isCollidingFromAbove(Vector position1, Vector position2) {
+        return round((float) position1.getY()) == round((float) position2.getY() + 1) && round((float) position1.getX()) == round((float) position2.getX());
     }
 }
