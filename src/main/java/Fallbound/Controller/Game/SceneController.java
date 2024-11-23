@@ -23,8 +23,6 @@ public class SceneController extends Controller<Scene> {
     public void step(Game game, Set<Integer> keys, long time) throws IOException {
         playerController.step(game, keys, time);
 
-        getModel().updateFloatingEnemies();
-
         if (Objects.requireNonNull(keys.contains(KeyEvent.VK_ESCAPE))) {
             game.setState(GameState.PAUSE_MENU);
         }

@@ -114,4 +114,8 @@ public class Player extends Element {
         checkCoinCollision();
         checkFloatingEnemyCollision();
     }
+
+    public Scene getScene() {
+        return scene;
+    }
 }
