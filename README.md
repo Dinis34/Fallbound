@@ -2,12 +2,25 @@
 
 # LDTS t06g03 - Fallbound
 
-Fallbound is a 2d platformer game where the player must fall down a series of platforms and gain power while defeating 
+**Fallbound** is a 2D platformer game where the player must fall down a series of platforms and gain power while defeating 
 enemies. How far can you fall?
 
 ## THE IDEA
 
-We wanted a game that was simple and fun to play. We decided to create a 2d platformer game where the player falls through a series of platforms while shooting down enemies. For this, the player movement must be refined to feel smooth and responsive. In our game, the main score would be the time, and the objective would be to survive as long as possible. 
+We wanted a game that was simple and fun to play. We decided to create a 2D platformer game where the player falls through a series of platforms while shooting down enemies. For this, the player movement must be refined to feel smooth and responsive. In our game, the main score would be the time, and the objective would be to survive as long as possible. 
+
+## CONTROLS
+
+### GAMEPLAY
+- `Left Arrow` - move left.
+- `Right Arrow` - move right.
+- `Space` - jump.
+- `Escape` - open pause menu.
+
+### MENUS
+- `Up Arrow` - select previous option.
+- `Down Arrow` - select next option.
+- `Enter` - confirm selection.
 
 ## IMPLEMENTED FEATURES
 
@@ -24,7 +37,7 @@ We wanted a game that was simple and fun to play. We decided to create a 2d plat
 - **Procedural World Generation** - the game will have a procedural platform generation system that allows the player to play infinitely. 
 - **Difficulty progression** - the game will get harder as time passes. enemies will be faster and stronger.
 - **Sound** - the game will have sound effects and background music.
-- **Challenge Mode** - the game will have a challenge mode where the player must acheive a maximum score in a limited time.
+- **Challenge Mode** - the game will have a challenge mode where the player must achieve a maximum score in a limited time.
 
 ## MOCKUPS AND SCREENSHOTS
 
