@@ -113,4 +113,18 @@ public class Scene {
     public boolean isCollidingFromAbove(Vector position1, Vector position2) {
         return round((float) position1.getY()) == round((float) position2.getY() + 1) && round((float) position1.getX()) == round((float) position2.getX());
     }
+
+    public void updateFloatingEnemies() {
+        for (FloatingEnemy floatingEnemy : floatingEnemies) {
+            floatingEnemy.followPlayer();
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
