@@ -16,9 +16,9 @@ public class Scene {
     private final int width;
     private final int height;
     private final List<Coin> coins = new ArrayList<>();
+    private final long startTime;
     private Player player = new Player(new Vector(19, 19), this);
     private List<Tile> walls = new ArrayList<>();
-    private long startTime;
 
     public Scene(int width, int height) {
         this.width = width;
@@ -30,7 +30,7 @@ public class Scene {
         buildWallBlock(30, 14, 12, 1);
         buildWallBlock(10, 17, 7, 3);
 
-        buildCoinBlock(13, 9, 1, 8);
+        buildCoinBlock(12, 11, 3, 5);
     }
 
     public long getStartTime() {
