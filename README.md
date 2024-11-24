@@ -32,6 +32,7 @@ We wanted a game that was simple and fun to play. We decided to create a 2D plat
 
 ## FUTURE FEATURES
 
+- **Continue Option** - allow player to unpause game.
 - **Enemies** - the player will have to defeat enemies to progress in the game. There will be different types of enemies that require different strategies to defeat.
 - **Power-ups** - the player will be able to purchase power-ups that will give him special abilities.
 - **Procedural World Generation** - the game will have a procedural platform generation system that allows the player to play infinitely. 
