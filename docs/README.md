@@ -9,8 +9,7 @@
 
 <hr>
 
-**Fallbound** is a 2D platformer game where the player must fall down a series of platforms and gain power while defeating
-enemies. How far can you fall?
+**Fallbound** is a 2D platformer game where the player must fall down a series of platforms and gain power while defeating enemies. How far can you fall?
 
 ## CONTROLS
 
@@ -27,6 +26,42 @@ enemies. How far can you fall?
 
 ## IMPLEMENTED AND PLANNED FEATURES
 
+### IMPLEMENTED FEATURES
+
+- **Player Movement** - the player can move left, right, and jump.
+- **Wall Collision** - the player collides with the walls.
+- **Timer** - the game has a timer that counts the time the player has been playing. This will be the main score of the game.
+- **Coins** - the player can collect coins to increase their power.
+- **Menus** - the game has a main menu and a pause menu. There is also a game over menu that currently is only accessible by pressing the "q" key.
+
+### FUTURE FEATURES
+
+- **Enemies** - the player will have to defeat enemies to progress in the game. There will be different types of enemies that require different strategies to defeat.
+- **Power-ups** - the player will be able to purchase power-ups that will give him special abilities.
+- **Procedural World Generation** - the game will have a procedural platform generation system that allows the player to play infinitely.
+- **Difficulty progression** - the game will get harder as time passes. Enemies will be faster and stronger.
+- **Sound** - the game will have sound effects and background music.
+- **Challenge Mode** - the game will have a challenge mode where the player must achieve a maximum score in a limited time.
+
 ## GENERAL STRUCTURE
 
+-here will lie the image of the projects whole structure- 
+
 ## CODE DESIGN
+
+Design patterns are standardized solutions that developers can apply to address recurring challenges in application or system design. For a project of this nature, it's important to have a good code design to make the project more maintainable and scalable. 
+
+### STRUCTURE
+
+When developing software with a user interface, it's crucial to implement a proper structural pattern. The code must be organized and modular to uphold the Single Responsibility Principle. For this project, we decided to use the Model-View-Controller (MVC) pattern. This pattern organizes the application into three connected components, isolating the internal data representations from how the information is displayed and interacted with by the user:
+ - Model - represents the data and game logic;
+ - View - displays the model and sends actions to the controller;
+ - Controller - provides a model to view and interprets user actions.
+<br>
+
+![MVC architecture](./img/uml/mvc.png)
+
+#### Consequences of using MVC:
+- Keeps our code organized by separating tasks.
+- Makes it easier to add new features and test parts individually.
+- Improves our code's readability and maintainability.
