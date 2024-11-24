@@ -45,7 +45,7 @@
 
 ## GENERAL STRUCTURE
 
--here will lie the image of the projects whole structure- 
+![project structure](./img/uml/currentUML.png)
 
 ## CODE DESIGN
 
