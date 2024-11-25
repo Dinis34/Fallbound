@@ -93,4 +93,4 @@ To ensure that the game is responsive and updates occur at a constant rate, we n
 
 #### Consequences of using Game Loop:
 
-- If not carefully optimized, the game loop can consume a lot of processing power. High frame rates, for example, can put a significant load on the CPU and GPU, leading to performance issues or excessive battery consumption.
+- If not carefully optimized the game loop can consume a lot of processing power, leading to performance issues or excessive battery consumption.
