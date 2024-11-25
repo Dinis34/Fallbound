@@ -20,12 +20,20 @@ public class Player extends Element {
         this.velocity = new Vector(0, 0);
     }
 
-    public int getCollectedCoins() {
-        return collectedCoins;
+    public void setOnGround(boolean onGround) {
+        this.onGround = onGround;
     }
 
-    public Boolean isOnGround() {
+    public Boolean getOnGround() {
         return onGround;
+    }
+
+    public Vector getVelocity() {
+        return velocity;
+    }
+
+    public int getCollectedCoins() {
+        return collectedCoins;
     }
 
     public void gravity() {
