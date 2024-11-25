@@ -16,7 +16,7 @@ public class PlayerController extends Controller<Player> {
     @Override
     public void step(Game game, Set<Integer> keys, long time) throws IOException {
         if (keys.contains(KeyEvent.VK_SPACE)) {
-            if (getModel().isOnGround()) {
+            if (getModel().getOnGround()) {
                 getModel().jump();
             }
         }
