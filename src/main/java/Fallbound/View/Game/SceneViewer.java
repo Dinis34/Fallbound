@@ -28,6 +28,13 @@ public class SceneViewer extends Viewer<Scene> {
     }
 
     protected void drawHud(GUI gui) {
+        // draw black background behind hud
+        for (int x = 0; x < getModel().getWidth(); x++) {
+            for (int y = 0; y < 4; y++) {
+                gui.drawText(new Position(x, y), "█", FALLBOUND_BLACK);
+            }
+        }
+
         String coinCount = String.valueOf(getModel().getPlayer().getCollectedCoins());
 
         gui.drawText(new Position(2, 1), "TIME", FALLBOUND_WHITE);
@@ -41,10 +48,10 @@ public class SceneViewer extends Viewer<Scene> {
 
     @Override
     protected void drawElements(GUI gui, long time) {
-        drawHud(gui);
         updateCameraOffset();
         getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall, cameraOffset));
         playerViewer.draw(gui, getModel().getPlayer(), cameraOffset);
         getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin, cameraOffset));
+        drawHud(gui);
     }
 }
