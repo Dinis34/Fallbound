@@ -20,12 +20,12 @@ public class Player extends Element {
         this.velocity = new Vector(0, 0);
     }
 
-    public void setOnGround(boolean onGround) {
-        this.onGround = onGround;
-    }
-
     public Boolean getOnGround() {
         return onGround;
+    }
+
+    public void setOnGround(boolean onGround) {
+        this.onGround = onGround;
     }
 
     public Vector getVelocity() {
@@ -38,8 +38,7 @@ public class Player extends Element {
 
     public void gravity() {
         if (!onGround) {
-            velocity.setY(velocity.getY() + GRAVITY);
-            velocity.setY(Math.min(velocity.getY(), MAX_FALL_SPEED));
+            velocity.setY(Math.min(velocity.getY() + GRAVITY, MAX_FALL_SPEED));
         }
     }
 
@@ -62,44 +61,45 @@ public class Player extends Element {
 
     public void move() {
         Vector nextPosition = getPosition().add(velocity);
-        boolean canMove = true;
-        if (nextPosition.getX() < 0 || nextPosition.getX() > scene.getWidth() - 1) {
-            canMove = false;
+
+        Vector horizontalPosition = new Vector(nextPosition.getX(), getPosition().getY());
+        if (!canMoveTo(horizontalPosition)) {
+            velocity.setX(0);
+        } else {
+            setPosition(new Vector(horizontalPosition.getX(), getPosition().getY()));
+        }
+
+        Vector verticalPosition = new Vector(getPosition().getX(), nextPosition.getY());
+        if (!canMoveTo(verticalPosition)) {
+            velocity.setY(0);
+        } else {
+            setPosition(new Vector(getPosition().getX(), verticalPosition.getY()));
+        }
+    }
+    
+    private boolean canMoveTo(Vector position) {
+        if (position.getX() < 0 || position.getX() > scene.getWidth() - 1) {
+            return false;
         }
         for (Element wall : scene.getWalls()) {
-            if (scene.isColliding(nextPosition, wall.getPosition())) {
-                canMove = false;
+            if (scene.isColliding(position, wall.getPosition())) {
+                return false;
             }
         }
-        if (canMove) {
-            setPosition(nextPosition);
-        } else {
-            velocity.setX(0);
-            velocity.setY(0);
-            gravity();
-            nextPosition = getPosition().add(velocity);
-            setPosition(nextPosition);
-        }
+        return true;
     }
 
-    public void update() {
-        gravity();
-        move();
-        handleCollisions();
-    }
-
-    public boolean checkBottomCollision() {
-        boolean isColliding = false;
+    private boolean checkBottomCollision() {
         for (Element element : scene.getWalls()) {
             if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, -1)))) {
-                isColliding = true;
                 velocity.setY(0);
+                return true;
             }
         }
-        return isColliding;
+        return false;
     }
 
-    public void checkCoinCollision() {
+    private void checkCoinCollision() {
         for (Coin coin : scene.getCoins()) {
             if (scene.isColliding(coin.getPosition(), getPosition())) {
                 scene.removeCoin(coin);
@@ -109,8 +109,14 @@ public class Player extends Element {
         }
     }
 
-    public void handleCollisions() {
+    private void handleCollisions() {
         onGround = checkBottomCollision();
         checkCoinCollision();
+    }
+
+    public void update() {
+        gravity();
+        move();
+        handleCollisions();
     }
 }

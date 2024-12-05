@@ -24,7 +24,7 @@ public class SceneViewer extends Viewer<Scene> {
 
     public void updateCameraOffset() {
         int playerY = getModel().getPlayer().getPosition().toPosition().getY();
-        cameraOffset = Math.max(cameraOffset, playerY - (getModel().getHeight() / 2)) ;
+        cameraOffset = Math.max(cameraOffset, playerY - (getModel().getHeight() / 2));
     }
 
     protected void drawHud(GUI gui) {
