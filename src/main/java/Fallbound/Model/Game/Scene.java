@@ -44,6 +44,14 @@ public class Scene {
         return String.format("%02d:%02d.%02d", minutes, seconds, milliseconds);
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public List<Coin> getCoins() {
         return coins;
     }

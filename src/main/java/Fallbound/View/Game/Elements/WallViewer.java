@@ -7,9 +7,9 @@ import Fallbound.View.Theme;
 public class WallViewer implements ElementViewer<Wall> {
 
     @Override
-    public void draw(GUI gui, Wall element) {
+    public void draw(GUI gui, Wall element, int offset) {
         char coverWallChar = '\u2593';
         String coverWallColor = Theme.FALLBOUND_WHITE;
-        gui.drawText(element.getPosition().toPosition(), String.valueOf(coverWallChar), coverWallColor);
+        gui.drawText(element.getPosition().toPosition().applyOffset(offset), String.valueOf(coverWallChar), coverWallColor);
     }
 }

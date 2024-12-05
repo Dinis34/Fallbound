@@ -63,6 +63,9 @@ public class Player extends Element {
     public void move() {
         Vector nextPosition = getPosition().add(velocity);
         boolean canMove = true;
+        if (nextPosition.getX() < 0 || nextPosition.getX() > scene.getWidth() - 1) {
+            canMove = false;
+        }
         for (Element wall : scene.getWalls()) {
             if (scene.isColliding(nextPosition, wall.getPosition())) {
                 canMove = false;

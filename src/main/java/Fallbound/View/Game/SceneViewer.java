@@ -21,6 +21,11 @@ public class SceneViewer extends Viewer<Scene> {
         super(model);
     }
 
+    private int calculateCameraOffset() {
+        int currentY = getModel().getPlayer().getPosition().toPosition().getY();
+        return Math.max(0, currentY - 20);
+    }
+
     protected void drawHud(GUI gui) {
         String coinCount = String.valueOf(getModel().getPlayer().getCollectedCoins());
 
@@ -36,8 +41,8 @@ public class SceneViewer extends Viewer<Scene> {
     @Override
     protected void drawElements(GUI gui, long time) {
         drawHud(gui);
-        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall));
-        playerViewer.draw(gui, getModel().getPlayer());
-        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin));
+        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall, calculateCameraOffset()));
+        playerViewer.draw(gui, getModel().getPlayer(), calculateCameraOffset());
+        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin, calculateCameraOffset()));
     }
 }
