@@ -25,18 +25,22 @@ public class Scene {
         this.height = height;
         this.startTime = System.currentTimeMillis();
 
-        buildWallBlock(10, 20, 68, 3);
-        buildWallBlock(50, 17, 12, 1);
-        buildWallBlock(30, 14, 12, 1);
-        buildWallBlock(10, 17, 7, 3);
+        buildRandomPlatform(20);
+        buildRandomPlatform(30);
+        buildRandomPlatform(40);
+        buildRandomPlatform(50);
+        buildRandomPlatform(60);
+        buildRandomPlatform(70);
+}
 
-        buildWallBlock(6, 32, 76, 2);
-        buildWallBlock(50, 29, 12, 1);
-        buildWallBlock(30, 26, 12, 1);
-        buildWallBlock(10, 29, 7, 3);
+    public void buildRandomPlatform(int y) {
+        int platformOffsetMax = 20;
+        int platformWidth = 30;
 
+        int platformOffset = (int) (Math.random() * platformOffsetMax);
 
-        buildCoinBlock(12, 11, 3, 5);
+        buildWallBlock(0, y, platformWidth - platformOffset, 3);
+        buildWallBlock(80 - platformOffset, y, platformWidth + platformOffset, 3);
     }
 
     public long getStartTime() {
