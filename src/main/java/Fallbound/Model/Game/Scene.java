@@ -30,6 +30,12 @@ public class Scene {
         buildWallBlock(30, 14, 12, 1);
         buildWallBlock(10, 17, 7, 3);
 
+        buildWallBlock(6, 32, 76, 2);
+        buildWallBlock(50, 29, 12, 1);
+        buildWallBlock(30, 26, 12, 1);
+        buildWallBlock(10, 29, 7, 3);
+
+
         buildCoinBlock(12, 11, 3, 5);
     }
 
@@ -42,6 +48,14 @@ public class Scene {
         long seconds = (time % 60000) / 1000;
         long milliseconds = (time % 1000) / 10;
         return String.format("%02d:%02d.%02d", minutes, seconds, milliseconds);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public List<Coin> getCoins() {

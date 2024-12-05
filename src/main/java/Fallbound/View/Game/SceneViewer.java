@@ -16,12 +16,25 @@ public class SceneViewer extends Viewer<Scene> {
     private final WallViewer wallViewer = new WallViewer();
     private final PlayerViewer playerViewer = new PlayerViewer();
     private final CoinViewer coinViewer = new CoinViewer();
+    private int cameraOffset = 0;
 
     public SceneViewer(Scene model) {
         super(model);
     }
 
+    public void updateCameraOffset() {
+        int playerY = getModel().getPlayer().getPosition().toPosition().getY();
+        cameraOffset = Math.max(cameraOffset, playerY - (getModel().getHeight() / 2));
+    }
+
     protected void drawHud(GUI gui) {
+        // draw black background behind hud
+        for (int x = 0; x < getModel().getWidth(); x++) {
+            for (int y = 0; y < 4; y++) {
+                gui.drawText(new Position(x, y), "█", FALLBOUND_BLACK);
+            }
+        }
+
         String coinCount = String.valueOf(getModel().getPlayer().getCollectedCoins());
 
         gui.drawText(new Position(2, 1), "TIME", FALLBOUND_WHITE);
@@ -35,9 +48,10 @@ public class SceneViewer extends Viewer<Scene> {
 
     @Override
     protected void drawElements(GUI gui, long time) {
+        updateCameraOffset();
+        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall, cameraOffset));
+        playerViewer.draw(gui, getModel().getPlayer(), cameraOffset);
+        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin, cameraOffset));
         drawHud(gui);
-        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall));
-        playerViewer.draw(gui, getModel().getPlayer());
-        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin));
     }
 }
