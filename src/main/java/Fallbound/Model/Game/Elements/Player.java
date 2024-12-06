@@ -76,7 +76,7 @@ public class Player extends Element {
             setPosition(new Vector(getPosition().getX(), verticalPosition.getY()));
         }
     }
-    
+
     private boolean canMoveTo(Vector position) {
         if (position.getX() < 0 || position.getX() > scene.getWidth() - 1) {
             return false;

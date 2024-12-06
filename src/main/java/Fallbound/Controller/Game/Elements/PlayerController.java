@@ -20,13 +20,13 @@ public class PlayerController extends Controller<Player> {
                 getModel().jump();
             }
         }
-        if (keys.contains(KeyEvent.VK_LEFT)) {
+        if (keys.contains(KeyEvent.VK_LEFT) || keys.contains(KeyEvent.VK_A)) {
             getModel().moveLeft();
         }
-        if (keys.contains(KeyEvent.VK_RIGHT)) {
+        if (keys.contains(KeyEvent.VK_RIGHT) || keys.contains(KeyEvent.VK_D)) {
             getModel().moveRight();
         }
-        if (!keys.contains(KeyEvent.VK_LEFT) && !keys.contains(KeyEvent.VK_RIGHT)) {
+        if (!keys.contains(KeyEvent.VK_LEFT) && !keys.contains(KeyEvent.VK_RIGHT) && !keys.contains(KeyEvent.VK_A) && !keys.contains(KeyEvent.VK_D)) {
             getModel().stop();
         }
         getModel().update();

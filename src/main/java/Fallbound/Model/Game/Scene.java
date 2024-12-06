@@ -32,7 +32,7 @@ public class Scene {
         buildRandomPlatform(60);
         buildRandomPlatform(70);
         buildRandomPlatform(80);
-}
+    }
 
     public void buildRandomPlatform(int y) {
         int platformOffsetMax = 20;
