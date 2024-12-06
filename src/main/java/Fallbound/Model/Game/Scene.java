@@ -31,16 +31,19 @@ public class Scene {
         buildRandomPlatform(50);
         buildRandomPlatform(60);
         buildRandomPlatform(70);
+        buildRandomPlatform(80);
 }
 
     public void buildRandomPlatform(int y) {
         int platformOffsetMax = 20;
         int platformWidth = 30;
+        int platformHeight = 4;
 
-        int platformOffset = (int) (Math.random() * platformOffsetMax);
+        int platformOffset = (int) ((Math.random() * platformOffsetMax) - ((double) platformOffsetMax / 2));
+        System.out.println(platformOffset);
 
-        buildWallBlock(0, y, platformWidth - platformOffset, 3);
-        buildWallBlock(80 - platformOffset, y, platformWidth + platformOffset, 3);
+        buildWallBlock(0, y, platformWidth + platformOffset, platformHeight);
+        buildWallBlock(60 + platformOffset, y, platformWidth - platformOffset, platformHeight);
     }
 
     public long getStartTime() {
