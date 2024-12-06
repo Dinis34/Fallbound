@@ -1,9 +1,9 @@
 package Fallbound.Model.Game;
 
 import Fallbound.Model.Game.Elements.Coin;
+import Fallbound.Model.Game.Elements.Element;
 import Fallbound.Model.Game.Elements.Player;
-import Fallbound.Model.Game.Elements.Tiles.Tile;
-import Fallbound.Model.Game.Elements.Tiles.Wall;
+import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
@@ -18,7 +18,8 @@ public class Scene {
     private final List<Coin> coins = new ArrayList<>();
     private final long startTime;
     private Player player = new Player(new Vector(19, 19), this);
-    private List<Tile> walls = new ArrayList<>();
+    private List<Element> walls = new ArrayList<>();
+    private int cameraOffset = 0;
 
     public Scene(int width, int height) {
         this.width = width;
@@ -34,16 +35,32 @@ public class Scene {
         buildRandomPlatform(80);
     }
 
+    public int getCameraOffset() {
+        return cameraOffset;
+    }
+
     public void buildRandomPlatform(int y) {
-        int platformOffsetMax = 20;
-        int platformWidth = 30;
+        int platformOffsetMax = 30;
+        int platformWidth = 25;
         int platformHeight = 4;
 
         int platformOffset = (int) ((Math.random() * platformOffsetMax) - ((double) platformOffsetMax / 2));
-        System.out.println(platformOffset);
 
         buildWallBlock(0, y, platformWidth + platformOffset, platformHeight);
-        buildWallBlock(60 + platformOffset, y, platformWidth - platformOffset, platformHeight);
+        buildWallBlock(65 + platformOffset, y, platformWidth - platformOffset, platformHeight);
+    }
+
+    public void updateCameraOffset() {
+        int playerY = getPlayer().getPosition().toPosition().getY();
+        if (cameraOffset < playerY - (getHeight() / 2)) {
+            cameraOffset = playerY - (getHeight() / 2);
+            unloadElements(getWalls(), cameraOffset);
+        }
+    }
+
+    private void unloadElements(List<Element> elements, int cameraOffset) {
+        elements.removeIf(e -> e.getPosition().toPosition().getY() < cameraOffset - 10);
+        System.out.println("number of walls: " + getWalls().size());
     }
 
     public long getStartTime() {
@@ -73,11 +90,11 @@ public class Scene {
         this.coins.remove(coin);
     }
 
-    public List<Tile> getWalls() {
+    public List<Element> getWalls() {
         return walls;
     }
 
-    public void setWalls(List<Tile> walls) {
+    public void setWalls(List<Element> walls) {
         this.walls = walls;
     }
 
