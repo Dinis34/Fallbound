@@ -15,9 +15,9 @@ public class Scene {
 
     private final int width;
     private final int height;
-    private final List<Coin> coins = new ArrayList<>();
     private final long startTime;
     private Player player = new Player(new Vector(19, 19), this);
+    private final List<Element> coins = new ArrayList<>();
     private List<Element> walls = new ArrayList<>();
     private int cameraOffset = 0;
 
@@ -26,13 +26,14 @@ public class Scene {
         this.height = height;
         this.startTime = System.currentTimeMillis();
 
-        buildRandomPlatform(20);
+        // first platform
+        buildWallBlock(0, 20, 38, 2);
+        buildWallBlock(51, 20, 38, 2);
+        buildWallBlock(36, 19, 2, 1);
+        buildWallBlock(51, 19, 2, 1);
+
         buildRandomPlatform(30);
         buildRandomPlatform(40);
-        buildRandomPlatform(50);
-        buildRandomPlatform(60);
-        buildRandomPlatform(70);
-        buildRandomPlatform(80);
     }
 
     public int getCameraOffset() {
@@ -55,6 +56,14 @@ public class Scene {
         if (cameraOffset < playerY - (getHeight() / 2)) {
             cameraOffset = playerY - (getHeight() / 2);
             unloadElements(getWalls(), cameraOffset);
+            unloadElements(getCoins(), cameraOffset);
+            tryCreatingPlatform(getWalls(), cameraOffset);
+        }
+    }
+
+    private void tryCreatingPlatform(List<Element> elements, int cameraOffset) {
+        if (cameraOffset < 10) {
+            buildRandomPlatform((cameraOffset / 10) * 10);
         }
     }
 
@@ -82,7 +91,7 @@ public class Scene {
         return height;
     }
 
-    public List<Coin> getCoins() {
+    public List<Element> getCoins() {
         return coins;
     }
 

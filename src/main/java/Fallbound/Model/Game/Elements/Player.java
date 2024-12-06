@@ -100,9 +100,9 @@ public class Player extends Element {
     }
 
     private void checkCoinCollision() {
-        for (Coin coin : scene.getCoins()) {
+        for (Element coin : scene.getCoins()) {
             if (scene.isColliding(coin.getPosition(), getPosition())) {
-                scene.removeCoin(coin);
+                scene.removeCoin((Coin) coin);
                 collectedCoins++;
                 break;
             }

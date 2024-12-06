@@ -1,6 +1,7 @@
 package Fallbound.View.Game;
 
 import Fallbound.GUI.GUI;
+import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
@@ -39,6 +40,8 @@ public class SceneViewer extends Viewer<Scene> {
         gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);
         gui.drawText(new Position(82 - coinCount.length(), 1), coinCount, FALLBOUND_GOLD);
         gui.drawText(new Position(2, 3), "\u2665 \u2665 \u2661", FALLBOUND_RED); // placeholder
+
+        gui.drawText(new Position(0, 0), "OFFSET: " + getModel().getCameraOffset() + "| player y: " + getModel().getPlayer().getPosition().toPosition().getY(), FALLBOUND_GOLD);
     }
 
     @Override
@@ -46,7 +49,7 @@ public class SceneViewer extends Viewer<Scene> {
         getModel().updateCameraOffset();
         getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall, getModel().getCameraOffset()));
         playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
-        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin, getModel().getCameraOffset()));
+        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, (Coin) coin, getModel().getCameraOffset()));
         drawHud(gui);
     }
 }
