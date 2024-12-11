@@ -9,7 +9,6 @@ import Fallbound.Model.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.random;
 import static java.lang.Math.round;
 
 public class Scene {
@@ -39,25 +38,41 @@ public class Scene {
     }
 
     public void buildRandomPlatform(int y) {
-        int platformOffsetMax = 30;
-        int platformWidth = 25;
-        int platformHeight = 4;
-        int platformGap = 40;
+        final int PLATFORM_OFFSET_MAX = 30;
+        final int PLATFORM_WIDTH = 25;
+        final int PLATFORM_HEIGHT = 4;
+        final int PLATFORM_GAP = 40;
 
-        int platformOffset = (int) ((Math.random() * platformOffsetMax) - ((double) platformOffsetMax / 2));
+        int platformOffset = (int) (Math.random() * PLATFORM_OFFSET_MAX - PLATFORM_OFFSET_MAX / 2.0);
 
-        // build edge platforms
-        buildWallBlock(0, y, platformWidth + platformOffset, platformHeight);
-        buildWallBlock(platformGap + platformWidth + platformOffset, y, platformWidth - platformOffset, platformHeight);
+        int leftPlatformWidth = PLATFORM_WIDTH + platformOffset;
+        buildWallBlock(0, y, leftPlatformWidth, PLATFORM_HEIGHT);
 
-        // build small middle platforms
-        int smallPlatformHeight = 3;
-        int smallPlatformOffsetY = 6; // (from -3 to 3)
-        int firstPlatformWidth = (int) (random() * 10) + 10; // (from 10 to 20)
-        int firstPlatformOffsetX = (int) (random() * 3) +2; // (from 0 to 3)
-        buildWallBlock(firstPlatformOffsetX + platformWidth + platformOffset + 1, (int) (y + (random()*smallPlatformOffsetY - (double) smallPlatformOffsetY /2) + (double) platformHeight /2), firstPlatformWidth, smallPlatformHeight);
-        buildWallBlock(2 +firstPlatformOffsetX + platformWidth + platformOffset + 1 + firstPlatformWidth, (int) (y + (random()*smallPlatformOffsetY - (double) smallPlatformOffsetY /2) + (double) platformHeight /2), (int) (platformGap - firstPlatformWidth - 4 - firstPlatformOffsetX - random()*3), smallPlatformHeight);
+        int rightPlatformX = PLATFORM_GAP + leftPlatformWidth;
+        int rightPlatformWidth = PLATFORM_WIDTH - platformOffset;
+        buildWallBlock(rightPlatformX, y, rightPlatformWidth, PLATFORM_HEIGHT);
+
+        final int SMALL_PLATFORM_HEIGHT = 3;
+        final int SMALL_PLATFORM_OFFSET_Y = 10;
+        final int MIN_SMALL_PLATFORM_WIDTH = 10;
+        final int MAX_SMALL_PLATFORM_WIDTH = 20;
+        final int MIN_FIRST_PLATFORM_OFFSET_X = 2;
+        final int MAX_FIRST_PLATFORM_OFFSET_X = 5;
+
+        int firstPlatformWidth = (int) (Math.random() * (MAX_SMALL_PLATFORM_WIDTH - MIN_SMALL_PLATFORM_WIDTH)) + MIN_SMALL_PLATFORM_WIDTH;
+        int firstPlatformOffsetX = (int) (Math.random() * (MAX_FIRST_PLATFORM_OFFSET_X - MIN_FIRST_PLATFORM_OFFSET_X)) + MIN_FIRST_PLATFORM_OFFSET_X;
+
+        int firstPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
+
+        int firstPlatformX = PLATFORM_WIDTH + platformOffset + firstPlatformOffsetX + 1;
+        buildWallBlock(firstPlatformX, firstPlatformY, firstPlatformWidth, SMALL_PLATFORM_HEIGHT);
+
+        int remainingWidth = (int) (PLATFORM_GAP - firstPlatformWidth - firstPlatformOffsetX - 5 - Math.random() * 3);
+        int secondPlatformX = firstPlatformX + firstPlatformWidth + 2;
+        int secondPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
+        buildWallBlock(secondPlatformX, secondPlatformY, remainingWidth, SMALL_PLATFORM_HEIGHT);
     }
+
 
     public void updateCameraOffset() {
         int playerY = getPlayer().getPosition().toPosition().getY();
@@ -81,7 +96,6 @@ public class Scene {
 
     private void unloadElements(List<Element> elements, int cameraOffset) {
         elements.removeIf(e -> e.getPosition().toPosition().getY() < cameraOffset - 10);
-        System.out.println("number of walls: " + getWalls().size());
     }
 
     public long getStartTime() {

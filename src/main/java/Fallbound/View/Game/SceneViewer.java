@@ -26,7 +26,7 @@ public class SceneViewer extends Viewer<Scene> {
     protected void drawHud(GUI gui) {
         // draw black background behind hud
         for (int x = 0; x < getModel().getWidth(); x++) {
-            for (int y = 0; y < 4; y++) {
+            for (int y = 0; y < 5; y++) {
                 gui.drawText(new Position(x, y), "█", FALLBOUND_BLACK);
             }
         }
@@ -40,7 +40,7 @@ public class SceneViewer extends Viewer<Scene> {
         gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);
         gui.drawText(new Position(82 - coinCount.length(), 1), coinCount, FALLBOUND_GOLD);
         gui.drawText(new Position(2, 3), "\u2665 \u2665 \u2661", FALLBOUND_RED); // placeholder
-}
+    }
 
     @Override
     protected void drawElements(GUI gui, long time) {
