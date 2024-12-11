@@ -5,6 +5,7 @@ import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
+import Fallbound.View.Game.Elements.BulletViewer;
 import Fallbound.View.Game.Elements.CoinViewer;
 import Fallbound.View.Game.Elements.PlayerViewer;
 import Fallbound.View.Game.Elements.WallViewer;
@@ -17,6 +18,7 @@ public class SceneViewer extends Viewer<Scene> {
     private final WallViewer wallViewer = new WallViewer();
     private final PlayerViewer playerViewer = new PlayerViewer();
     private final CoinViewer coinViewer = new CoinViewer();
+    private final BulletViewer bulletViewer = new BulletViewer();
 
     public SceneViewer(Scene model) {
         super(model);
@@ -45,6 +47,7 @@ public class SceneViewer extends Viewer<Scene> {
     @Override
     protected void drawElements(GUI gui, long time) {
         getModel().updateCameraOffset();
+        getModel().getBullets().forEach(bullet -> bulletViewer.draw(gui, bullet, getModel().getCameraOffset()));
         getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall, getModel().getCameraOffset()));
         playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
         getModel().getCoins().forEach(coin -> coinViewer.draw(gui, (Coin) coin, getModel().getCameraOffset()));

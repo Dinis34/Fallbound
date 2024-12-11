@@ -119,4 +119,8 @@ public class Player extends Element {
         move();
         handleCollisions();
     }
+
+    public void shoot() {
+        scene.addBullet(new Bullet(getPosition().add(new Vector(0, -1 - scene.getCameraOffset()))));
+    }
 }
