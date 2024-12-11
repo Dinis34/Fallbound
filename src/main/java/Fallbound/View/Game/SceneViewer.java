@@ -1,7 +1,8 @@
 package Fallbound.View.Game;
 
 import Fallbound.GUI.GUI;
-import Fallbound.Model.Game.Elements.Tiles.Wall;
+import Fallbound.Model.Game.Elements.Coin;
+import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
 import Fallbound.View.Game.Elements.CoinViewer;
@@ -16,21 +17,16 @@ public class SceneViewer extends Viewer<Scene> {
     private final WallViewer wallViewer = new WallViewer();
     private final PlayerViewer playerViewer = new PlayerViewer();
     private final CoinViewer coinViewer = new CoinViewer();
-    private int cameraOffset = 0;
 
     public SceneViewer(Scene model) {
         super(model);
     }
 
-    public void updateCameraOffset() {
-        int playerY = getModel().getPlayer().getPosition().toPosition().getY();
-        cameraOffset = Math.max(cameraOffset, playerY - (getModel().getHeight() / 2));
-    }
 
     protected void drawHud(GUI gui) {
         // draw black background behind hud
         for (int x = 0; x < getModel().getWidth(); x++) {
-            for (int y = 0; y < 4; y++) {
+            for (int y = 0; y < 5; y++) {
                 gui.drawText(new Position(x, y), "█", FALLBOUND_BLACK);
             }
         }
@@ -48,10 +44,10 @@ public class SceneViewer extends Viewer<Scene> {
 
     @Override
     protected void drawElements(GUI gui, long time) {
-        updateCameraOffset();
-        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall, cameraOffset));
-        playerViewer.draw(gui, getModel().getPlayer(), cameraOffset);
-        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin, cameraOffset));
+        getModel().updateCameraOffset();
+        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall, getModel().getCameraOffset()));
+        playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
+        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, (Coin) coin, getModel().getCameraOffset()));
         drawHud(gui);
     }
 }

@@ -8,7 +8,6 @@ import Fallbound.State.GameState;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Set;
 
 public class SceneController extends Controller<Scene> {
@@ -23,11 +22,11 @@ public class SceneController extends Controller<Scene> {
     public void step(Game game, Set<Integer> keys, long time) throws IOException {
         playerController.step(game, keys, time);
 
-        if (Objects.requireNonNull(keys.contains(KeyEvent.VK_ESCAPE))) {
+        if (keys.contains(KeyEvent.VK_ESCAPE)) {
             game.setState(GameState.PAUSE_MENU);
         }
 
-        if (Objects.requireNonNull(keys.contains(KeyEvent.VK_Q))) {
+        if (keys.contains(KeyEvent.VK_Q)) {
             game.setState(GameState.GAME_OVER); // q for now
         }
 

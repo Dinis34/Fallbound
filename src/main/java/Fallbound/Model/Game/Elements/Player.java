@@ -76,7 +76,7 @@ public class Player extends Element {
             setPosition(new Vector(getPosition().getX(), verticalPosition.getY()));
         }
     }
-    
+
     private boolean canMoveTo(Vector position) {
         if (position.getX() < 0 || position.getX() > scene.getWidth() - 1) {
             return false;
@@ -100,9 +100,9 @@ public class Player extends Element {
     }
 
     private void checkCoinCollision() {
-        for (Coin coin : scene.getCoins()) {
+        for (Element coin : scene.getCoins()) {
             if (scene.isColliding(coin.getPosition(), getPosition())) {
-                scene.removeCoin(coin);
+                scene.removeCoin((Coin) coin);
                 collectedCoins++;
                 break;
             }
