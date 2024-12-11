@@ -84,9 +84,6 @@ Here are some examples of the State Pattern at work:
 
 [State](../src/main/java/Fallbound/State)
 
-[Menu](../src/main/java/Fallbound/Model/Menu)
-
-
 #### Consequences of using States:
 - If not carefully implemented, state transitions might lead to tightly coupled state objects, making changes harder in the long run.
 - Frequent state changes or complex state transitions might introduce performance overhead or make debugging more challenging.
@@ -136,4 +133,3 @@ Here are some examples of the Game Loop pattern at work:
 
 - If not carefully optimized the game loop can consume a lot of processing power, leading to performance issues or excessive battery consumption.
 - As the game grows in complexity the game loop may need to accommodate additional processing. Without scalable design, the loop could become overloaded and rigid, leading to degraded performance or the need for a major refactor.
-- An inefficient game loop can consume excessive processing power, leading to higher CPU usage.
