@@ -9,6 +9,7 @@ import Fallbound.Model.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.random;
 import static java.lang.Math.round;
 
 public class Scene {
@@ -31,9 +32,6 @@ public class Scene {
         buildWallBlock(51, 20, 38, 2);
         buildWallBlock(36, 19, 2, 1);
         buildWallBlock(51, 19, 2, 1);
-
-        buildRandomPlatform(30);
-        buildRandomPlatform(40);
     }
 
     public int getCameraOffset() {
@@ -44,11 +42,21 @@ public class Scene {
         int platformOffsetMax = 30;
         int platformWidth = 25;
         int platformHeight = 4;
+        int platformGap = 40;
 
         int platformOffset = (int) ((Math.random() * platformOffsetMax) - ((double) platformOffsetMax / 2));
 
+        // build edge platforms
         buildWallBlock(0, y, platformWidth + platformOffset, platformHeight);
-        buildWallBlock(65 + platformOffset, y, platformWidth - platformOffset, platformHeight);
+        buildWallBlock(platformGap + platformWidth + platformOffset, y, platformWidth - platformOffset, platformHeight);
+
+        // build small middle platforms
+        int smallPlatformHeight = 3;
+        int smallPlatformOffsetY = 6; // (from -3 to 3)
+        int firstPlatformWidth = (int) (random() * 10) + 10; // (from 10 to 20)
+        int firstPlatformOffsetX = (int) (random() * 3) +2; // (from 0 to 3)
+        buildWallBlock(firstPlatformOffsetX + platformWidth + platformOffset + 1, (int) (y + (random()*smallPlatformOffsetY - (double) smallPlatformOffsetY /2) + (double) platformHeight /2), firstPlatformWidth, smallPlatformHeight);
+        buildWallBlock(2 +firstPlatformOffsetX + platformWidth + platformOffset + 1 + firstPlatformWidth, (int) (y + (random()*smallPlatformOffsetY - (double) smallPlatformOffsetY /2) + (double) platformHeight /2), (int) (platformGap - firstPlatformWidth - 4 - firstPlatformOffsetX - random()*3), smallPlatformHeight);
     }
 
     public void updateCameraOffset() {
@@ -63,7 +71,7 @@ public class Scene {
     }
 
     private void generatePlatforms(int cameraOffset) {
-        int platformSpacing = 10;
+        int platformSpacing = 15;
         int platformOffset = 40;
 
         if (cameraOffset % platformSpacing == 0) {

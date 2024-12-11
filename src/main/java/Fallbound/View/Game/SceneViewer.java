@@ -40,9 +40,7 @@ public class SceneViewer extends Viewer<Scene> {
         gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);
         gui.drawText(new Position(82 - coinCount.length(), 1), coinCount, FALLBOUND_GOLD);
         gui.drawText(new Position(2, 3), "\u2665 \u2665 \u2661", FALLBOUND_RED); // placeholder
-
-        gui.drawText(new Position(0, 0), "OFFSET: " + getModel().getCameraOffset() + "| player y: " + getModel().getPlayer().getPosition().toPosition().getY(), FALLBOUND_GOLD);
-    }
+}
 
     @Override
     protected void drawElements(GUI gui, long time) {
