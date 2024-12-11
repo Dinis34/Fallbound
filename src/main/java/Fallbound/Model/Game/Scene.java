@@ -1,9 +1,6 @@
 package Fallbound.Model.Game;
 
-import Fallbound.Model.Game.Elements.Coin;
-import Fallbound.Model.Game.Elements.Element;
-import Fallbound.Model.Game.Elements.Player;
-import Fallbound.Model.Game.Elements.Wall;
+import Fallbound.Model.Game.Elements.*;
 import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
@@ -19,6 +16,7 @@ public class Scene {
     private final List<Element> coins = new ArrayList<>();
     private Player player = new Player(new Vector(19, 19), this);
     private List<Element> walls = new ArrayList<>();
+    private List<Bullet> bullets = new ArrayList<>();
     private int cameraOffset = 0;
 
     public Scene(int width, int height) {
@@ -31,6 +29,18 @@ public class Scene {
         buildWallBlock(51, 20, 38, 2);
         buildWallBlock(36, 19, 2, 1);
         buildWallBlock(51, 19, 2, 1);
+    }
+
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public void setBullets(List<Bullet> bullets) {
+        this.bullets = bullets;
+    }
+
+    public void addBullet(Bullet bullet) {
+        this.bullets.add(bullet);
     }
 
     public int getCameraOffset() {

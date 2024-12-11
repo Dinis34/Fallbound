@@ -18,6 +18,8 @@ public class PlayerController extends Controller<Player> {
         if (keys.contains(KeyEvent.VK_SPACE)) {
             if (getModel().getOnGround()) {
                 getModel().jump();
+            } else {
+                getModel().shoot();
             }
         }
         if (keys.contains(KeyEvent.VK_LEFT) || keys.contains(KeyEvent.VK_A)) {
