@@ -9,6 +9,9 @@ public class Player extends Element {
     private final double MAX_FALL_SPEED = 0.4;
     private final double MOVE_SPEED = 0.5;
 
+    private final long SHOOT_COOLDOWN = 350;
+    private long lastShotTime = 0;
+
     private final Vector velocity;
     private final Scene scene;
     private boolean onGround = false;
@@ -55,6 +58,7 @@ public class Player extends Element {
     }
 
     public void jump() {
+        lastShotTime = System.currentTimeMillis();
         velocity.setY(JUMP_FORCE);
         this.onGround = false;
     }
@@ -121,6 +125,11 @@ public class Player extends Element {
     }
 
     public void shoot() {
-        scene.addBullet(new Bullet(getPosition().add(new Vector(0, -1 - scene.getCameraOffset()))));
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastShotTime >= SHOOT_COOLDOWN) {
+            scene.addBullet(new Bullet(getPosition().add(new Vector(0, -1 - scene.getCameraOffset()))));
+            lastShotTime = currentTime;
+            velocity.setY(-0.175); // recoil
+        }
     }
 }

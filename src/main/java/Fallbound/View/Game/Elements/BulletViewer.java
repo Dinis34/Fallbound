@@ -7,6 +7,6 @@ import Fallbound.View.Theme;
 public class BulletViewer implements ElementViewer<Bullet> {
     @Override
     public void draw(GUI gui, Bullet element, int offset) {
-        gui.drawElement(element.getPosition().toPosition(), '.', Theme.FALLBOUND_RED);
+        gui.drawElement(element.getPosition().toPosition(), '|', Theme.FALLBOUND_RED);
     }
 }
