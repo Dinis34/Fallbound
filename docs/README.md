@@ -92,7 +92,7 @@ Here are some examples of the State Pattern at work:
 
 #### Problem in context
 This game follows the MVC design structure, hereby taking into account multiple components at the same time that interact with each other, such as the UI, the controller and the models.
-With these components, the need to control the game's state consistently across the different components rise
+With these components, the need to control the game's state consistently across the different components rise.
 
 #### Singleton Pattern
 A solution to this is the use of the Singleton pattern to ensure that a class, in this case, the State class, has only one instance and can be accessed from all parts of the project.
@@ -121,7 +121,7 @@ Having a way to control how fast the game runs is extremely important and must b
 To ensure that the game is responsive and updates occur at a constant rate, we need to apply the Game Loop. This was applied to the Game class and describes the continuous cycle of updating and rendering required to run a game efficiently and smoothly, consisting of three main stages that repeat throughout the game's execution:
 
 - Input - represents the key presses;
-- Update - involves calculating the new game state, player movement, collisions, etc.;
+- Update - involves calculating the new game state, player movement, collisions, etc.
 - Render - the loop calls the methods to draw or render the current game state on the screen.
 
 #### Implementation
