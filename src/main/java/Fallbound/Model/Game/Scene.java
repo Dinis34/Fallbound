@@ -34,9 +34,9 @@ public class Scene {
 
         buildCoinBlock(13, 9, 1, 8);
 
-        buildFloatingEnemyBlock(40, 5, 1, 1);
-        buildFloatingEnemyBlock(50, 10, 1, 1);
-        buildFloatingEnemyBlock(63, 19, 1, 1);
+        addFloatingEnemy(40, 5);
+        addFloatingEnemy(50, 10);
+        addFloatingEnemy(63, 19);
     }
 
     public long getStartTime() {
@@ -98,12 +98,8 @@ public class Scene {
         }
     }
 
-    private void buildFloatingEnemyBlock(int x, int y, int w, int h) {
-        for (int i = 0; i < w; i++) {
-            for (int j = 0; j < h; j++) {
-                this.floatingEnemies.add(new FloatingEnemy(new Vector(x + i, y + j), this));
-            }
-        }
+    public void addFloatingEnemy(int x, int y) {
+        floatingEnemies.add(new FloatingEnemy(new Vector(x, y), this));
     }
 
     public boolean isColliding(Vector position1, Vector position2) {

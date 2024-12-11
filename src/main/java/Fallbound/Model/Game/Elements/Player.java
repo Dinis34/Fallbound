@@ -103,11 +103,11 @@ public class Player extends Element {
         for (FloatingEnemy floatingEnemy : scene.getFloatingEnemies()) {
             if (scene.isCollidingFromAbove(floatingEnemy.getPosition(), getPosition())) {
                 scene.removeFloatingEnemy(floatingEnemy);
+                velocity.setY(JUMP_FORCE / 2);
                 break;
             }
         }
     }
-
 
     public void handleCollisions() {
         onGround = checkBottomCollision();

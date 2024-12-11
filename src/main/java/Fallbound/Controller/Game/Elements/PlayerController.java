@@ -18,20 +18,18 @@ public class PlayerController extends Controller<Player> {
         if (keys.contains(KeyEvent.VK_SPACE)) {
             if (getModel().isOnGround()) {
                 getModel().jump();
-                getModel().getScene().updateFloatingEnemies();
             }
         }
         if (keys.contains(KeyEvent.VK_LEFT)) {
             getModel().moveLeft();
-            getModel().getScene().updateFloatingEnemies();
         }
         if (keys.contains(KeyEvent.VK_RIGHT)) {
             getModel().moveRight();
-            getModel().getScene().updateFloatingEnemies();
         }
         if (!keys.contains(KeyEvent.VK_LEFT) && !keys.contains(KeyEvent.VK_RIGHT)) {
             getModel().stop();
         }
         getModel().update();
+        getModel().getScene().updateFloatingEnemies();
     }
 }
