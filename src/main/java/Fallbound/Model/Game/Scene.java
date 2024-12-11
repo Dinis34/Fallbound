@@ -76,12 +76,12 @@ public class Scene {
         int firstPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
 
         int firstPlatformX = PLATFORM_WIDTH + platformOffset + firstPlatformOffsetX + 1;
-        buildWallBlock(firstPlatformX, firstPlatformY, firstPlatformWidth, SMALL_PLATFORM_HEIGHT);
+        buildBreakableWallBlock(firstPlatformX, firstPlatformY, firstPlatformWidth, SMALL_PLATFORM_HEIGHT);
 
         int remainingWidth = (int) (PLATFORM_GAP - firstPlatformWidth - firstPlatformOffsetX - 5 - Math.random() * 3);
         int secondPlatformX = firstPlatformX + firstPlatformWidth + 2;
         int secondPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
-        buildWallBlock(secondPlatformX, secondPlatformY, remainingWidth, SMALL_PLATFORM_HEIGHT);
+        buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth, SMALL_PLATFORM_HEIGHT);
     }
 
 
@@ -160,6 +160,14 @@ public class Scene {
         }
     }
 
+    private void buildBreakableWallBlock(int x, int y, int w, int h) {
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                this.walls.add(new BreakableWall(new Vector(x + i, y + j)));
+            }
+        }
+    }
+
     private void buildCoinBlock(int x, int y, int w, int h) {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
@@ -176,8 +184,13 @@ public class Scene {
             if (bullet.getPosition().getY() < 0 || bullet.getPosition().getY() >= getHeight() + getCameraOffset()) {
                 iterator.remove();
             }
-            for (Element wall : getWalls()) {
+            Iterator<Element> wallIterator = getWalls().iterator();
+            while (wallIterator.hasNext()) {
+                Element wall = wallIterator.next();
                 if (isColliding(bullet.getPosition(), wall.getPosition().subtract(new Vector(0, getCameraOffset())))) {
+                    if (wall instanceof BreakableWall) {
+                        wallIterator.remove();
+                    }
                     iterator.remove();
                     break;
                 }

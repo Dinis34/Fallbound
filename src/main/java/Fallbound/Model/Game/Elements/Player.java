@@ -10,10 +10,9 @@ public class Player extends Element {
     private final double MOVE_SPEED = 0.5;
 
     private final long SHOOT_COOLDOWN = 350;
-    private long lastShotTime = 0;
-
     private final Vector velocity;
     private final Scene scene;
+    private long lastShotTime = 0;
     private boolean onGround = false;
     private int collectedCoins = 0;
 
