@@ -50,17 +50,32 @@
 
 ## CODE DESIGN
 
-Design patterns are standardized solutions that developers can apply to address recurring challenges in application or system design. For a project of this nature, it's important to have a good code design to make the project more maintainable and scalable. 
-
 ### STRUCTURE
 
-When developing software with a user interface, it's crucial to implement a proper structural pattern. The code must be organized and modular to uphold the Single Responsibility Principle. For this project, we decided to use the Model-View-Controller (MVC) pattern. This pattern organizes the application into three connected components, isolating the internal data representations from how the information is displayed and interacted with by the user:
+#### Problem in context
+Design patterns are standardized solutions that developers can apply to address recurring challenges in application or system design. For a project of this nature, it's important to have a good code design to make the project more maintainable and scalable.
+When developing software with a user interface, it's crucial to implement a proper structural pattern. The code must be organized and modular to uphold the Single Responsibility Principle.
+
+#### The Pattern
+For this project, we decided to use the Model-View-Controller (MVC) pattern.
+
+This pattern organizes the application into three connected components, isolating the internal data representations from how the information is displayed and interacted with by the user:
  - Model - represents the data and game logic;
  - View - displays the model and sends actions to the controller;
  - Controller - provides a model to view and interprets user actions.
 <br>
 
 ![MVC architecture](./img/uml/mvc.png)
+
+#### Implementation
+Here is how we implemented the MVC pattern:
+
+- [Model](../src/main/java/Fallbound/Model)
+
+- [View](../src/main/java/Fallbound/View)
+
+- [Controller](../src/main/java/Fallbound/Controller)
+
 
 #### Consequences of using MVC:
 - Keeps our code organized by separating tasks.
@@ -82,7 +97,7 @@ The state class is merely responsible for handling transitions between states no
 #### Implementation
 Here are some examples of the State Pattern at work:
 
-[State](../src/main/java/Fallbound/State)
+- [State](../src/main/java/Fallbound/State)
 
 #### Consequences of using States:
 - If not carefully implemented, state transitions might lead to tightly coupled state objects, making changes harder in the long run.
@@ -101,9 +116,9 @@ This simplified design reduces the need for synchronization and simplifies code 
 #### Implementation
 Here is the Singleton pattern at work:
 
-[State](../src/main/java/Fallbound/State) 
+- [State](../src/main/java/Fallbound/State) 
 
-[Game](../src/main/java/Fallbound/Game.java)
+- [Game](../src/main/java/Fallbound/Game.java)
 
 #### Consequences of using Singleton:
 
@@ -127,7 +142,7 @@ To ensure that the game is responsive and updates occur at a constant rate, we n
 #### Implementation
 Here are some examples of the Game Loop pattern at work:
 
-[Game](../src/main/java/Fallbound/Game.java)
+- [Game](../src/main/java/Fallbound/Game.java)
 
 #### Consequences of using Game Loop:
 
