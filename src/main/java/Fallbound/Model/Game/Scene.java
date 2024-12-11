@@ -4,6 +4,7 @@ import Fallbound.Model.Game.Elements.*;
 import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static java.lang.Math.round;
@@ -163,6 +164,23 @@ public class Scene {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 this.coins.add(new Coin(new Vector(x + i, y + j)));
+            }
+        }
+    }
+
+    public void handleBullets() {
+        Iterator<Bullet> iterator = bullets.iterator();
+        while (iterator.hasNext()) {
+            Bullet bullet = iterator.next();
+            bullet.setPosition(bullet.getPosition().add(new Vector(0, 1)));
+            if (bullet.getPosition().getY() < 0 || bullet.getPosition().getY() >= getHeight() + getCameraOffset()) {
+                iterator.remove();
+            }
+            for (Element wall : getWalls()) {
+                if (isColliding(bullet.getPosition(), wall.getPosition().subtract(new Vector(0, getCameraOffset())))) {
+                    iterator.remove();
+                    break;
+                }
             }
         }
     }

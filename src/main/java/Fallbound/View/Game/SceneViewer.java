@@ -47,10 +47,11 @@ public class SceneViewer extends Viewer<Scene> {
     @Override
     protected void drawElements(GUI gui, long time) {
         getModel().updateCameraOffset();
+        getModel().handleBullets();
         getModel().getBullets().forEach(bullet -> bulletViewer.draw(gui, bullet, getModel().getCameraOffset()));
+        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, (Coin) coin, getModel().getCameraOffset()));
         getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall, getModel().getCameraOffset()));
         playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
-        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, (Coin) coin, getModel().getCameraOffset()));
         drawHud(gui);
     }
 }
