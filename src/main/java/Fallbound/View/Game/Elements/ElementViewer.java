@@ -4,5 +4,5 @@ import Fallbound.GUI.GUI;
 import Fallbound.Model.Game.Elements.Element;
 
 public interface ElementViewer<T extends Element> {
-    void draw(GUI gui, T element);
+    void draw(GUI gui, T element, int offset);
 }

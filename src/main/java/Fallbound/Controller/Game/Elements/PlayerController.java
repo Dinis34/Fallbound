@@ -16,17 +16,19 @@ public class PlayerController extends Controller<Player> {
     @Override
     public void step(Game game, Set<Integer> keys, long time) throws IOException {
         if (keys.contains(KeyEvent.VK_SPACE)) {
-            if (getModel().isOnGround()) {
+            if (getModel().getOnGround()) {
                 getModel().jump();
+            } else {
+                getModel().shoot();
             }
         }
-        if (keys.contains(KeyEvent.VK_LEFT)) {
+        if (keys.contains(KeyEvent.VK_LEFT) || keys.contains(KeyEvent.VK_A)) {
             getModel().moveLeft();
         }
-        if (keys.contains(KeyEvent.VK_RIGHT)) {
+        if (keys.contains(KeyEvent.VK_RIGHT) || keys.contains(KeyEvent.VK_D)) {
             getModel().moveRight();
         }
-        if (!keys.contains(KeyEvent.VK_LEFT) && !keys.contains(KeyEvent.VK_RIGHT)) {
+        if (!keys.contains(KeyEvent.VK_LEFT) && !keys.contains(KeyEvent.VK_RIGHT) && !keys.contains(KeyEvent.VK_A) && !keys.contains(KeyEvent.VK_D)) {
             getModel().stop();
         }
         getModel().update();

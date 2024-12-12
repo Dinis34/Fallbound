@@ -29,6 +29,8 @@ public class State {
     private Viewer<?> viewer;
     private Scene scene;
 
+    private SceneController sceneController;
+
     private State() {
         currentState = GameState.START_MENU;
         previousState = GameState.START_MENU;
@@ -42,14 +44,16 @@ public class State {
     }
 
     public void UpdateState(GameState newState) throws IOException {
-        if (newState == GameState.START_MENU) {
-            previousState = GameState.START_MENU;
-        } else {
-            previousState = currentState;
+        if (newState == GameState.PAUSE_MENU) {
+            scene.setPaused(true);
+        } else if (currentState == GameState.PAUSE_MENU && newState != GameState.PAUSE_MENU) {
+            scene.setPaused(false);
         }
+        previousState = currentState;
         currentState = newState;
         StateActions();
     }
+
 
     public void UpdateToPrevious() throws IOException {
         GameState aux = currentState;
@@ -84,10 +88,14 @@ public class State {
                 break;
             case NEW_GAME:
                 scene = new Scene(90, 30);
-                this.controller = new SceneController(scene);
+                controller = new SceneController(scene);
+                this.sceneController = (SceneController) controller;
                 this.viewer = new SceneViewer(scene);
                 break;
             case RESUME_GAME:
+                controller = sceneController;
+                viewer = new SceneViewer(scene);
+                break;
             case GAME_OVER:
                 GameOverMenu gameOverMenu = new GameOverMenu();
                 this.controller = new GameOverMenuController(gameOverMenu);

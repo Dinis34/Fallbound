@@ -10,8 +10,10 @@ public class Player extends Element {
     private final double MAX_FALL_SPEED = 0.4;
     private final double MOVE_SPEED = 0.5;
 
+    private final long SHOOT_COOLDOWN = 350;
     private final Vector velocity;
     private final Scene scene;
+    private long lastShotTime = 0;
     private boolean onGround = false;
     private int collectedCoins = 0;
 
@@ -21,18 +23,25 @@ public class Player extends Element {
         this.velocity = new Vector(0, 0);
     }
 
+    public Boolean getOnGround() {
+        return onGround;
+    }
+
+    public void setOnGround(boolean onGround) {
+        this.onGround = onGround;
+    }
+
+    public Vector getVelocity() {
+        return velocity;
+    }
+
     public int getCollectedCoins() {
         return collectedCoins;
     }
 
-    public Boolean isOnGround() {
-        return onGround;
-    }
-
     public void gravity() {
         if (!onGround) {
-            velocity.setY(velocity.getY() + GRAVITY);
-            velocity.setY(Math.min(velocity.getY(), MAX_FALL_SPEED));
+            velocity.setY(Math.min(velocity.getY() + GRAVITY, MAX_FALL_SPEED));
         }
     }
 
@@ -49,50 +58,55 @@ public class Player extends Element {
     }
 
     public void jump() {
+        lastShotTime = System.currentTimeMillis();
         velocity.setY(JUMP_FORCE);
         this.onGround = false;
     }
 
     public void move() {
         Vector nextPosition = getPosition().add(velocity);
-        boolean canMove = true;
+
+        Vector horizontalPosition = new Vector(nextPosition.getX(), getPosition().getY());
+        if (!canMoveTo(horizontalPosition)) {
+            velocity.setX(0);
+        } else {
+            setPosition(new Vector(horizontalPosition.getX(), getPosition().getY()));
+        }
+
+        Vector verticalPosition = new Vector(getPosition().getX(), nextPosition.getY());
+        if (!canMoveTo(verticalPosition)) {
+            velocity.setY(0);
+        } else {
+            setPosition(new Vector(getPosition().getX(), verticalPosition.getY()));
+        }
+    }
+
+    private boolean canMoveTo(Vector position) {
+        if (position.getX() < 0 || position.getX() > scene.getWidth() - 1) {
+            return false;
+        }
         for (Element wall : scene.getWalls()) {
-            if (scene.isColliding(nextPosition, wall.getPosition())) {
-                canMove = false;
+            if (scene.isColliding(position, wall.getPosition())) {
+                return false;
             }
         }
-        if (canMove) {
-            setPosition(nextPosition);
-        } else {
-            velocity.setX(0);
-            velocity.setY(0);
-            gravity();
-            nextPosition = getPosition().add(velocity);
-            setPosition(nextPosition);
-        }
+        return true;
     }
 
-    public void update() {
-        gravity();
-        move();
-        handleCollisions();
-    }
-
-    public boolean checkBottomCollision() {
-        boolean isColliding = false;
+    private boolean checkBottomCollision() {
         for (Element element : scene.getWalls()) {
             if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, -1)))) {
-                isColliding = true;
                 velocity.setY(0);
+                return true;
             }
         }
-        return isColliding;
+        return false;
     }
 
-    public void checkCoinCollision() {
-        for (Coin coin : scene.getCoins()) {
+    private void checkCoinCollision() {
+        for (Element coin : scene.getCoins()) {
             if (scene.isColliding(coin.getPosition(), getPosition())) {
-                scene.removeCoin(coin);
+                scene.removeCoin((Coin) coin);
                 collectedCoins++;
                 break;
             }
@@ -109,7 +123,7 @@ public class Player extends Element {
         }
     }
 
-    public void handleCollisions() {
+    private void handleCollisions() {
         onGround = checkBottomCollision();
         checkCoinCollision();
         checkFloatingEnemyCollision();
@@ -117,5 +131,20 @@ public class Player extends Element {
 
     public Scene getScene() {
         return scene;
+    }
+
+    public void update() {
+        gravity();
+        move();
+        handleCollisions();
+    }
+
+    public void shoot() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastShotTime >= SHOOT_COOLDOWN) {
+            scene.addBullet(new Bullet(getPosition().add(new Vector(0, -1 - scene.getCameraOffset()))));
+            lastShotTime = currentTime;
+            velocity.setY(-0.175); // recoil
+        }
     }
 }

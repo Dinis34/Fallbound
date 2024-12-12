@@ -23,7 +23,7 @@ public class PauseMenuController extends MenuController<PauseMenu> {
         }
         if (keys.contains(KeyEvent.VK_ENTER)) {
             if (getModel().isSelectedContinue()) {
-                // game.setPreviousState();
+                game.setState(GameState.RESUME_GAME);
             } else if (getModel().isSelectedRestart()) {
                 game.setState(GameState.NEW_GAME);
             } else if (getModel().isSelectedExit()) {

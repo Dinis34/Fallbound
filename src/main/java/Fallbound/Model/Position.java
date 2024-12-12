@@ -14,6 +14,10 @@ public class Position {
         return new Vector(this.x, this.y);
     }
 
+    public Position applyOffset(int offset) {
+        return new Position(this.getX(), this.getY() - offset);
+    }
+
     public int getX() {
         return x;
     }
