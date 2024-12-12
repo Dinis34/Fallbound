@@ -24,25 +24,30 @@
 - `Down Arrow` - select next option.
 - `Enter` - confirm selection.
 
-## IMPLEMENTED AND PLANNED FEATURES
-
 ### IMPLEMENTED FEATURES
-
 - **Player Movement** - the player can move left, right, and jump.
 - **Wall Collision** - the player collides with the walls.
 - **Timer** - the game has a timer that counts the time the player has been playing. This will be the main score of the game.
 - **Coins** - the player can collect coins to increase their power.
 - **Menus** - the game has a main menu and a pause menu. There is also a game over menu that currently is only accessible by pressing the "q" key.
-
-### FUTURE FEATURES
-
 - **Continue Option** - allow player to unpause game.
-- **Enemies** - the player will have to defeat enemies to progress in the game. There will be different types of enemies that require different strategies to defeat.
+- **Procedural World Generation** - the game has a procedural platform generation system that allows the player to play infinitely.
+
+
+todo:
+- **Different Enemies** - the player will have to defeat several types of enemies, each with their own unique ways to be defeated.
 - **Power-ups** - the player will be able to purchase power-ups that will give him special abilities.
-- **Procedural World Generation** - the game will have a procedural platform generation system that allows the player to play infinitely.
 - **Difficulty progression** - the game will get harder as time passes. Enemies will be faster and stronger.
 - **Sound** - the game will have sound effects and background music.
-- **Challenge Mode** - the game will have a challenge mode where the player must achieve a maximum score in a limited time.
+- **Highscore Functionality** - the game will keep track of a player's score during the playthrough and will display the top scoring players.
+- **Item Shop** - the game has a built-in shop with items the player can buy using the coins they collect during the gameplay, these items will consist of power-ups that give an advantage to the player.
+- **Player Health** - the player has a life count system, when the player runs out of lives the game ends.
+- **Bullets** - the player will have bullets that can be used to shoot monsters and other elements.
+
+optional :
+- **Boss Battles** - during the playthrough an event is triggered that activates the spawn of a stronger monster.
+- **Player Trail** - the player will have a colorful trail that follows them.
+- **Challenge Mode** - the game has a challenge mode where the player must achieve a maximum score in a limited time.
 
 ## GENERAL STRUCTURE
 
@@ -148,3 +153,16 @@ Here are some examples of the Game Loop pattern at work:
 
 - If not carefully optimized the game loop can consume a lot of processing power, leading to performance issues or excessive battery consumption.
 - As the game grows in complexity the game loop may need to accommodate additional processing. Without scalable design, the loop could become overloaded and rigid, leading to degraded performance or the need for a major refactor.
+
+#### KNOWN CODE SMELLS
+- todo
+
+### TESTING todo
+screenshot
+link to mutation
+
+### SELF-EVALUATION todo
+como fui eu que fiz esta parte mereço 20
+
+**EXAMPLE**
+martim: 100%
