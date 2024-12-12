@@ -1,5 +1,10 @@
 package Fallbound.Model.Game;
 
+import Fallbound.Model.Game.Elements.Coin;
+import Fallbound.Model.Game.Elements.Player;
+import Fallbound.Model.Game.Elements.Tiles.Tile;
+import Fallbound.Model.Game.Elements.Tiles.Wall;
+import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
 import Fallbound.Model.Game.Elements.*;
 import Fallbound.Model.Vector;
 
@@ -16,6 +21,7 @@ public class Scene {
     private final long startTime;
     private final List<Element> coins = new ArrayList<>();
     private Player player = new Player(new Vector(19, 19), this);
+    private List<FloatingEnemy> floatingEnemies = new ArrayList<>();
     private List<Element> walls = new ArrayList<>();
     private List<Bullet> bullets = new ArrayList<>();
     private int cameraOffset = 0;
@@ -33,6 +39,11 @@ public class Scene {
         buildWallBlock(51, 20, 38, 2);
         buildWallBlock(36, 19, 2, 1);
         buildWallBlock(51, 19, 2, 1);
+      
+        addFloatingEnemy(40, 5);
+        addFloatingEnemy(50, 10);
+        addFloatingEnemy(63, 19);
+      
     }
 
     public List<Bullet> getBullets() {
@@ -160,6 +171,14 @@ public class Scene {
         return player;
     }
 
+    public List<FloatingEnemy> getFloatingEnemies() {
+        return floatingEnemies;
+    }
+
+    public void removeFloatingEnemy(FloatingEnemy floatingEnemy) {
+        this.floatingEnemies.remove(floatingEnemy);
+    }
+
     public void setPlayer(Player player) {
         this.player = player;
     }
@@ -188,6 +207,9 @@ public class Scene {
         }
     }
 
+    public void addFloatingEnemy(int x, int y) {
+        floatingEnemies.add(new FloatingEnemy(new Vector(x, y), this));
+    }
 
     public String timeToString(long time) {
         long minutes = time / 60000;
@@ -220,5 +242,23 @@ public class Scene {
 
     public boolean isColliding(Vector position1, Vector position2) {
         return round((float) position1.getX()) == round((float) position2.getX()) && round((float) position1.getY()) == round((float) position2.getY());
+    }
+
+    public boolean isCollidingFromAbove(Vector position1, Vector position2) {
+        return round((float) position1.getY()) == round((float) position2.getY() + 1) && round((float) position1.getX()) == round((float) position2.getX());
+    }
+
+    public void updateFloatingEnemies() {
+        for (FloatingEnemy floatingEnemy : floatingEnemies) {
+            floatingEnemy.followPlayer();
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

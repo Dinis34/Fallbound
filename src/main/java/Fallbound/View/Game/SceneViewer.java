@@ -7,6 +7,10 @@ import Fallbound.Model.Game.Elements.Element;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
+import Fallbound.View.Game.Elements.CoinViewer;
+import Fallbound.View.Game.Elements.Enemies.FloatingEnemyViewer;
+import Fallbound.View.Game.Elements.PlayerViewer;
+import Fallbound.View.Game.Elements.WallViewer;
 import Fallbound.View.Game.Elements.*;
 import Fallbound.View.Viewer;
 
@@ -18,6 +22,7 @@ public class SceneViewer extends Viewer<Scene> {
     private final BreakableWallViewer breakableWallViewer = new BreakableWallViewer();
     private final PlayerViewer playerViewer = new PlayerViewer();
     private final CoinViewer coinViewer = new CoinViewer();
+    private final FloatingEnemyViewer floatingEnemyViewer = new FloatingEnemyViewer();
     private final BulletViewer bulletViewer = new BulletViewer();
 
     public SceneViewer(Scene model) {
@@ -59,5 +64,9 @@ public class SceneViewer extends Viewer<Scene> {
         }
         playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
         drawHud(gui);
+        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall));
+        playerViewer.draw(gui, getModel().getPlayer());
+        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin));
+        getModel().getFloatingEnemies().forEach(floatingEnemy -> floatingEnemyViewer.draw(gui, floatingEnemy));
     }
 }
