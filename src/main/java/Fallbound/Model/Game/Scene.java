@@ -2,8 +2,6 @@ package Fallbound.Model.Game;
 
 import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Player;
-import Fallbound.Model.Game.Elements.Tiles.Tile;
-import Fallbound.Model.Game.Elements.Tiles.Wall;
 import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
 import Fallbound.Model.Game.Elements.*;
 import Fallbound.Model.Vector;
@@ -12,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static java.lang.Math.random;
 import static java.lang.Math.round;
 
 public class Scene {
@@ -39,11 +38,6 @@ public class Scene {
         buildWallBlock(51, 20, 38, 2);
         buildWallBlock(36, 19, 2, 1);
         buildWallBlock(51, 19, 2, 1);
-      
-        addFloatingEnemy(40, 5);
-        addFloatingEnemy(50, 10);
-        addFloatingEnemy(63, 19);
-      
     }
 
     public List<Bullet> getBullets() {
@@ -96,6 +90,9 @@ public class Scene {
         int secondPlatformX = firstPlatformX + firstPlatformWidth + 2;
         int secondPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
         buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth, SMALL_PLATFORM_HEIGHT);
+
+        addFloatingEnemy((int) (random()*leftPlatformWidth), (int) (y - random()*3));
+        addFloatingEnemy((int) (random()*rightPlatformWidth + rightPlatformX), (int) (y - random()*3));
     }
 
     public void updateCameraOffset() {
@@ -120,14 +117,6 @@ public class Scene {
 
     private void unloadElements(List<Element> elements, int cameraOffset) {
         elements.removeIf(e -> e.getPosition().toPosition().getY() < cameraOffset - 10);
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
     public long getStartTime() {

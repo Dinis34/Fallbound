@@ -62,11 +62,8 @@ public class SceneViewer extends Viewer<Scene> {
                 breakableWallViewer.draw(gui, (BreakableWall) wall, getModel().getCameraOffset());
             }
         }
+        getModel().getFloatingEnemies().forEach(floatingEnemy -> floatingEnemyViewer.draw(gui, floatingEnemy, getModel().getCameraOffset()));
         playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
         drawHud(gui);
-        getModel().getWalls().forEach(wall -> wallViewer.draw(gui, (Wall) wall));
-        playerViewer.draw(gui, getModel().getPlayer());
-        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, coin));
-        getModel().getFloatingEnemies().forEach(floatingEnemy -> floatingEnemyViewer.draw(gui, floatingEnemy));
     }
 }
