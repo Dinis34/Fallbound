@@ -44,6 +44,11 @@ public class FloatingEnemy extends Enemy implements Shootable, Stompable {
             }
         }
 
+        if (scene.isColliding(nextPosition, scene.getPlayer().getPosition())) {
+            // TODO damage player
+            canMove = false;
+        }
+
         if (canMove) {
             this.setPosition(nextPosition);
         }

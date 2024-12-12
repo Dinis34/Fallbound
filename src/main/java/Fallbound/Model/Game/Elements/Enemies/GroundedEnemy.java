@@ -7,7 +7,7 @@ import Fallbound.Model.Vector;
 public class GroundedEnemy extends Enemy implements Stompable {
     private int direction = 1;
     private final Scene scene;
-    private final long moveCooldown = 200;
+    private final long moveCooldown = 300;
     private long lastMoveTime = 0;
 
     public GroundedEnemy(Vector position, Scene scene) {
@@ -24,24 +24,22 @@ public class GroundedEnemy extends Enemy implements Stompable {
         Vector currentPos = this.getPosition();
         Vector nextPosition = new Vector(currentPos.getX() + direction, currentPos.getY());
 
-        boolean isEdge = true;
+        boolean canMove = false;
         Vector belowNextPosition = new Vector(nextPosition.getX(), nextPosition.getY() + 1);
         for (Element wall : scene.getWalls()) {
             if (scene.isColliding(belowNextPosition, wall.getPosition())) {
-                isEdge = false;
+                canMove = true;
                 break;
             }
         }
 
-        boolean canMove = true;
-        for (Element wall : scene.getWalls()) {
-            if (scene.isColliding(nextPosition, wall.getPosition())) {
-                canMove = false;
-                break;
-            }
+        if (scene.isColliding(nextPosition, scene.getPlayer().getPosition())) {
+            // TODO damage player
+            canMove = false;
         }
 
-        if (isEdge || !canMove) {
+
+        if (!canMove) {
             direction = -direction;
         } else {
             this.setPosition(nextPosition);

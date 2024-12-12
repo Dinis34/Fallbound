@@ -19,6 +19,7 @@ public class Player extends Element {
     private long lastShotTime = 0;
     private boolean onGround = false;
     private int collectedCoins = 0;
+    private Vector lastPosition;
 
     public Player(Vector position, Scene scene) {
         super(position);
@@ -73,6 +74,7 @@ public class Player extends Element {
         if (!canMoveTo(horizontalPosition)) {
             velocity.setX(0);
         } else {
+            this.lastPosition = getPosition();
             setPosition(new Vector(horizontalPosition.getX(), getPosition().getY()));
         }
 
@@ -80,6 +82,7 @@ public class Player extends Element {
         if (!canMoveTo(verticalPosition)) {
             velocity.setY(0);
         } else {
+            this.lastPosition = getPosition();
             setPosition(new Vector(getPosition().getX(), verticalPosition.getY()));
         }
     }
@@ -119,7 +122,8 @@ public class Player extends Element {
     public void checkEnemyCollision() {
         for (Element enemy : scene.getEnemies()) {
             if (enemy instanceof Stompable) {
-                if (abs(getVelocity().getY()) > abs(getVelocity().getX()) && getVelocity().getY() > 0 && scene.isColliding(enemy.getPosition().add(new Vector(0, 1)), getPosition())) {
+                if (scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(0,1))) &&
+                        scene.isColliding(getPosition(), enemy.getPosition())) {
                     scene.removeEnemy((Enemy) enemy);
                     System.out.println("stomp");
                     velocity.setY(JUMP_FORCE / 1.5);
