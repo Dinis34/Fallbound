@@ -84,7 +84,6 @@ public class Scene {
         buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth, SMALL_PLATFORM_HEIGHT);
     }
 
-
     public void updateCameraOffset() {
         int playerY = getPlayer().getPosition().toPosition().getY();
         if (cameraOffset < playerY - (getHeight() / 2)) {
@@ -109,23 +108,20 @@ public class Scene {
         elements.removeIf(e -> e.getPosition().toPosition().getY() < cameraOffset - 10);
     }
 
-    public long getStartTime() {
-        return startTime;
-    }
-
-    public String timeToString(long time) {
-        long minutes = time / 60000;
-        long seconds = (time % 60000) / 1000;
-        long milliseconds = (time % 1000) / 10;
-        return String.format("%02d:%02d.%02d", minutes, seconds, milliseconds);
-    }
-
     public int getWidth() {
         return width;
     }
 
     public int getHeight() {
         return height;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public long getCurrentTime() {
+        return System.currentTimeMillis() - getStartTime();
     }
 
     public List<Element> getCoins() {
@@ -174,6 +170,14 @@ public class Scene {
                 this.coins.add(new Coin(new Vector(x + i, y + j)));
             }
         }
+    }
+
+
+    public String timeToString(long time) {
+        long minutes = time / 60000;
+        long seconds = (time % 60000) / 1000;
+        long milliseconds = (time % 1000) / 10;
+        return String.format("%02d:%02d.%02d", minutes, seconds, milliseconds);
     }
 
     public void handleBullets() {

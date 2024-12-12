@@ -36,7 +36,7 @@ public class SceneViewer extends Viewer<Scene> {
         String coinCount = String.valueOf(getModel().getPlayer().getCollectedCoins());
 
         gui.drawText(new Position(2, 1), "TIME", FALLBOUND_WHITE);
-        gui.drawText(new Position(7, 1), getModel().timeToString(System.currentTimeMillis() - getModel().getStartTime()), FALLBOUND_WHITE);
+        gui.drawText(new Position(7, 1), getModel().timeToString(getModel().getCurrentTime()), FALLBOUND_WHITE);
         gui.drawText(new Position(2, 2), "HIGHSCORE", FALLBOUND_LIGHT_GRAY);
         gui.drawText(new Position(12, 2), "17:21:11", FALLBOUND_LIGHT_GRAY); // placeholder
         gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);
