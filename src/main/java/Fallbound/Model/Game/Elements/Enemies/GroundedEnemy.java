@@ -5,9 +5,9 @@ import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
 public class GroundedEnemy extends Enemy implements Stompable {
-    private int direction = 1;
     private final Scene scene;
     private final long moveCooldown = 300;
+    private int direction = 1;
     private long lastMoveTime = 0;
 
     public GroundedEnemy(Vector position, Scene scene) {

@@ -5,8 +5,6 @@ import Fallbound.Model.Game.Elements.Enemies.Stompable;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
-import static java.lang.Math.abs;
-
 public class Player extends Element {
     private final double GRAVITY = 0.02;
     private final double JUMP_FORCE = -0.4;
@@ -121,14 +119,15 @@ public class Player extends Element {
 
     public void checkEnemyCollision() {
         for (Element enemy : scene.getEnemies()) {
-            if (enemy instanceof Stompable) {
-                if (scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(0,1))) &&
-                        scene.isColliding(getPosition(), enemy.getPosition())) {
+            if (scene.isColliding(getPosition(), enemy.getPosition())) {
+                if (enemy instanceof Stompable && scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(0, 1)))) {
                     scene.removeEnemy((Enemy) enemy);
-                    System.out.println("stomp");
                     velocity.setY(JUMP_FORCE / 1.5);
-                    break;
+                } else {
+                    // TODO damage player
+                    velocity.setY(JUMP_FORCE / 1.5);
                 }
+                break;
             }
         }
     }
