@@ -121,6 +121,7 @@ public class Player extends Element {
             if (enemy instanceof Stompable) {
                 if (abs(getVelocity().getY()) > abs(getVelocity().getX()) && getVelocity().getY() > 0 && scene.isColliding(enemy.getPosition().add(new Vector(0, 1)), getPosition())) {
                     scene.removeEnemy((Enemy) enemy);
+                    System.out.println("stomp");
                     velocity.setY(JUMP_FORCE / 1.5);
                     break;
                 }

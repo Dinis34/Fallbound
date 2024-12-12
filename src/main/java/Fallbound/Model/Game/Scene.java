@@ -154,6 +154,7 @@ public class Scene {
 
     public void removeEnemy(Enemy enemy) {
         this.enemies.remove(enemy);
+        coins.add(new Coin(enemy.getPosition()));
     }
 
     private void buildWallBlock(int x, int y, int w, int h) {
@@ -207,7 +208,7 @@ public class Scene {
                 Enemy enemy = (Enemy) enemyIterator.next();
                 if (enemy instanceof Shootable) {
                     if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
-                        enemyIterator.remove();
+                        removeEnemy(enemy);
                         iterator.remove();
                         break;
                     }
