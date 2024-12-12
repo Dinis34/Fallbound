@@ -19,6 +19,9 @@ public class Scene {
     private List<Element> walls = new ArrayList<>();
     private List<Bullet> bullets = new ArrayList<>();
     private int cameraOffset = 0;
+    private long totalPausedTime = 0;
+    private long pauseStartTime = 0;
+    private boolean isPaused = false;
 
     public Scene(int width, int height) {
         this.width = width;
@@ -120,8 +123,21 @@ public class Scene {
         return startTime;
     }
 
+    public void setPaused(boolean paused) {
+        if (paused) {
+            pauseStartTime = System.currentTimeMillis();
+        } else {
+            totalPausedTime += System.currentTimeMillis() - pauseStartTime;
+        }
+        isPaused = paused;
+    }
+
     public long getCurrentTime() {
-        return System.currentTimeMillis() - getStartTime();
+        if (isPaused) {
+            return pauseStartTime - startTime - totalPausedTime;
+        } else {
+            return System.currentTimeMillis() - startTime - totalPausedTime;
+        }
     }
 
     public List<Element> getCoins() {

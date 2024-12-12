@@ -44,14 +44,16 @@ public class State {
     }
 
     public void UpdateState(GameState newState) throws IOException {
-        if (newState == GameState.START_MENU) {
-            previousState = GameState.START_MENU;
-        } else {
-            previousState = currentState;
+        if (newState == GameState.PAUSE_MENU) {
+            scene.setPaused(true);
+        } else if (currentState == GameState.PAUSE_MENU && newState != GameState.PAUSE_MENU) {
+            scene.setPaused(false);
         }
+        previousState = currentState;
         currentState = newState;
         StateActions();
     }
+
 
     public void UpdateToPrevious() throws IOException {
         GameState aux = currentState;
