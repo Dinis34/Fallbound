@@ -3,6 +3,7 @@ package Fallbound.Model.Game;
 import Fallbound.Model.Game.Elements.*;
 import Fallbound.Model.Game.Elements.Enemies.Enemy;
 import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
+import Fallbound.Model.Game.Elements.Enemies.GroundedEnemy;
 import Fallbound.Model.Game.Elements.Enemies.Shootable;
 import Fallbound.Model.Vector;
 
@@ -89,6 +90,9 @@ public class Scene {
 
         addFloatingEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
         addFloatingEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
+
+        addGroundedEnemy((int) (random() * leftPlatformWidth), y - 1);
+        addGroundedEnemy((int) (random() * rightPlatformWidth + rightPlatformX), y - 1);
     }
 
     public void updateCameraOffset() {
@@ -175,6 +179,10 @@ public class Scene {
 
     public void addFloatingEnemy(int x, int y) {
         enemies.add(new FloatingEnemy(new Vector(x, y), this));
+    }
+
+    public void addGroundedEnemy(int x, int y) {
+        enemies.add(new GroundedEnemy(new Vector(x, y), this));
     }
 
     public String timeToString(long time) {

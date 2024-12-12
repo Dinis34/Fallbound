@@ -5,8 +5,6 @@ import Fallbound.Model.Game.Elements.Enemies.Stompable;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
-import static java.lang.Math.abs;
-
 public class Player extends Element {
     private final double GRAVITY = 0.02;
     private final double JUMP_FORCE = -0.4;
@@ -19,6 +17,7 @@ public class Player extends Element {
     private long lastShotTime = 0;
     private boolean onGround = false;
     private int collectedCoins = 0;
+    private Vector lastPosition;
 
     public Player(Vector position, Scene scene) {
         super(position);
@@ -73,6 +72,7 @@ public class Player extends Element {
         if (!canMoveTo(horizontalPosition)) {
             velocity.setX(0);
         } else {
+            this.lastPosition = getPosition();
             setPosition(new Vector(horizontalPosition.getX(), getPosition().getY()));
         }
 
@@ -80,6 +80,7 @@ public class Player extends Element {
         if (!canMoveTo(verticalPosition)) {
             velocity.setY(0);
         } else {
+            this.lastPosition = getPosition();
             setPosition(new Vector(getPosition().getX(), verticalPosition.getY()));
         }
     }
@@ -118,13 +119,15 @@ public class Player extends Element {
 
     public void checkEnemyCollision() {
         for (Element enemy : scene.getEnemies()) {
-            if (enemy instanceof Stompable) {
-                if (abs(getVelocity().getY()) > abs(getVelocity().getX()) && getVelocity().getY() > 0 && scene.isColliding(enemy.getPosition().add(new Vector(0, 1)), getPosition())) {
+            if (scene.isColliding(getPosition(), enemy.getPosition())) {
+                if (enemy instanceof Stompable && scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(0, 1)))) {
                     scene.removeEnemy((Enemy) enemy);
-                    System.out.println("stomp");
                     velocity.setY(JUMP_FORCE / 1.5);
-                    break;
+                } else {
+                    // TODO damage player
+                    velocity.setY(JUMP_FORCE / 1.5);
                 }
+                break;
             }
         }
     }
