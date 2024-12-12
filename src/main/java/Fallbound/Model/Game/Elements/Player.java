@@ -1,8 +1,11 @@
 package Fallbound.Model.Game.Elements;
 
-import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
+import Fallbound.Model.Game.Elements.Enemies.Enemy;
+import Fallbound.Model.Game.Elements.Enemies.Stompable;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
+
+import static java.lang.Math.abs;
 
 public class Player extends Element {
     private final double GRAVITY = 0.02;
@@ -113,12 +116,14 @@ public class Player extends Element {
         }
     }
 
-    public void checkFloatingEnemyCollision() {
-        for (FloatingEnemy floatingEnemy : scene.getFloatingEnemies()) {
-            if (scene.isCollidingFromAbove(floatingEnemy.getPosition(), getPosition())) {
-                scene.removeFloatingEnemy(floatingEnemy);
-                velocity.setY(JUMP_FORCE / 2);
-                break;
+    public void checkEnemyCollision() {
+        for (Element enemy : scene.getEnemies()) {
+            if (enemy instanceof Stompable) {
+                if (abs(getVelocity().getY()) > abs(getVelocity().getX()) && getVelocity().getY() > 0 && scene.isColliding(enemy.getPosition().add(new Vector(0, 1)), getPosition())) {
+                    scene.removeEnemy((Enemy) enemy);
+                    velocity.setY(JUMP_FORCE / 1.5);
+                    break;
+                }
             }
         }
     }
@@ -126,7 +131,7 @@ public class Player extends Element {
     private void handleCollisions() {
         onGround = checkBottomCollision();
         checkCoinCollision();
-        checkFloatingEnemyCollision();
+        checkEnemyCollision();
     }
 
     public Scene getScene() {

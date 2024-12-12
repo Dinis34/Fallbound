@@ -1,9 +1,9 @@
 package Fallbound.Model.Game;
 
-import Fallbound.Model.Game.Elements.Coin;
-import Fallbound.Model.Game.Elements.Player;
-import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
 import Fallbound.Model.Game.Elements.*;
+import Fallbound.Model.Game.Elements.Enemies.Enemy;
+import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
+import Fallbound.Model.Game.Elements.Enemies.Shootable;
 import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
@@ -19,10 +19,10 @@ public class Scene {
     private final int height;
     private final long startTime;
     private final List<Element> coins = new ArrayList<>();
-    private Player player = new Player(new Vector(19, 19), this);
-    private List<FloatingEnemy> floatingEnemies = new ArrayList<>();
-    private List<Element> walls = new ArrayList<>();
-    private List<Bullet> bullets = new ArrayList<>();
+    private final List<Element> enemies = new ArrayList<>();
+    private final Player player = new Player(new Vector(19, 19), this);
+    private final List<Element> walls = new ArrayList<>();
+    private final List<Bullet> bullets = new ArrayList<>();
     private int cameraOffset = 0;
     private long totalPausedTime = 0;
     private long pauseStartTime = 0;
@@ -42,10 +42,6 @@ public class Scene {
 
     public List<Bullet> getBullets() {
         return bullets;
-    }
-
-    public void setBullets(List<Bullet> bullets) {
-        this.bullets = bullets;
     }
 
     public void addBullet(Bullet bullet) {
@@ -91,8 +87,8 @@ public class Scene {
         int secondPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
         buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth, SMALL_PLATFORM_HEIGHT);
 
-        addFloatingEnemy((int) (random()*leftPlatformWidth), (int) (y - random()*3));
-        addFloatingEnemy((int) (random()*rightPlatformWidth + rightPlatformX), (int) (y - random()*3));
+        addFloatingEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
+        addFloatingEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
     }
 
     public void updateCameraOffset() {
@@ -101,7 +97,7 @@ public class Scene {
             cameraOffset = playerY - (getHeight() / 2);
             unloadElements(getWalls(), cameraOffset);
             unloadElements(getCoins(), cameraOffset);
-
+            unloadElements(getEnemies(), cameraOffset);
             generatePlatforms(cameraOffset);
         }
     }
@@ -117,10 +113,6 @@ public class Scene {
 
     private void unloadElements(List<Element> elements, int cameraOffset) {
         elements.removeIf(e -> e.getPosition().toPosition().getY() < cameraOffset - 10);
-    }
-
-    public long getStartTime() {
-        return startTime;
     }
 
     public void setPaused(boolean paused) {
@@ -152,24 +144,16 @@ public class Scene {
         return walls;
     }
 
-    public void setWalls(List<Element> walls) {
-        this.walls = walls;
-    }
-
     public Player getPlayer() {
         return player;
     }
 
-    public List<FloatingEnemy> getFloatingEnemies() {
-        return floatingEnemies;
+    public List<Element> getEnemies() {
+        return enemies;
     }
 
-    public void removeFloatingEnemy(FloatingEnemy floatingEnemy) {
-        this.floatingEnemies.remove(floatingEnemy);
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void removeEnemy(Enemy enemy) {
+        this.enemies.remove(enemy);
     }
 
     private void buildWallBlock(int x, int y, int w, int h) {
@@ -188,16 +172,8 @@ public class Scene {
         }
     }
 
-    private void buildCoinBlock(int x, int y, int w, int h) {
-        for (int i = 0; i < w; i++) {
-            for (int j = 0; j < h; j++) {
-                this.coins.add(new Coin(new Vector(x + i, y + j)));
-            }
-        }
-    }
-
     public void addFloatingEnemy(int x, int y) {
-        floatingEnemies.add(new FloatingEnemy(new Vector(x, y), this));
+        enemies.add(new FloatingEnemy(new Vector(x, y), this));
     }
 
     public String timeToString(long time) {
@@ -226,6 +202,17 @@ public class Scene {
                     break;
                 }
             }
+            Iterator<Element> enemyIterator = enemies.iterator();
+            while (enemyIterator.hasNext()) {
+                Enemy enemy = (Enemy) enemyIterator.next();
+                if (enemy instanceof Shootable) {
+                    if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
+                        enemyIterator.remove();
+                        iterator.remove();
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -233,13 +220,9 @@ public class Scene {
         return round((float) position1.getX()) == round((float) position2.getX()) && round((float) position1.getY()) == round((float) position2.getY());
     }
 
-    public boolean isCollidingFromAbove(Vector position1, Vector position2) {
-        return round((float) position1.getY()) == round((float) position2.getY() + 1) && round((float) position1.getX()) == round((float) position2.getX());
-    }
-
-    public void updateFloatingEnemies() {
-        for (FloatingEnemy floatingEnemy : floatingEnemies) {
-            floatingEnemy.followPlayer();
+    public void updateEnemies() {
+        for (Element enemy : enemies) {
+            ((Enemy) enemy).followPlayer();
         }
     }
 

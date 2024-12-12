@@ -4,16 +4,17 @@ import Fallbound.Model.Game.Elements.Element;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
-public class FloatingEnemy extends Enemy {
+public class FloatingEnemy extends Enemy implements Shootable, Stompable {
     private final Scene scene;
-    private long lastMoveTime = 0;
     private final long moveCooldown = 200;
+    private long lastMoveTime = 0;
 
     public FloatingEnemy(Vector position, Scene scene) {
         super(position);
         this.scene = scene;
     }
 
+    @Override
     public void followPlayer() {
         Vector nextPosition = null;
         long currentTime = System.currentTimeMillis();

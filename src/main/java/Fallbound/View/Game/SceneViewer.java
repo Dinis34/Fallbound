@@ -4,14 +4,12 @@ import Fallbound.GUI.GUI;
 import Fallbound.Model.Game.Elements.BreakableWall;
 import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Element;
+import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
-import Fallbound.View.Game.Elements.CoinViewer;
-import Fallbound.View.Game.Elements.Enemies.FloatingEnemyViewer;
-import Fallbound.View.Game.Elements.PlayerViewer;
-import Fallbound.View.Game.Elements.WallViewer;
 import Fallbound.View.Game.Elements.*;
+import Fallbound.View.Game.Elements.Enemies.FloatingEnemyViewer;
 import Fallbound.View.Viewer;
 
 import static Fallbound.View.Theme.*;
@@ -28,7 +26,6 @@ public class SceneViewer extends Viewer<Scene> {
     public SceneViewer(Scene model) {
         super(model);
     }
-
 
     protected void drawHud(GUI gui) {
         // draw black background behind hud
@@ -62,7 +59,11 @@ public class SceneViewer extends Viewer<Scene> {
                 breakableWallViewer.draw(gui, (BreakableWall) wall, getModel().getCameraOffset());
             }
         }
-        getModel().getFloatingEnemies().forEach(floatingEnemy -> floatingEnemyViewer.draw(gui, floatingEnemy, getModel().getCameraOffset()));
+        getModel().getEnemies().forEach(enemy -> {
+            if (enemy instanceof FloatingEnemy) {
+                floatingEnemyViewer.draw(gui, (FloatingEnemy) enemy, getModel().getCameraOffset());
+            }
+        });
         playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
         drawHud(gui);
     }
