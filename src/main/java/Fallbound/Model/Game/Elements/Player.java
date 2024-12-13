@@ -6,12 +6,12 @@ import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
 public class Player extends Element {
-    private final double GRAVITY = 0.02;
+    private final double GRAVITY;
     private final double JUMP_FORCE = -0.4;
-    private final double MAX_FALL_SPEED = 0.4;
+    private final double MAX_FALL_SPEED;
     private final double MOVE_SPEED = 0.5;
 
-    private final long SHOOT_COOLDOWN = 350;
+    private final long SHOOT_COOLDOWN;
     private final Vector velocity;
     private final Scene scene;
     private long lastShotTime = 0;
@@ -23,6 +23,9 @@ public class Player extends Element {
         super(position);
         this.scene = scene;
         this.velocity = new Vector(0, 0);
+        GRAVITY = 0.02;
+        MAX_FALL_SPEED = 0.4;
+        SHOOT_COOLDOWN = 350;
     }
 
     public Boolean getOnGround() {
@@ -69,7 +72,7 @@ public class Player extends Element {
         Vector nextPosition = getPosition().add(velocity);
 
         Vector horizontalPosition = new Vector(nextPosition.getX(), getPosition().getY());
-        if (!canMoveTo(horizontalPosition)) {
+        if (cantMoveTo(horizontalPosition)) {
             velocity.setX(0);
         } else {
             this.lastPosition = getPosition();
@@ -77,7 +80,7 @@ public class Player extends Element {
         }
 
         Vector verticalPosition = new Vector(getPosition().getX(), nextPosition.getY());
-        if (!canMoveTo(verticalPosition)) {
+        if (cantMoveTo(verticalPosition)) {
             velocity.setY(0);
         } else {
             this.lastPosition = getPosition();
@@ -85,16 +88,16 @@ public class Player extends Element {
         }
     }
 
-    private boolean canMoveTo(Vector position) {
+    private boolean cantMoveTo(Vector position) {
         if (position.getX() < 0 || position.getX() > scene.getWidth() - 1) {
-            return false;
+            return true;
         }
         for (Element wall : scene.getWalls()) {
             if (scene.isColliding(position, wall.getPosition())) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private boolean checkBottomCollision() {
@@ -120,7 +123,10 @@ public class Player extends Element {
     public void checkEnemyCollision() {
         for (Element enemy : scene.getEnemies()) {
             if (scene.isColliding(getPosition(), enemy.getPosition())) {
-                if (enemy instanceof Stompable && scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(0, 1)))) {
+                if (enemy instanceof Stompable &&
+                        (scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(0, 1)))) ||
+                        scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(1, 1))) ||
+                        scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(-1, 1)))) {
                     scene.removeEnemy((Enemy) enemy);
                     velocity.setY(JUMP_FORCE / 1.5);
                 } else {

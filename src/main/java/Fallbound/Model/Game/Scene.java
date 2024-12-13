@@ -2,8 +2,8 @@ package Fallbound.Model.Game;
 
 import Fallbound.Model.Game.Elements.*;
 import Fallbound.Model.Game.Elements.Enemies.Enemy;
-import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
-import Fallbound.Model.Game.Elements.Enemies.GroundedEnemy;
+import Fallbound.Model.Game.Elements.Enemies.ShellEnemy;
+import Fallbound.Model.Game.Elements.Enemies.NormalEnemy;
 import Fallbound.Model.Game.Elements.Enemies.Shootable;
 import Fallbound.Model.Vector;
 
@@ -68,7 +68,6 @@ public class Scene {
         int rightPlatformWidth = PLATFORM_WIDTH - platformOffset;
         buildWallBlock(rightPlatformX, y, rightPlatformWidth, PLATFORM_HEIGHT);
 
-        final int SMALL_PLATFORM_HEIGHT = 3;
         final int SMALL_PLATFORM_OFFSET_Y = 10;
         final int MIN_SMALL_PLATFORM_WIDTH = 10;
         final int MAX_SMALL_PLATFORM_WIDTH = 20;
@@ -81,12 +80,12 @@ public class Scene {
         int firstPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
 
         int firstPlatformX = PLATFORM_WIDTH + platformOffset + firstPlatformOffsetX + 1;
-        buildBreakableWallBlock(firstPlatformX, firstPlatformY, firstPlatformWidth, SMALL_PLATFORM_HEIGHT);
+        buildBreakableWallBlock(firstPlatformX, firstPlatformY, firstPlatformWidth);
 
         int remainingWidth = (int) (PLATFORM_GAP - firstPlatformWidth - firstPlatformOffsetX - 5 - Math.random() * 3);
         int secondPlatformX = firstPlatformX + firstPlatformWidth + 2;
         int secondPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
-        buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth, SMALL_PLATFORM_HEIGHT);
+        buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth);
 
         addFloatingEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
         addFloatingEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
@@ -169,20 +168,20 @@ public class Scene {
         }
     }
 
-    private void buildBreakableWallBlock(int x, int y, int w, int h) {
+    private void buildBreakableWallBlock(int x, int y, int w) {
         for (int i = 0; i < w; i++) {
-            for (int j = 0; j < h; j++) {
+            for (int j = 0; j < 3; j++) {
                 this.walls.add(new BreakableWall(new Vector(x + i, y + j)));
             }
         }
     }
 
     public void addFloatingEnemy(int x, int y) {
-        enemies.add(new FloatingEnemy(new Vector(x, y), this));
+        enemies.add(new NormalEnemy(new Vector(x, y), this));
     }
 
     public void addGroundedEnemy(int x, int y) {
-        enemies.add(new GroundedEnemy(new Vector(x, y), this));
+        enemies.add(new ShellEnemy(new Vector(x, y), this));
     }
 
     public String timeToString(long time) {
@@ -211,13 +210,17 @@ public class Scene {
                     break;
                 }
             }
-            Iterator<Element> enemyIterator = enemies.iterator();
-            while (enemyIterator.hasNext()) {
-                Enemy enemy = (Enemy) enemyIterator.next();
+            for (Element element : enemies) {
+                Enemy enemy = (Enemy) element;
                 if (enemy instanceof Shootable) {
                     if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
                         removeEnemy(enemy);
                         iterator.remove();
+                        break;
+                    }
+                } else {
+                    if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
+                        // TODO play "ding" sound effect
                         break;
                     }
                 }

@@ -41,30 +41,6 @@ public class Vector {
         return new Vector(this.x - vector.getX(), this.y - vector.getY());
     }
 
-    public Vector multiply(double scalar) {
-        return new Vector(this.x * scalar, this.y * scalar);
-    }
-
-    public Vector divide(double scalar) {
-        return new Vector(this.x / scalar, this.y / scalar);
-    }
-
-    public double magnitude() {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
-    }
-
-    public void normalize() {
-        double magnitude = this.magnitude();
-        if (magnitude != 0) {
-            this.x = this.divide(magnitude).getX();
-            this.y = this.divide(magnitude).getY();
-        }
-    }
-
-    public Vector copy() {
-        return new Vector(this.x, this.y);
-    }
-
     @Override
     public String toString() {
         return "Vector{" +

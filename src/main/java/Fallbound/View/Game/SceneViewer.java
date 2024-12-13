@@ -4,8 +4,8 @@ import Fallbound.GUI.GUI;
 import Fallbound.Model.Game.Elements.BreakableWall;
 import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Element;
-import Fallbound.Model.Game.Elements.Enemies.FloatingEnemy;
-import Fallbound.Model.Game.Elements.Enemies.GroundedEnemy;
+import Fallbound.Model.Game.Elements.Enemies.ShellEnemy;
+import Fallbound.Model.Game.Elements.Enemies.NormalEnemy;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
@@ -63,10 +63,10 @@ public class SceneViewer extends Viewer<Scene> {
             }
         }
         getModel().getEnemies().forEach(enemy -> {
-            if (enemy instanceof FloatingEnemy) {
-                floatingEnemyViewer.draw(gui, (FloatingEnemy) enemy, getModel().getCameraOffset());
-            } else if (enemy instanceof GroundedEnemy) {
-                groundedEnemyViewer.draw(gui, (GroundedEnemy) enemy, getModel().getCameraOffset());
+            if (enemy instanceof NormalEnemy) {
+                floatingEnemyViewer.draw(gui, (NormalEnemy) enemy, getModel().getCameraOffset());
+            } else if (enemy instanceof ShellEnemy) {
+                groundedEnemyViewer.draw(gui, (ShellEnemy) enemy, getModel().getCameraOffset());
             }
         });
         playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());

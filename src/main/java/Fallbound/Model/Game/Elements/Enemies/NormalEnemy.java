@@ -1,15 +1,15 @@
-// FloatingEnemy.java
+// NormalEnemy.java
 package Fallbound.Model.Game.Elements.Enemies;
 
 import Fallbound.Model.Game.Elements.Element;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
-public class FloatingEnemy extends Enemy implements Shootable, Stompable, Floating {
+public class NormalEnemy extends Enemy implements Shootable, Stompable, Floating {
     private final Scene scene;
     private long lastMoveTime = 0;
 
-    public FloatingEnemy(Vector position, Scene scene) {
+    public NormalEnemy(Vector position, Scene scene) {
         super(position);
         if (scene == null) {
             throw new IllegalArgumentException("Scene cannot be null");
