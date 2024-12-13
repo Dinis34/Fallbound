@@ -1,10 +1,7 @@
 package Fallbound.Model.Game;
 
 import Fallbound.Model.Game.Elements.*;
-import Fallbound.Model.Game.Elements.Enemies.Enemy;
-import Fallbound.Model.Game.Elements.Enemies.ShellEnemy;
-import Fallbound.Model.Game.Elements.Enemies.NormalEnemy;
-import Fallbound.Model.Game.Elements.Enemies.Shootable;
+import Fallbound.Model.Game.Elements.Enemies.*;
 import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
@@ -87,11 +84,14 @@ public class Scene {
         int secondPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
         buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth);
 
-        addFloatingEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
-        addFloatingEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
+        addNormalEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
+        addNormalEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
 
-        addGroundedEnemy((int) (random() * leftPlatformWidth), y - 1);
-        addGroundedEnemy((int) (random() * rightPlatformWidth + rightPlatformX), y - 1);
+        addShellEnemy((int) (random() * leftPlatformWidth), y - 1);
+        addShellEnemy((int) (random() * rightPlatformWidth + rightPlatformX), y - 1);
+
+        addSpikeEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
+        addSpikeEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
     }
 
     public void updateCameraOffset() {
@@ -176,12 +176,15 @@ public class Scene {
         }
     }
 
-    public void addFloatingEnemy(int x, int y) {
+    public void addNormalEnemy(int x, int y) {
         enemies.add(new NormalEnemy(new Vector(x, y), this));
     }
 
-    public void addGroundedEnemy(int x, int y) {
+    public void addShellEnemy(int x, int y) {
         enemies.add(new ShellEnemy(new Vector(x, y), this));
+    }
+
+    public void addSpikeEnemy(int x, int y){enemies.add(new SpikeEnemy(new Vector(x, y), this));
     }
 
     public String timeToString(long time) {
