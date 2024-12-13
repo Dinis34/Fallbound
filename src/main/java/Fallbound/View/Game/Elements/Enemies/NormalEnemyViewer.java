@@ -4,7 +4,7 @@ import Fallbound.GUI.GUI;
 import Fallbound.Model.Game.Elements.Enemies.Enemy;
 import Fallbound.View.Theme;
 
-public class FloatingEnemyViewer extends EnemyViewer {
+    public class NormalEnemyViewer extends EnemyViewer {
 
     @Override
     public void draw(GUI gui, Enemy enemy, int offset) {

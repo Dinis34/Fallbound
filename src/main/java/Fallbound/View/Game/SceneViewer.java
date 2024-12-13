@@ -6,12 +6,14 @@ import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Element;
 import Fallbound.Model.Game.Elements.Enemies.ShellEnemy;
 import Fallbound.Model.Game.Elements.Enemies.NormalEnemy;
+import Fallbound.Model.Game.Elements.Enemies.SpikeEnemy;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Position;
 import Fallbound.View.Game.Elements.*;
-import Fallbound.View.Game.Elements.Enemies.FloatingEnemyViewer;
-import Fallbound.View.Game.Elements.Enemies.GroundedEnemyViewer;
+import Fallbound.View.Game.Elements.Enemies.NormalEnemyViewer;
+import Fallbound.View.Game.Elements.Enemies.ShellEnemyViewer;
+import Fallbound.View.Game.Elements.Enemies.SpikeEnemyViewer;
 import Fallbound.View.Viewer;
 
 import static Fallbound.View.Theme.*;
@@ -22,9 +24,10 @@ public class SceneViewer extends Viewer<Scene> {
     private final BreakableWallViewer breakableWallViewer = new BreakableWallViewer();
     private final PlayerViewer playerViewer = new PlayerViewer();
     private final CoinViewer coinViewer = new CoinViewer();
-    private final FloatingEnemyViewer floatingEnemyViewer = new FloatingEnemyViewer();
+    private final NormalEnemyViewer normalEnemyViewer = new NormalEnemyViewer();
     private final BulletViewer bulletViewer = new BulletViewer();
-    private final GroundedEnemyViewer groundedEnemyViewer = new GroundedEnemyViewer();
+    private final ShellEnemyViewer shellEnemyViewer = new ShellEnemyViewer();
+    private final SpikeEnemyViewer spikeEnemyViewer = new SpikeEnemyViewer();
 
     public SceneViewer(Scene model) {
         super(model);
@@ -64,9 +67,12 @@ public class SceneViewer extends Viewer<Scene> {
         }
         getModel().getEnemies().forEach(enemy -> {
             if (enemy instanceof NormalEnemy) {
-                floatingEnemyViewer.draw(gui, (NormalEnemy) enemy, getModel().getCameraOffset());
+                normalEnemyViewer.draw(gui, (NormalEnemy) enemy, getModel().getCameraOffset());
             } else if (enemy instanceof ShellEnemy) {
-                groundedEnemyViewer.draw(gui, (ShellEnemy) enemy, getModel().getCameraOffset());
+                shellEnemyViewer.draw(gui, (ShellEnemy) enemy, getModel().getCameraOffset());
+            }
+            else if(enemy instanceof SpikeEnemy){
+                spikeEnemyViewer.draw(gui, (SpikeEnemy) enemy, getModel().getCameraOffset());
             }
         });
         playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
