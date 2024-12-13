@@ -5,31 +5,33 @@ import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
 
-public class SpikeEnemy extends Enemy implements Floating, Shootable{
+public class SpikeEnemy extends Enemy implements Floating, Shootable {
     private final Scene scene;
-    private long lastMovetime = 0;
+    private long lastMoveTime = 0;
 
-    public SpikeEnemy(Vector pos, Scene scene){
+    public SpikeEnemy(Vector pos, Scene scene) {
         super(pos);
-        if(scene == null){
+        if (scene == null) {
             throw new IllegalArgumentException("Scene can't be null");
         }
         this.scene = scene;
 
     }
-    @Override 
-    public void move(){
+
+    @Override
+    public void move() {
         followPlayer();
     }
+
     @Override
-    public void followPlayer(){
+    public void followPlayer() {
         long currentTime = System.currentTimeMillis();
         long moveCooldown = 500;
-        if(currentTime - lastMovetime < moveCooldown){
+        if (currentTime - lastMoveTime < moveCooldown) {
             return;
         }
-        lastMovetime = currentTime;
-        
+        lastMoveTime = currentTime;
+
         Vector playerPos = scene.getPlayer().getPosition();
         Vector currentPos = this.getPosition();
 
@@ -41,7 +43,7 @@ public class SpikeEnemy extends Enemy implements Floating, Shootable{
         }
     }
 
-    private Vector calculateDirection(Vector playerPos, Vector currentPos){
+    private Vector calculateDirection(Vector playerPos, Vector currentPos) {
         double xDistance = playerPos.getX() - currentPos.getX();
         double yDistance = playerPos.getY() - currentPos.getY();
 
@@ -50,11 +52,11 @@ public class SpikeEnemy extends Enemy implements Floating, Shootable{
 
         if (Math.abs(xDistance) >= Math.abs(yDistance)) {
             return new Vector(xUnity, 0);
-        }
-        else {
+        } else {
             return new Vector(0, yUnity);
         }
     }
+
     private Vector determineNextPosition(Vector currentPos, Vector direction) {
         if (direction == null) {
             return null;
@@ -69,8 +71,12 @@ public class SpikeEnemy extends Enemy implements Floating, Shootable{
             }
         }
 
-        // TODO damage player
-        return !scene.isColliding(nextPosition, scene.getPlayer().getPosition());
+        if (scene.isColliding(nextPosition, scene.getPlayer().getPosition())) {
+            // TODO damage player
+            System.out.println("spike: auch!");
+            return false;
+        }
+        return true;
     }
 
 

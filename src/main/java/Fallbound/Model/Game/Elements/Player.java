@@ -131,8 +131,14 @@ public class Player extends Element {
                         velocity.setY(JUMP_FORCE / 1.5);
                     } else {
                         // TODO damage player
+                        System.out.println("player: auch!");
                         velocity.setY(JUMP_FORCE / 1.5);
                     }
+                } else {
+                    // TODO damage player
+                    System.out.println("player: auch!");
+                    velocity.setY(JUMP_FORCE / 1.5);
+                    velocity.setX(0);
                 }
                 break;
             }

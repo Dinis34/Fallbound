@@ -4,8 +4,8 @@ import Fallbound.GUI.GUI;
 import Fallbound.Model.Game.Elements.BreakableWall;
 import Fallbound.Model.Game.Elements.Coin;
 import Fallbound.Model.Game.Elements.Element;
-import Fallbound.Model.Game.Elements.Enemies.ShellEnemy;
 import Fallbound.Model.Game.Elements.Enemies.NormalEnemy;
+import Fallbound.Model.Game.Elements.Enemies.ShellEnemy;
 import Fallbound.Model.Game.Elements.Enemies.SpikeEnemy;
 import Fallbound.Model.Game.Elements.Wall;
 import Fallbound.Model.Game.Scene;
@@ -70,8 +70,7 @@ public class SceneViewer extends Viewer<Scene> {
                 normalEnemyViewer.draw(gui, (NormalEnemy) enemy, getModel().getCameraOffset());
             } else if (enemy instanceof ShellEnemy) {
                 shellEnemyViewer.draw(gui, (ShellEnemy) enemy, getModel().getCameraOffset());
-            }
-            else if(enemy instanceof SpikeEnemy){
+            } else if (enemy instanceof SpikeEnemy) {
                 spikeEnemyViewer.draw(gui, (SpikeEnemy) enemy, getModel().getCameraOffset());
             }
         });

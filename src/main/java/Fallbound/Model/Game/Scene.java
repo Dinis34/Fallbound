@@ -184,7 +184,8 @@ public class Scene {
         enemies.add(new ShellEnemy(new Vector(x, y), this));
     }
 
-    public void addSpikeEnemy(int x, int y){enemies.add(new SpikeEnemy(new Vector(x, y), this));
+    public void addSpikeEnemy(int x, int y) {
+        enemies.add(new SpikeEnemy(new Vector(x, y), this));
     }
 
     public String timeToString(long time) {
