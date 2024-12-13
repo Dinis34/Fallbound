@@ -123,15 +123,16 @@ public class Player extends Element {
     public void checkEnemyCollision() {
         for (Element enemy : scene.getEnemies()) {
             if (scene.isColliding(getPosition(), enemy.getPosition())) {
-                if (enemy instanceof Stompable &&
-                        (scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(0, 1)))) ||
+                if (scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(0, 1))) ||
                         scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(1, 1))) ||
                         scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(-1, 1)))) {
-                    scene.removeEnemy((Enemy) enemy);
-                    velocity.setY(JUMP_FORCE / 1.5);
-                } else {
-                    // TODO damage player
-                    velocity.setY(JUMP_FORCE / 1.5);
+                    if (enemy instanceof Stompable) {
+                        scene.removeEnemy((Enemy) enemy);
+                        velocity.setY(JUMP_FORCE / 1.5);
+                    } else {
+                        // TODO damage player
+                        velocity.setY(JUMP_FORCE / 1.5);
+                    }
                 }
                 break;
             }
