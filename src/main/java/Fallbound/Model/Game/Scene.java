@@ -231,7 +231,7 @@ public class Scene {
 
     public void updateEnemies() {
         for (Element enemy : enemies) {
-            ((Enemy) enemy).followPlayer();
+            ((Enemy) enemy).move();
         }
     }
 

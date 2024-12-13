@@ -8,5 +8,5 @@ public abstract class Enemy extends Element {
         super(position);
     }
 
-    public abstract void followPlayer();
+    public abstract void move();
 }

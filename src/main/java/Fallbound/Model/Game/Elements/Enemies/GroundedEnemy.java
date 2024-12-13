@@ -16,7 +16,7 @@ public class GroundedEnemy extends Enemy implements Stompable {
     }
 
     @Override
-    public void followPlayer() {
+    public void move() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastMoveTime < moveCooldown) return;
         lastMoveTime = currentTime;

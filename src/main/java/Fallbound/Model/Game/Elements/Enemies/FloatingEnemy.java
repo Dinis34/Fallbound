@@ -1,12 +1,12 @@
+// FloatingEnemy.java
 package Fallbound.Model.Game.Elements.Enemies;
 
 import Fallbound.Model.Game.Elements.Element;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
-public class FloatingEnemy extends Enemy implements Shootable, Stompable {
+public class FloatingEnemy extends Enemy implements Shootable, Stompable, Floating {
     private final Scene scene;
-    private final long moveCooldown = 200;
     private long lastMoveTime = 0;
 
     public FloatingEnemy(Vector position, Scene scene) {
@@ -18,8 +18,14 @@ public class FloatingEnemy extends Enemy implements Shootable, Stompable {
     }
 
     @Override
+    public void move() {
+        followPlayer();
+    }
+
+    @Override
     public void followPlayer() {
         long currentTime = System.currentTimeMillis();
+        long moveCooldown = 200;
         if (currentTime - lastMoveTime < moveCooldown) {
             return;
         }
@@ -31,7 +37,7 @@ public class FloatingEnemy extends Enemy implements Shootable, Stompable {
         Vector direction = calculateDirection(playerPos, currentPos);
         Vector nextPosition = determineNextPosition(currentPos, direction);
 
-        if (nextPosition != null && canMoveTo(nextPosition)) {
+        if (canMoveTo(nextPosition)) {
             this.setPosition(nextPosition);
         }
     }
