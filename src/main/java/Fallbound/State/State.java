@@ -106,6 +106,18 @@ public class State {
         }
     }
 
+    public Scene getScene(){
+        return scene;
+    }
+
+    public Controller<?> getController(){
+        return controller;
+    }
+
+    public Viewer<?> getViewer(){
+        return viewer;
+    }
+
     public GameState getCurrentState() {
         return currentState;
     }
