@@ -10,8 +10,9 @@ public class Player extends Element {
     private final double JUMP_FORCE = -0.4;
     private final double MAX_FALL_SPEED;
     private final double MOVE_SPEED = 0.5;
-
     private final long SHOOT_COOLDOWN;
+
+    private Integer health;
     private final Vector velocity;
     private final Scene scene;
     private long lastShotTime = 0;
@@ -23,6 +24,7 @@ public class Player extends Element {
         super(position);
         this.scene = scene;
         this.velocity = new Vector(0, 0);
+        this.health = 5;
         GRAVITY = 0.02;
         MAX_FALL_SPEED = 0.4;
         SHOOT_COOLDOWN = 350;
@@ -131,12 +133,12 @@ public class Player extends Element {
                         velocity.setY(JUMP_FORCE / 1.5);
                     } else {
                         // TODO damage player
-                        System.out.println("player: auch!");
+                        takeDamage();
                         velocity.setY(JUMP_FORCE / 1.5);
                     }
                 } else {
                     // TODO damage player
-                    System.out.println("player: auch!");
+                    takeDamage();
                     velocity.setY(JUMP_FORCE / 1.5);
                     velocity.setX(0);
                 }
@@ -168,5 +170,14 @@ public class Player extends Element {
             lastShotTime = currentTime;
             velocity.setY(-0.175); // recoil
         }
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void takeDamage() {
+        health--;
+        System.out.println("auch! health: " + health);
     }
 }

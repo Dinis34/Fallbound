@@ -13,7 +13,7 @@ public class ShellEnemy extends Enemy implements Stompable {
     public ShellEnemy(Vector position, Scene scene) {
         super(position);
         this.scene = scene;
-        moveCooldown = 300;
+        moveCooldown = 500;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ShellEnemy extends Enemy implements Stompable {
 
         if (scene.isColliding(nextPosition, scene.getPlayer().getPosition())) {
             // TODO damage player
-            System.out.println("shell: auch!");
+            scene.getPlayer().takeDamage();
             canMove = false;
         }
 

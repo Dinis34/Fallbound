@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Set;
 
+import Fallbound.State.GameState;
+
 public class PlayerController extends Controller<Player> {
     public PlayerController(Player player) {
         super(player);
@@ -33,5 +35,8 @@ public class PlayerController extends Controller<Player> {
         }
         getModel().update();
         getModel().getScene().updateEnemies();
+        if (getModel().getHealth() <= 0) {
+            game.setState(GameState.GAME_OVER);
+        }
     }
 }

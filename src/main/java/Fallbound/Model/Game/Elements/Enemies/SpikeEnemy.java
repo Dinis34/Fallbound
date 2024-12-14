@@ -73,7 +73,7 @@ public class SpikeEnemy extends Enemy implements Floating, Shootable {
 
         if (scene.isColliding(nextPosition, scene.getPlayer().getPosition())) {
             // TODO damage player
-            System.out.println("spike: auch!");
+            scene.getPlayer().takeDamage();
             return false;
         }
         return true;
