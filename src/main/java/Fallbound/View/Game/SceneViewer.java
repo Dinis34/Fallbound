@@ -53,11 +53,11 @@ public class SceneViewer extends Viewer<Scene> {
         }
 
         StringBuilder bullets = new StringBuilder();
-        for (int i = 0; i < getModel().getPlayer().getMaxNumBullets(); i++) {
+        for (int i = getModel().getPlayer().getMaxNumBullets() - 1; i >= 0; i--) {
             if (i >= getModel().getPlayer().getNumBullets()) {
-                bullets.append("░ ");
+                bullets.append("░");
             } else {
-                bullets.append("█ ");
+                bullets.append("█");
             }
         }
 
@@ -67,7 +67,7 @@ public class SceneViewer extends Viewer<Scene> {
         gui.drawText(new Position(12, 2), "17:21:11", FALLBOUND_LIGHT_GRAY); // placeholder
         gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);
         gui.drawText(new Position(82 - coinCount.length(), 1), coinCount, FALLBOUND_GOLD);
-        gui.drawText(new Position(89 - bullets.length(), 2), bullets.toString(), FALLBOUND_GOLD);
+        gui.drawText(new Position(88 - bullets.length(), 2), bullets.toString(), FALLBOUND_GOLD);
         gui.drawText(new Position(2, 3), playerHealth.toString(), FALLBOUND_RED);
     }
 
