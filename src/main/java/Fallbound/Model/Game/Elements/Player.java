@@ -14,8 +14,10 @@ public class Player extends Element {
     private final long DAMAGE_COOLDOWN; // 1 second cooldown
     private final Vector velocity;
     private final Scene scene;
-    private Integer health;
-    private Integer maxHealth;
+    private int health;
+    private int maxHealth;
+    private int maxNumBullets;
+    private int numBullets;
     private long lastShotTime = 0;
     private long lastDamageTime = 0;
     private boolean onGround = false;
@@ -28,10 +30,28 @@ public class Player extends Element {
         this.velocity = new Vector(0, 0);
         this.maxHealth = 5;
         this.health = maxHealth;
+        this.maxNumBullets = 5;
+        this.numBullets = maxNumBullets;
         GRAVITY = 0.02;
         MAX_FALL_SPEED = 0.4;
         SHOOT_COOLDOWN = 350;
         DAMAGE_COOLDOWN = 3000;
+    }
+
+    public int getMaxNumBullets() {
+        return maxNumBullets;
+    }
+
+    public void setMaxNumBullets(int maxNumBullets) {
+        this.maxNumBullets = maxNumBullets;
+    }
+
+    public int getNumBullets() {
+        return numBullets;
+    }
+
+    public void setNumBullets(int numBullets) {
+        this.numBullets = numBullets;
     }
 
     public long getLastDamageTime() {
@@ -118,6 +138,8 @@ public class Player extends Element {
         for (Element element : scene.getWalls()) {
             if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, -1)))) {
                 velocity.setY(0);
+                // TODO play recharge sound effect
+                this.numBullets = maxNumBullets;
                 return true;
             }
         }
@@ -175,9 +197,13 @@ public class Player extends Element {
 
     public void shoot() {
         long currentTime = System.currentTimeMillis();
+        if (numBullets <= 0) {
+            return;
+        }
         if (currentTime - lastShotTime >= SHOOT_COOLDOWN) {
             scene.addBullet(new Bullet(getPosition().add(new Vector(0, -1 - scene.getCameraOffset()))));
             lastShotTime = currentTime;
+            numBullets--;
             velocity.setY(-0.175); // recoil
         }
     }

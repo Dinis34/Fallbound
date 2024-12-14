@@ -52,13 +52,23 @@ public class SceneViewer extends Viewer<Scene> {
             }
         }
 
+        StringBuilder bullets = new StringBuilder();
+        for (int i = 0; i < getModel().getPlayer().getMaxNumBullets(); i++) {
+            if (i >= getModel().getPlayer().getNumBullets()) {
+                bullets.append("░ ");
+            } else {
+                bullets.append("█ ");
+            }
+        }
+
         gui.drawText(new Position(2, 1), "TIME", FALLBOUND_WHITE);
         gui.drawText(new Position(7, 1), getModel().timeToString(getModel().getCurrentTime()), FALLBOUND_WHITE);
         gui.drawText(new Position(2, 2), "HIGHSCORE", FALLBOUND_LIGHT_GRAY);
         gui.drawText(new Position(12, 2), "17:21:11", FALLBOUND_LIGHT_GRAY); // placeholder
         gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);
         gui.drawText(new Position(82 - coinCount.length(), 1), coinCount, FALLBOUND_GOLD);
-        gui.drawText(new Position(2, 3), playerHealth.toString(), FALLBOUND_RED); // placeholder
+        gui.drawText(new Position(89 - bullets.length(), 2), bullets.toString(), FALLBOUND_GOLD);
+        gui.drawText(new Position(2, 3), playerHealth.toString(), FALLBOUND_RED);
     }
 
     @Override
