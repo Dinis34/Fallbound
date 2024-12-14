@@ -32,17 +32,16 @@
 - **Menus** - the game has a main menu and a pause menu. There is also a game over menu that currently is only accessible by pressing the "q" key.
 - **Continue Option** - allow player to unpause game.
 - **Procedural World Generation** - the game has a procedural platform generation system that allows the player to play infinitely.
-
+- **Player Health** - the player has a life count system, when the player runs out of lives the game ends.
+- **Different Enemies** - the player will have to defeat several types of enemies, each with their own unique ways to be defeated.
+- **Bullets** - the player will have bullets that can be used to shoot monsters and other elements.
 
 todo:
-- **Different Enemies** - the player will have to defeat several types of enemies, each with their own unique ways to be defeated.
 - **Power-ups** - the player will be able to purchase power-ups that will give him special abilities.
 - **Difficulty progression** - the game will get harder as time passes. Enemies will be faster and stronger.
 - **Sound** - the game will have sound effects and background music.
 - **Highscore Functionality** - the game will keep track of a player's score during the playthrough and will display the top scoring players.
 - **Item Shop** - the game has a built-in shop with items the player can buy using the coins they collect during the gameplay, these items will consist of power-ups that give an advantage to the player.
-- **Player Health** - the player has a life count system, when the player runs out of lives the game ends.
-- **Bullets** - the player will have bullets that can be used to shoot monsters and other elements.
 
 optional :
 - **Boss Battles** - during the playthrough an event is triggered that activates the spawn of a stronger monster.
