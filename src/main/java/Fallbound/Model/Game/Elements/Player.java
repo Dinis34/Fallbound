@@ -15,6 +15,7 @@ public class Player extends Element {
     private final Vector velocity;
     private final Scene scene;
     private Integer health;
+    private Integer maxHealth;
     private long lastShotTime = 0;
     private long lastDamageTime = 0;
     private boolean onGround = false;
@@ -25,7 +26,8 @@ public class Player extends Element {
         super(position);
         this.scene = scene;
         this.velocity = new Vector(0, 0);
-        this.health = 5;
+        this.maxHealth = 5;
+        this.health = maxHealth;
         GRAVITY = 0.02;
         MAX_FALL_SPEED = 0.4;
         SHOOT_COOLDOWN = 350;
@@ -180,8 +182,20 @@ public class Player extends Element {
         }
     }
 
-    public int getHealth() {
+    public Integer getHealth() {
         return health;
+    }
+
+    public void setHealth(Integer health) {
+        this.health = health;
+    }
+
+    public Integer getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(Integer maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public void takeDamage() {

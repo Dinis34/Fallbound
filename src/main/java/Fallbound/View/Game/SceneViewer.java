@@ -43,13 +43,22 @@ public class SceneViewer extends Viewer<Scene> {
 
         String coinCount = String.valueOf(getModel().getPlayer().getCollectedCoins());
 
+        StringBuilder playerHealth = new StringBuilder();
+        for (int i = 0; i < getModel().getPlayer().getMaxHealth(); i++) {
+            if (i >= getModel().getPlayer().getHealth()) {
+                playerHealth.append("♡ ");
+            } else {
+                playerHealth.append("♥ ");
+            }
+        }
+
         gui.drawText(new Position(2, 1), "TIME", FALLBOUND_WHITE);
         gui.drawText(new Position(7, 1), getModel().timeToString(getModel().getCurrentTime()), FALLBOUND_WHITE);
         gui.drawText(new Position(2, 2), "HIGHSCORE", FALLBOUND_LIGHT_GRAY);
         gui.drawText(new Position(12, 2), "17:21:11", FALLBOUND_LIGHT_GRAY); // placeholder
         gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);
         gui.drawText(new Position(82 - coinCount.length(), 1), coinCount, FALLBOUND_GOLD);
-        gui.drawText(new Position(2, 3), "\u2665 \u2665 \u2661", FALLBOUND_RED); // placeholder
+        gui.drawText(new Position(2, 3), playerHealth.toString(), FALLBOUND_RED); // placeholder
     }
 
     @Override
