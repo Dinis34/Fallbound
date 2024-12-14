@@ -11,11 +11,12 @@ public class Player extends Element {
     private final double MAX_FALL_SPEED;
     private final double MOVE_SPEED = 0.5;
     private final long SHOOT_COOLDOWN;
-
-    private Integer health;
+    private final long DAMAGE_COOLDOWN; // 1 second cooldown
     private final Vector velocity;
     private final Scene scene;
+    private Integer health;
     private long lastShotTime = 0;
+    private long lastDamageTime = 0;
     private boolean onGround = false;
     private int collectedCoins = 0;
     private Vector lastPosition;
@@ -28,6 +29,15 @@ public class Player extends Element {
         GRAVITY = 0.02;
         MAX_FALL_SPEED = 0.4;
         SHOOT_COOLDOWN = 350;
+        DAMAGE_COOLDOWN = 3000;
+    }
+
+    public long getLastDamageTime() {
+        return lastDamageTime;
+    }
+
+    public long getDamageCooldown() {
+        return DAMAGE_COOLDOWN;
     }
 
     public Boolean getOnGround() {
@@ -132,12 +142,10 @@ public class Player extends Element {
                         scene.removeEnemy((Enemy) enemy);
                         velocity.setY(JUMP_FORCE / 1.5);
                     } else {
-                        // TODO damage player
                         takeDamage();
                         velocity.setY(JUMP_FORCE / 1.5);
                     }
                 } else {
-                    // TODO damage player
                     takeDamage();
                     velocity.setY(JUMP_FORCE / 1.5);
                     velocity.setX(0);
@@ -177,7 +185,13 @@ public class Player extends Element {
     }
 
     public void takeDamage() {
-        health--;
-        System.out.println("auch! health: " + health);
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastDamageTime >= DAMAGE_COOLDOWN) {
+            if (health > 0) {
+                health--;
+                lastDamageTime = currentTime;
+                System.out.println("auch! health: " + health);
+            }
+        }
     }
 }

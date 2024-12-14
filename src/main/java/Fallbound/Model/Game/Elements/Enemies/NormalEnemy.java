@@ -1,4 +1,3 @@
-// NormalEnemy.java
 package Fallbound.Model.Game.Elements.Enemies;
 
 import Fallbound.Model.Game.Elements.Element;

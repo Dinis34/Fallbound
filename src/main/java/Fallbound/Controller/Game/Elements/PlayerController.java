@@ -3,12 +3,11 @@ package Fallbound.Controller.Game.Elements;
 import Fallbound.Controller.Controller;
 import Fallbound.Game;
 import Fallbound.Model.Game.Elements.Player;
+import Fallbound.State.GameState;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Set;
-
-import Fallbound.State.GameState;
 
 public class PlayerController extends Controller<Player> {
     public PlayerController(Player player) {
