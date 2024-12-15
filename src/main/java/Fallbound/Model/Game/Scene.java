@@ -1,11 +1,7 @@
-// src/main/java/Fallbound/Model/Game/Scene.java
 package Fallbound.Model.Game;
 
 import Fallbound.Model.Game.Elements.*;
-import Fallbound.Model.Game.Elements.Collectibles.Collectible;
-import Fallbound.Model.Game.Elements.Collectibles.HealthCollectible;
-import Fallbound.Model.Game.Elements.Collectibles.MaxHealthCollectible;
-import Fallbound.Model.Game.Elements.Collectibles.SpeedCollectible;
+import Fallbound.Model.Game.Elements.Collectibles.*;
 import Fallbound.Model.Game.Elements.Enemies.*;
 import Fallbound.Model.Vector;
 
@@ -298,9 +294,15 @@ public class Scene {
         int rightPlatformX = PLATFORM_GAP + PLATFORM_WIDTH;
         buildWallBlock(rightPlatformX, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
 
-        addCollectible(new HealthCollectible(new Vector(rightPlatformX + 5, y - 1), this));
-        addCollectible(new MaxHealthCollectible(new Vector(rightPlatformX + 10, y - 1), this));
-        addCollectible(new SpeedCollectible(new Vector(rightPlatformX + 15, y - 1), this));
+        Vector basePosition = new Vector(rightPlatformX + 5, y - 1);
+
+        List<Collectible> shopCollectibles = CollectibleFactory.getRandomCollectibles(basePosition, this);
+
+        for (int i = 0; i < shopCollectibles.size(); i++) {
+            Collectible collectible = shopCollectibles.get(i);
+            collectible.setPosition(basePosition.add(new Vector(i * 5, 0)));
+            addCollectible(collectible);
+        }
     }
 
     public void addCollectible(Collectible collectible) {
