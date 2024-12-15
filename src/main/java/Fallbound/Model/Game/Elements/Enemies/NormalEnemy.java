@@ -24,7 +24,7 @@ public class NormalEnemy extends Enemy implements Shootable, Stompable, Floating
     @Override
     public void followPlayer() {
         long currentTime = System.currentTimeMillis();
-        long moveCooldown = 200;
+        long moveCooldown = 300;
         if (currentTime - lastMoveTime < moveCooldown) {
             return;
         }
@@ -70,7 +70,6 @@ public class NormalEnemy extends Enemy implements Shootable, Stompable, Floating
         }
 
         if (scene.isColliding(nextPosition, scene.getPlayer().getPosition())) {
-            // TODO damage player
             scene.getPlayer().takeDamage();
             return false;
         }

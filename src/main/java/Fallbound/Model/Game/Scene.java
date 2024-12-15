@@ -1,6 +1,8 @@
 package Fallbound.Model.Game;
 
 import Fallbound.Model.Game.Elements.*;
+import Fallbound.Model.Game.Elements.Collectibles.Collectible;
+import Fallbound.Model.Game.Elements.Collectibles.CollectibleFactory;
 import Fallbound.Model.Game.Elements.Enemies.*;
 import Fallbound.Model.Vector;
 
@@ -21,6 +23,7 @@ public class Scene {
     private final Player player = new Player(new Vector(19, 19), this);
     private final List<Element> walls = new ArrayList<>();
     private final List<Bullet> bullets = new ArrayList<>();
+    private final List<Collectible> collectibles = new ArrayList<>();
     private int cameraOffset = 0;
     private long totalPausedTime = 0;
     private long pauseStartTime = 0;
@@ -36,6 +39,10 @@ public class Scene {
         buildWallBlock(51, 20, 38, 2);
         buildWallBlock(36, 19, 2, 1);
         buildWallBlock(51, 19, 2, 1);
+    }
+
+    public List<Collectible> getCollectibles() {
+        return collectibles;
     }
 
     public List<Bullet> getBullets() {
@@ -126,7 +133,11 @@ public class Scene {
         int platformOffset = 40;
 
         if (cameraOffset % platformSpacing == 0) {
-            buildRandomPlatform(cameraOffset + platformOffset);
+            if (cameraOffset / platformSpacing % 15 == 0) {
+                buildShopPlatform(cameraOffset + platformOffset);
+            } else {
+                buildRandomPlatform(cameraOffset + platformOffset);
+            }
         }
     }
 
@@ -245,6 +256,15 @@ public class Scene {
                     }
                 }
             }
+            for (Collectible collectible : collectibles) {
+                if (isColliding(bullet.getPosition(), collectible.getPosition().subtract(new Vector(0, getCameraOffset()))) && collectible.getCost() <= player.getCollectedCoins()) {
+                    collectible.onCollect(player);
+                    player.setCollectedCoins(player.getCollectedCoins() - collectible.getCost());
+                    collectibles.remove(collectible);
+                    iterator.remove();
+                    break;
+                }
+            }
         }
     }
 
@@ -264,5 +284,30 @@ public class Scene {
 
     public int getHeight() {
         return height;
+    }
+
+    public void buildShopPlatform(int y) {
+        final int PLATFORM_WIDTH = 30;
+        final int PLATFORM_HEIGHT = 4;
+        final int PLATFORM_GAP = 29;
+
+        buildWallBlock(0, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+
+        int rightPlatformX = PLATFORM_GAP + PLATFORM_WIDTH;
+        buildWallBlock(rightPlatformX, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+
+        Vector basePosition = new Vector(rightPlatformX + 5, y - 1);
+
+        List<Collectible> shopCollectibles = CollectibleFactory.getRandomCollectibles(basePosition, this);
+
+        for (int i = 0; i < shopCollectibles.size(); i++) {
+            Collectible collectible = shopCollectibles.get(i);
+            collectible.setPosition(basePosition.add(new Vector(i * 5, 0)));
+            addCollectible(collectible);
+        }
+    }
+
+    public void addCollectible(Collectible collectible) {
+        this.collectibles.add(collectible);
     }
 }

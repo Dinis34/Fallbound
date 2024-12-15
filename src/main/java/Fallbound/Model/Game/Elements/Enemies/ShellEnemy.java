@@ -35,7 +35,6 @@ public class ShellEnemy extends Enemy implements Stompable {
         }
 
         if (scene.isColliding(nextPosition, scene.getPlayer().getPosition())) {
-            // TODO damage player
             scene.getPlayer().takeDamage();
             canMove = false;
         }
