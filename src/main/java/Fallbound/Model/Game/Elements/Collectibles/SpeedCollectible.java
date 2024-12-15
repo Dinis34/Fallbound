@@ -26,6 +26,6 @@ public class SpeedCollectible extends Collectible {
 
     @Override
     public void onCollect(Player player) {
-        player.setMoveSpeed(player.getMoveSpeed() + 0.3);
+        player.setMoveSpeed(player.getMoveSpeed() + 0.05);
     }
 }

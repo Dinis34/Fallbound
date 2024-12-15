@@ -22,7 +22,7 @@ public class Player extends Element {
     private long lastShotTime = 0;
     private long lastDamageTime = 0;
     private boolean onGround = false;
-    private int collectedCoins = 0;
+    private int collectedCoins = 100;
     private Vector lastPosition;
 
     public Player(Vector position, Scene scene) {
@@ -242,5 +242,9 @@ public class Player extends Element {
                 System.out.println("auch! health: " + health);
             }
         }
+    }
+
+    public void setCollectedCoins(int i) {
+        this.collectedCoins = i;
     }
 }

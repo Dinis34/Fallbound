@@ -23,5 +23,5 @@ public abstract class Collectible extends Element {
         return scene.isColliding(scene.getPlayer().getPosition(), this.getPosition());
     }
 
-    abstract void onCollect(Player player);
+    public abstract void onCollect(Player player);
 }

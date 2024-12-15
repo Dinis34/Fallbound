@@ -258,6 +258,15 @@ public class Scene {
                     }
                 }
             }
+            for (Collectible collectible : collectibles) {
+                if (isColliding(bullet.getPosition(), collectible.getPosition().subtract(new Vector(0, getCameraOffset()))) && collectible.getCost() <= player.getCollectedCoins()) {
+                    collectible.onCollect(player);
+                    player.setCollectedCoins(player.getCollectedCoins() - collectible.getCost());
+                    collectibles.remove(collectible);
+                    iterator.remove();
+                    break;
+                }
+            }
         }
     }
 
