@@ -1,6 +1,11 @@
+// src/main/java/Fallbound/Model/Game/Scene.java
 package Fallbound.Model.Game;
 
 import Fallbound.Model.Game.Elements.*;
+import Fallbound.Model.Game.Elements.Collectibles.Collectible;
+import Fallbound.Model.Game.Elements.Collectibles.HealthCollectible;
+import Fallbound.Model.Game.Elements.Collectibles.MaxHealthCollectible;
+import Fallbound.Model.Game.Elements.Collectibles.SpeedCollectible;
 import Fallbound.Model.Game.Elements.Enemies.*;
 import Fallbound.Model.Vector;
 
@@ -21,6 +26,7 @@ public class Scene {
     private final Player player = new Player(new Vector(19, 19), this);
     private final List<Element> walls = new ArrayList<>();
     private final List<Bullet> bullets = new ArrayList<>();
+    private final List<Collectible> collectibles = new ArrayList<>();
     private int cameraOffset = 0;
     private long totalPausedTime = 0;
     private long pauseStartTime = 0;
@@ -126,7 +132,11 @@ public class Scene {
         int platformOffset = 40;
 
         if (cameraOffset % platformSpacing == 0) {
-            buildRandomPlatform(cameraOffset + platformOffset);
+            if (cameraOffset / platformSpacing % 50 == 0) {
+                buildShopPlatform(cameraOffset + platformOffset);
+            } else {
+                buildRandomPlatform(cameraOffset + platformOffset);
+            }
         }
     }
 
@@ -265,4 +275,39 @@ public class Scene {
     public int getHeight() {
         return height;
     }
+
+    public void buildShopPlatform(int y) {
+        final int PLATFORM_WIDTH = 30;
+        final int PLATFORM_HEIGHT = 4;
+        final int PLATFORM_GAP = 29;
+
+        buildWallBlock(0, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+
+        int rightPlatformX = PLATFORM_GAP + PLATFORM_WIDTH;
+        buildWallBlock(rightPlatformX, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+
+        addCollectible(new HealthCollectible(new Vector(rightPlatformX + 5, y - 1)));
+        addCollectible(new MaxHealthCollectible(new Vector(rightPlatformX + 10, y - 1)));
+        addCollectible(new SpeedCollectible(new Vector(rightPlatformX + 15, y - 1)));
+    }
+
+    public void addCollectible(Collectible collectible) {
+        this.collectibles.add(collectible);
+    }
+
+//    public void handleCollectibles() {
+//        Iterator<Collectible> iterator = collectibles.iterator();
+//        while (iterator.hasNext()) {
+//            Collectible collectible = iterator.next();
+//            if (isColliding(player.getPosition(), collectible.getPosition())) {
+//                displayDescription(collectible.getDescription());
+//                displayPurchaseInfo("Shoot to purchase");
+//                if (player.isShooting()) {
+//                    collectible.onCollect(player);
+//                    iterator.remove();
+//                }
+//            }
+//        }
+//    }
+
 }

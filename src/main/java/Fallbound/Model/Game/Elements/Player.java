@@ -9,13 +9,14 @@ public class Player extends Element {
     private final double GRAVITY;
     private final double JUMP_FORCE = -0.4;
     private final double MAX_FALL_SPEED;
-    private final double MOVE_SPEED = 0.5;
     private final long SHOOT_COOLDOWN;
-    private final long DAMAGE_COOLDOWN; // 1 second cooldown
+    private final long DAMAGE_COOLDOWN;
+
     private final Vector velocity;
     private final Scene scene;
     private int health;
     private int maxHealth;
+    private double moveSpeed = 0.5;
     private int maxNumBullets;
     private int numBullets;
     private long lastShotTime = 0;
@@ -23,7 +24,6 @@ public class Player extends Element {
     private boolean onGround = false;
     private int collectedCoins = 0;
     private Vector lastPosition;
-
     public Player(Vector position, Scene scene) {
         super(position);
         this.scene = scene;
@@ -36,6 +36,14 @@ public class Player extends Element {
         MAX_FALL_SPEED = 0.4;
         SHOOT_COOLDOWN = 350;
         DAMAGE_COOLDOWN = 3000;
+    }
+
+    public double getMoveSpeed() {
+        return moveSpeed;
+    }
+
+    public void setMoveSpeed(double moveSpeed) {
+        this.moveSpeed = moveSpeed;
     }
 
     public int getMaxNumBullets() {
@@ -85,11 +93,11 @@ public class Player extends Element {
     }
 
     public void moveLeft() {
-        velocity.setX(-MOVE_SPEED);
+        velocity.setX(-moveSpeed);
     }
 
     public void moveRight() {
-        velocity.setX(MOVE_SPEED);
+        velocity.setX(moveSpeed);
     }
 
     public void stop() {
