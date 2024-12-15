@@ -23,7 +23,7 @@ public class Player extends Element {
     private long lastShotTime = 0;
     private long lastDamageTime = 0;
     private boolean onGround = false;
-    private int collectedCoins = 100;
+    private int collectedCoins = 0;
     private Vector lastPosition;
 
     public Player(Vector position, Scene scene) {
