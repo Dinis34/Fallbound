@@ -24,6 +24,7 @@ public class Player extends Element {
     private boolean onGround = false;
     private int collectedCoins = 0;
     private Vector lastPosition;
+
     public Player(Vector position, Scene scene) {
         super(position);
         this.scene = scene;

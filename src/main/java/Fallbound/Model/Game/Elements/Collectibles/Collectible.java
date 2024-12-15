@@ -2,27 +2,25 @@ package Fallbound.Model.Game.Elements.Collectibles;
 
 import Fallbound.Model.Game.Elements.Element;
 import Fallbound.Model.Game.Elements.Player;
+import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
 public abstract class Collectible extends Element {
-    int cost;
-    private String icon;
-    private String description;
+    private final Scene scene;
 
-    public Collectible(Vector position) {
+    public Collectible(Vector position, Scene scene) {
         super(position);
+        this.scene = scene;
     }
 
-    int getCost() {
-        return this.cost;
-    }
+    public abstract int getCost();
 
-    String getIcon() {
-        return this.icon;
-    }
+    public abstract String getIcon();
 
-    String getDescription() {
-        return this.description;
+    public abstract String getDescription();
+
+    public boolean shouldShowDescription() {
+        return scene.isColliding(scene.getPlayer().getPosition(), this.getPosition());
     }
 
     abstract void onCollect(Player player);

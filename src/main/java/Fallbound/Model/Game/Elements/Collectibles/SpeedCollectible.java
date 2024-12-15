@@ -1,15 +1,27 @@
 package Fallbound.Model.Game.Elements.Collectibles;
 
 import Fallbound.Model.Game.Elements.Player;
+import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
 public class SpeedCollectible extends Collectible {
-    private final int cost = 20;
-    private final String icon = "⚡";
-    private final String description = "Increases move speed";
+    public SpeedCollectible(Vector position, Scene scene) {
+        super(position, scene);
+    }
 
-    public SpeedCollectible(Vector position) {
-        super(position);
+    @Override
+    public int getCost() {
+        return 20;
+    }
+
+    @Override
+    public String getIcon() {
+        return "⚡";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increases move speed";
     }
 
     @Override

@@ -1,15 +1,27 @@
 package Fallbound.Model.Game.Elements.Collectibles;
 
 import Fallbound.Model.Game.Elements.Player;
+import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
 public class HealthCollectible extends Collectible {
-    private final int cost = 10;
-    private final String icon = "♥";
-    private final String description = "Increases health";
+    public HealthCollectible(Vector position, Scene scene) {
+        super(position, scene);
+    }
 
-    public HealthCollectible(Vector position) {
-        super(position);
+    @Override
+    public int getCost() {
+        return 10;
+    }
+
+    @Override
+    public String getIcon() {
+        return "♥";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increases health";
     }
 
     @Override

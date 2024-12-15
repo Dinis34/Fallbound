@@ -31,7 +31,6 @@ public class Scene {
     private long totalPausedTime = 0;
     private long pauseStartTime = 0;
     private boolean isPaused = false;
-
     public Scene(int width, int height) {
         this.width = width;
         this.height = height;
@@ -42,6 +41,10 @@ public class Scene {
         buildWallBlock(51, 20, 38, 2);
         buildWallBlock(36, 19, 2, 1);
         buildWallBlock(51, 19, 2, 1);
+    }
+
+    public List<Collectible> getCollectibles() {
+        return collectibles;
     }
 
     public List<Bullet> getBullets() {
@@ -132,7 +135,7 @@ public class Scene {
         int platformOffset = 40;
 
         if (cameraOffset % platformSpacing == 0) {
-            if (cameraOffset / platformSpacing % 50 == 0) {
+            if (cameraOffset / platformSpacing % 5 == 0) {
                 buildShopPlatform(cameraOffset + platformOffset);
             } else {
                 buildRandomPlatform(cameraOffset + platformOffset);
@@ -286,28 +289,12 @@ public class Scene {
         int rightPlatformX = PLATFORM_GAP + PLATFORM_WIDTH;
         buildWallBlock(rightPlatformX, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
 
-        addCollectible(new HealthCollectible(new Vector(rightPlatformX + 5, y - 1)));
-        addCollectible(new MaxHealthCollectible(new Vector(rightPlatformX + 10, y - 1)));
-        addCollectible(new SpeedCollectible(new Vector(rightPlatformX + 15, y - 1)));
+        addCollectible(new HealthCollectible(new Vector(rightPlatformX + 5, y - 1), this));
+        addCollectible(new MaxHealthCollectible(new Vector(rightPlatformX + 10, y - 1), this));
+        addCollectible(new SpeedCollectible(new Vector(rightPlatformX + 15, y - 1), this));
     }
 
     public void addCollectible(Collectible collectible) {
         this.collectibles.add(collectible);
     }
-
-//    public void handleCollectibles() {
-//        Iterator<Collectible> iterator = collectibles.iterator();
-//        while (iterator.hasNext()) {
-//            Collectible collectible = iterator.next();
-//            if (isColliding(player.getPosition(), collectible.getPosition())) {
-//                displayDescription(collectible.getDescription());
-//                displayPurchaseInfo("Shoot to purchase");
-//                if (player.isShooting()) {
-//                    collectible.onCollect(player);
-//                    iterator.remove();
-//                }
-//            }
-//        }
-//    }
-
 }

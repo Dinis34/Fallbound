@@ -28,6 +28,7 @@ public class SceneViewer extends Viewer<Scene> {
     private final BulletViewer bulletViewer = new BulletViewer();
     private final ShellEnemyViewer shellEnemyViewer = new ShellEnemyViewer();
     private final SpikeEnemyViewer spikeEnemyViewer = new SpikeEnemyViewer();
+    private final CollectibleViewer collectibleViewer = new CollectibleViewer();
 
     public SceneViewer(Scene model) {
         super(model);
@@ -93,6 +94,7 @@ public class SceneViewer extends Viewer<Scene> {
                 spikeEnemyViewer.draw(gui, (SpikeEnemy) enemy, getModel().getCameraOffset());
             }
         });
+        getModel().getCollectibles().forEach((collectible -> collectibleViewer.draw(gui, collectible, getModel().getCameraOffset())));
         playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
         drawHud(gui);
     }
