@@ -15,7 +15,7 @@ public class Player extends Element {
     private final Scene scene;
     private int health;
     private int maxHealth;
-    private double moveSpeed = 0.5;
+    private double moveSpeed = 0.45;
     private long shootCooldown;
     private double jumpForce = -0.4;
     private int maxNumBullets;

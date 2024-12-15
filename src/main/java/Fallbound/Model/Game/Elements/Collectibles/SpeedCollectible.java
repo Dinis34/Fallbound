@@ -11,7 +11,7 @@ public class SpeedCollectible extends Collectible {
 
     @Override
     public int getCost() {
-        return 20;
+        return 12;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class SpeedCollectible extends Collectible {
 
     @Override
     public void onCollect(Player player) {
-        player.setMoveSpeed(player.getMoveSpeed() + 0.05);
+        player.setMoveSpeed(player.getMoveSpeed() + 0.04);
     }
 }

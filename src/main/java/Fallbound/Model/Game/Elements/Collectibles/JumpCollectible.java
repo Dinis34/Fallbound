@@ -11,7 +11,7 @@ public class JumpCollectible extends Collectible {
 
     @Override
     public int getCost() {
-        return 15;
+        return 10;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class JumpCollectible extends Collectible {
 
     @Override
     public void onCollect(Player player) {
-        player.setJumpForce(player.getJumpForce() - 0.1);
+        player.setJumpForce(player.getJumpForce() - 0.08);
     }
 }

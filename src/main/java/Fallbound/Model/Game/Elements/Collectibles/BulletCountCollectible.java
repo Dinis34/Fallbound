@@ -11,7 +11,7 @@ public class BulletCountCollectible extends Collectible {
 
     @Override
     public int getCost() {
-        return 5;
+        return 3;
     }
 
     @Override

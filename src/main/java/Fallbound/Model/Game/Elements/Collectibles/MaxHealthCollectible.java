@@ -11,7 +11,7 @@ public class MaxHealthCollectible extends Collectible {
 
     @Override
     public int getCost() {
-        return 15;
+        return 8;
     }
 
     @Override

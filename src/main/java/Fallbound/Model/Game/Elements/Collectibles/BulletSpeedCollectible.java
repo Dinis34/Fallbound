@@ -11,7 +11,7 @@ public class BulletSpeedCollectible extends Collectible {
 
     @Override
     public int getCost() {
-        return 10;
+        return 8;
     }
 
     @Override
@@ -26,6 +26,8 @@ public class BulletSpeedCollectible extends Collectible {
 
     @Override
     public void onCollect(Player player) {
-        player.setShootCooldown(player.getShootCooldown() + 1);
+        if (player.getShootCooldown() > 51) {
+            player.setShootCooldown(player.getShootCooldown() - 50);
+        }
     }
 }
