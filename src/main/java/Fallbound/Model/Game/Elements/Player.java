@@ -104,6 +104,10 @@ public class Player extends Element {
         return collectedCoins;
     }
 
+    public void setCollectedCoins(int i) {
+        this.collectedCoins = i;
+    }
+
     public void gravity() {
         if (!onGround) {
             velocity.setY(Math.min(velocity.getY() + GRAVITY, MAX_FALL_SPEED));
@@ -259,9 +263,5 @@ public class Player extends Element {
                 System.out.println("auch! health: " + health);
             }
         }
-    }
-
-    public void setCollectedCoins(int i) {
-        this.collectedCoins = i;
     }
 }

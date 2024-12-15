@@ -70,7 +70,6 @@ public class NormalEnemy extends Enemy implements Shootable, Stompable, Floating
         }
 
         if (scene.isColliding(nextPosition, scene.getPlayer().getPosition())) {
-            // TODO damage player
             scene.getPlayer().takeDamage();
             return false;
         }

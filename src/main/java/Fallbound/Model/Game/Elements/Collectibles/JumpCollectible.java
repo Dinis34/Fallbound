@@ -4,7 +4,7 @@ import Fallbound.Model.Game.Elements.Player;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
-public class JumpCollectible extends Collectible{
+public class JumpCollectible extends Collectible {
     public JumpCollectible(Vector position, Scene scene) {
         super(position, scene);
     }

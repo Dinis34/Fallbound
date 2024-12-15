@@ -1,7 +1,8 @@
 package Fallbound.Model.Game;
 
 import Fallbound.Model.Game.Elements.*;
-import Fallbound.Model.Game.Elements.Collectibles.*;
+import Fallbound.Model.Game.Elements.Collectibles.Collectible;
+import Fallbound.Model.Game.Elements.Collectibles.CollectibleFactory;
 import Fallbound.Model.Game.Elements.Enemies.*;
 import Fallbound.Model.Vector;
 
@@ -27,6 +28,7 @@ public class Scene {
     private long totalPausedTime = 0;
     private long pauseStartTime = 0;
     private boolean isPaused = false;
+
     public Scene(int width, int height) {
         this.width = width;
         this.height = height;
