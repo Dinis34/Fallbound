@@ -50,6 +50,10 @@ public class Scene {
         return cameraOffset;
     }
 
+    private int calculateNumberOfEnemies(long elapsedTime, int interval) {
+        return (int) (elapsedTime / interval);
+    }
+
     public void buildRandomPlatform(int y) {
         final int PLATFORM_OFFSET_MAX = 30;
         final int PLATFORM_WIDTH = 25;
@@ -84,14 +88,26 @@ public class Scene {
         int secondPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
         buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth);
 
-        addNormalEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
-        addNormalEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
+        long elapsedTime = getCurrentTime();
 
-        addShellEnemy((int) (random() * leftPlatformWidth), y - 1);
-        addShellEnemy((int) (random() * rightPlatformWidth + rightPlatformX), y - 1);
+        int numNormalEnemies = 1 + calculateNumberOfEnemies(elapsedTime, 45000);
+        int numShellEnemies = calculateNumberOfEnemies(elapsedTime, 90000);
+        int numSpikeEnemies = calculateNumberOfEnemies(elapsedTime, 45000);
 
-        addSpikeEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
-        addSpikeEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
+        for (int i = 0; i < numNormalEnemies; i++) {
+            addNormalEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
+            addNormalEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
+        }
+
+        for (int i = 0; i < numShellEnemies; i++) {
+            addShellEnemy((int) (random() * leftPlatformWidth), y - 1);
+            addShellEnemy((int) (random() * rightPlatformWidth + rightPlatformX), y - 1);
+        }
+
+        for (int i = 0; i < numSpikeEnemies; i++) {
+            addSpikeEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
+            addSpikeEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
+        }
     }
 
     public void updateCameraOffset() {
