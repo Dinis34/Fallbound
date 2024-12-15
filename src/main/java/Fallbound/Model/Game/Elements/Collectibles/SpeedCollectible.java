@@ -21,7 +21,7 @@ public class SpeedCollectible extends Collectible {
 
     @Override
     public String getDescription() {
-        return "Increases move speed";
+        return "increases move speed";
     }
 
     @Override

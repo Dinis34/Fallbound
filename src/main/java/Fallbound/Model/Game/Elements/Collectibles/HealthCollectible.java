@@ -21,7 +21,7 @@ public class HealthCollectible extends Collectible {
 
     @Override
     public String getDescription() {
-        return "Increases health";
+        return "increases health";
     }
 
     @Override

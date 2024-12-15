@@ -4,28 +4,28 @@ import Fallbound.Model.Game.Elements.Player;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
-public class MaxHealthCollectible extends Collectible {
-    public MaxHealthCollectible(Vector position, Scene scene) {
+public class BulletSpeedCollectible extends Collectible {
+    public BulletSpeedCollectible(Vector position, Scene scene) {
         super(position, scene);
     }
 
     @Override
     public int getCost() {
-        return 15;
+        return 10;
     }
 
     @Override
     public String getIcon() {
-        return "♡";
+        return "⇢";
     }
 
     @Override
     public String getDescription() {
-        return "increases max health";
+        return "increases bullet speed";
     }
 
     @Override
     public void onCollect(Player player) {
-        player.setMaxHealth(player.getMaxHealth() + 1);
+        player.setShootCooldown(player.getShootCooldown() + 1);
     }
 }

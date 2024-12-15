@@ -7,9 +7,8 @@ import Fallbound.Model.Vector;
 
 public class Player extends Element {
     private final double GRAVITY;
-    private final double JUMP_FORCE = -0.4;
     private final double MAX_FALL_SPEED;
-    private final long SHOOT_COOLDOWN;
+
     private final long DAMAGE_COOLDOWN;
 
     private final Vector velocity;
@@ -17,6 +16,8 @@ public class Player extends Element {
     private int health;
     private int maxHealth;
     private double moveSpeed = 0.5;
+    private long shootCooldown;
+    private double jumpForce = -0.4;
     private int maxNumBullets;
     private int numBullets;
     private long lastShotTime = 0;
@@ -33,10 +34,26 @@ public class Player extends Element {
         this.health = maxHealth;
         this.maxNumBullets = 5;
         this.numBullets = maxNumBullets;
+        this.shootCooldown = 350;
         GRAVITY = 0.02;
         MAX_FALL_SPEED = 0.4;
-        SHOOT_COOLDOWN = 350;
         DAMAGE_COOLDOWN = 3000;
+    }
+
+    public long getShootCooldown() {
+        return shootCooldown;
+    }
+
+    public void setShootCooldown(long shootCooldown) {
+        this.shootCooldown = shootCooldown;
+    }
+
+    public double getJumpForce() {
+        return jumpForce;
+    }
+
+    public void setJumpForce(double jumpForce) {
+        this.jumpForce = jumpForce;
     }
 
     public double getMoveSpeed() {
@@ -107,7 +124,7 @@ public class Player extends Element {
 
     public void jump() {
         lastShotTime = System.currentTimeMillis();
-        velocity.setY(JUMP_FORCE);
+        velocity.setY(jumpForce);
         this.onGround = false;
     }
 
@@ -173,14 +190,14 @@ public class Player extends Element {
                         scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(-1, 1)))) {
                     if (enemy instanceof Stompable) {
                         scene.removeEnemy((Enemy) enemy);
-                        velocity.setY(JUMP_FORCE / 1.5);
+                        velocity.setY(jumpForce / 1.5);
                     } else {
                         takeDamage();
-                        velocity.setY(JUMP_FORCE / 1.5);
+                        velocity.setY(jumpForce / 1.5);
                     }
                 } else {
                     takeDamage();
-                    velocity.setY(JUMP_FORCE / 1.5);
+                    velocity.setY(jumpForce / 1.5);
                     velocity.setX(0);
                 }
                 break;
@@ -209,7 +226,7 @@ public class Player extends Element {
         if (numBullets <= 0) {
             return;
         }
-        if (currentTime - lastShotTime >= SHOOT_COOLDOWN) {
+        if (currentTime - lastShotTime >= shootCooldown) {
             scene.addBullet(new Bullet(getPosition().add(new Vector(0, -1 - scene.getCameraOffset()))));
             lastShotTime = currentTime;
             numBullets--;

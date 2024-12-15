@@ -4,8 +4,8 @@ import Fallbound.Model.Game.Elements.Player;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
-public class MaxHealthCollectible extends Collectible {
-    public MaxHealthCollectible(Vector position, Scene scene) {
+public class JumpCollectible extends Collectible{
+    public JumpCollectible(Vector position, Scene scene) {
         super(position, scene);
     }
 
@@ -16,16 +16,16 @@ public class MaxHealthCollectible extends Collectible {
 
     @Override
     public String getIcon() {
-        return "♡";
+        return "⬆";
     }
 
     @Override
     public String getDescription() {
-        return "increases max health";
+        return "increases jump height";
     }
 
     @Override
     public void onCollect(Player player) {
-        player.setMaxHealth(player.getMaxHealth() + 1);
+        player.setJumpForce(player.getJumpForce() - 0.1);
     }
 }
