@@ -97,9 +97,9 @@ public class Scene {
 
         long elapsedTime = getCurrentTime();
 
-        int numNormalEnemies = 1 + calculateNumberOfEnemies(elapsedTime, 45000);
-        int numShellEnemies = calculateNumberOfEnemies(elapsedTime, 90000);
-        int numSpikeEnemies = calculateNumberOfEnemies(elapsedTime, 45000);
+        int numNormalEnemies = 1 + calculateNumberOfEnemies(elapsedTime, 60000);
+        int numShellEnemies = calculateNumberOfEnemies(elapsedTime, 120000);
+        int numSpikeEnemies = calculateNumberOfEnemies(elapsedTime, 90000);
 
         for (int i = 0; i < numNormalEnemies; i++) {
             addNormalEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
