@@ -35,13 +35,13 @@
 - **Player Health** - the player has a life count system, when the player runs out of lives the game ends.
 - **Different Enemies** - the player will have to defeat several types of enemies, each with their own unique ways to be defeated.
 - **Bullets** - the player will have bullets that can be used to shoot monsters and other elements.
+- **Difficulty progression** - the game will get harder as time passes. Enemies will be faster and stronger.
+- **Item Shop** - the game has a built-in shop with items the player can buy using the coins they collect during the gameplay, these items will consist of power-ups that give an advantage to the player.
+- **Power-ups** - the player will be able to purchase power-ups that will give him special abilities.
 
 todo:
-- **Power-ups** - the player will be able to purchase power-ups that will give him special abilities.
-- **Difficulty progression** - the game will get harder as time passes. Enemies will be faster and stronger.
 - **Sound** - the game will have sound effects and background music.
 - **Highscore Functionality** - the game will keep track of a player's score during the playthrough and will display the top scoring players.
-- **Item Shop** - the game has a built-in shop with items the player can buy using the coins they collect during the gameplay, these items will consist of power-ups that give an advantage to the player.
 
 optional :
 - **Boss Battles** - during the playthrough an event is triggered that activates the spawn of a stronger monster.
@@ -153,6 +153,31 @@ Here are some examples of the Game Loop pattern at work:
 - If not carefully optimized the game loop can consume a lot of processing power, leading to performance issues or excessive battery consumption.
 - As the game grows in complexity the game loop may need to accommodate additional processing. Without scalable design, the loop could become overloaded and rigid, leading to degraded performance or the need for a major refactor.
 
+
+### Collectables
+
+#### Problem in context
+For our game, we envisioned several collectable items that can be obtained throughout the game, that give the player a certain advantage.
+These collectables, despite giving different advantages, have to behave in a cohesive and organized manner. 
+A way to obtain this would be to let the scene handle the creation of the collectables, via a method similar to the one used for platform generation.
+However, this would violate the Open/Closed principle, as if we ever wanted to add another type of collectable, it would require modification to the entire scene class, which is just unnecessary.
+
+#### Factory Pattern
+The way we chose to deal with this issue is by using the Factory pattern.
+A "factory" class was created to specifically handle the creation of said collectables according to their type and with no need to specify which class the object belongs to.
+This way, we abide by the Single Responsibility Principle and the Open/Closed Principle, making our code less susceptible to code decay.
+
+#### Implementation
+Here is where we implemented the Factory method:
+
+- [Collectable](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/Collectible.java) for now doesn't work xd
+
+#### Consequences of using Collectables
+- Introducing a Factory class adds an additional layer of abstraction. While this can simplify object creation for the scene class, it also makes the codebase more complex overall.
+- If collectables were to ever require dynamic parameters or context-specific initialization, the factory pattern can become rigid or cumbersome.
+- While the Factory pattern helps the scene class adhere to OCP, the factory itself might still need modifications when new collectable types are introduced
+
+
 #### KNOWN CODE SMELLS
 - todo
 
@@ -161,7 +186,7 @@ screenshot
 link to mutation
 
 ### SELF-EVALUATION todo
-como fui eu que fiz esta parte mereço 20
+como fui eu que fiz esta parte mereço 20 ass: martim
 
 **EXAMPLE**
 martim: 100%
