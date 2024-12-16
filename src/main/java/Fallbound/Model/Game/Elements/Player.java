@@ -179,6 +179,7 @@ public class Player extends Element {
         for (Element coin : scene.getCoins()) {
             if (scene.isColliding(coin.getPosition(), getPosition())) {
                 scene.removeCoin((Coin) coin);
+                SoundController.getInstance().playSound(SoundOption.COIN);
                 collectedCoins++;
                 break;
             }
@@ -193,6 +194,7 @@ public class Player extends Element {
                         scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(-1, 1)))) {
                     if (enemy instanceof Stompable) {
                         scene.removeEnemy((Enemy) enemy);
+                        SoundController.getInstance().playSound(SoundOption.ENEMY_DEATH);
                         velocity.setY(jumpForce / 1.5);
                     } else {
                         takeDamage();
@@ -230,6 +232,7 @@ public class Player extends Element {
             return;
         }
         if (currentTime - lastShotTime >= shootCooldown) {
+            SoundController.getInstance().playSound(SoundOption.BULLET);
             scene.addBullet(new Bullet(getPosition().add(new Vector(0, -1 - scene.getCameraOffset()))));
             lastShotTime = currentTime;
             numBullets--;
@@ -257,6 +260,7 @@ public class Player extends Element {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastDamageTime >= DAMAGE_COOLDOWN) {
             if (health > 0) {
+                SoundController.getInstance().playSound(SoundOption.PLAYER_DAMAGE);
                 health--;
                 lastDamageTime = currentTime;
                 System.out.println("auch! health: " + health);

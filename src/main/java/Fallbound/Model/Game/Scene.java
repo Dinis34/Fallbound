@@ -155,6 +155,7 @@ public class Scene {
                 Enemy enemy = (Enemy) element;
                 if (enemy instanceof Shootable) {
                     if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
+                        SoundController.getInstance().playSound(SoundOption.ENEMY_DEATH);
                         removeEnemy(enemy);
                         iterator.remove();
                         break;
@@ -169,6 +170,7 @@ public class Scene {
             for (Collectible collectible : collectibles) {
                 if (isColliding(bullet.getPosition(), collectible.getPosition().subtract(new Vector(0, getCameraOffset()))) && collectible.getCost() <= player.getCollectedCoins()) {
                     collectible.onCollect(player);
+                    SoundController.getInstance().playSound(SoundOption.COLLECTIBLE);
                     player.setCollectedCoins(player.getCollectedCoins() - collectible.getCost());
                     collectibles.remove(collectible);
                     iterator.remove();

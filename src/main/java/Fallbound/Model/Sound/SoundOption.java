@@ -5,9 +5,10 @@ public enum SoundOption {
     BACKGROUND_MUSIC,
     BULLET,
     ENEMY_DEATH,
-    PLAYER_DEATH,
     PLAYER_DAMAGE,
     DING,
     JUMP,
     MENU_SELECT,
+    COIN,
+    COLLECTIBLE,
 }
