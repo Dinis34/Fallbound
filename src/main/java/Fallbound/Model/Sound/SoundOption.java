@@ -6,6 +6,7 @@ public enum SoundOption {
     BULLET,
     ENEMY_DEATH,
     PLAYER_DAMAGE,
+    PLAYER_DEATH,
     DING,
     JUMP,
     MENU_SELECT,
