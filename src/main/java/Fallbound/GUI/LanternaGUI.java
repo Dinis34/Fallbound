@@ -44,7 +44,7 @@ public class LanternaGUI implements GUI {
     }
 
     @Override
-    public Set<Integer> getNextAction() throws IOException {
+    public Set<Integer> getNextAction() {
         return new HashSet<>(activeKeys);
     }
 

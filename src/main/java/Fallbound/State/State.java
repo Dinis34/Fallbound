@@ -43,28 +43,28 @@ public class State {
         return instance;
     }
 
-    public void UpdateState(GameState newState) throws IOException {
+    public void updateState(GameState newState) {
         if (newState == GameState.PAUSE_MENU) {
             scene.setPaused(true);
-        } else if (currentState == GameState.PAUSE_MENU && newState != GameState.PAUSE_MENU) {
+        } else if (currentState == GameState.PAUSE_MENU) {
             scene.setPaused(false);
         }
         previousState = currentState;
         currentState = newState;
-        StateActions();
+        stateActions();
     }
 
 
-    public void UpdateToPrevious() throws IOException {
+    public void updateToPrevious() {
         GameState aux = currentState;
         currentState = previousState;
         previousState = aux;
-        StateActions();
+        stateActions();
     }
 
     public void step(GUI gui, Game game, long time) throws IOException {
         if (controller == null || viewer == null) {
-            StateActions();
+            stateActions();
         }
         Set<Integer> keys = gui.getNextAction();
         if (controller instanceof MenuController) {
@@ -74,7 +74,7 @@ public class State {
         viewer.draw(gui, time);
     }
 
-    public void StateActions() throws IOException {
+    public void stateActions() {
         switch (currentState) {
             case START_MENU:
                 StartMenu startMenu = new StartMenu();
@@ -108,17 +108,5 @@ public class State {
 
     public GameState getCurrentState() {
         return currentState;
-    }
-
-    public void setCurrentState(GameState currentState) {
-        this.currentState = currentState;
-    }
-
-    public GameState getPreviousState() {
-        return previousState;
-    }
-
-    public void setPreviousState(GameState previousState) {
-        this.previousState = previousState;
     }
 }

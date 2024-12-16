@@ -34,6 +34,33 @@ public class SceneViewer extends Viewer<Scene> {
         super(model);
     }
 
+    @Override
+    protected void drawElements(GUI gui, long time) {
+        getModel().updateCameraOffset();
+        getModel().handleBullets();
+        getModel().getBullets().forEach(bullet -> bulletViewer.draw(gui, bullet, getModel().getCameraOffset()));
+        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, (Coin) coin, getModel().getCameraOffset()));
+        for (Element wall : getModel().getWalls()) {
+            if (wall.getClass() == Wall.class) {
+                wallViewer.draw(gui, (Wall) wall, getModel().getCameraOffset());
+            } else if (wall.getClass() == BreakableWall.class) {
+                breakableWallViewer.draw(gui, (BreakableWall) wall, getModel().getCameraOffset());
+            }
+        }
+        getModel().getEnemies().forEach(enemy -> {
+            if (enemy instanceof NormalEnemy) {
+                normalEnemyViewer.draw(gui, (NormalEnemy) enemy, getModel().getCameraOffset());
+            } else if (enemy instanceof ShellEnemy) {
+                shellEnemyViewer.draw(gui, (ShellEnemy) enemy, getModel().getCameraOffset());
+            } else if (enemy instanceof SpikeEnemy) {
+                spikeEnemyViewer.draw(gui, (SpikeEnemy) enemy, getModel().getCameraOffset());
+            }
+        });
+        getModel().getCollectibles().forEach(collectible -> collectibleViewer.draw(gui, collectible, getModel().getCameraOffset()));
+        playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
+        drawHud(gui);
+    }
+
     protected void drawHud(GUI gui) {
         // draw black background behind hud
         for (int x = 0; x < getModel().getWidth(); x++) {
@@ -70,32 +97,5 @@ public class SceneViewer extends Viewer<Scene> {
         gui.drawText(new Position(82 - coinCount.length(), 1), coinCount, FALLBOUND_GOLD);
         gui.drawText(new Position(88 - bullets.length(), 2), bullets.toString(), FALLBOUND_GOLD);
         gui.drawText(new Position(2, 3), playerHealth.toString(), FALLBOUND_RED);
-    }
-
-    @Override
-    protected void drawElements(GUI gui, long time) {
-        getModel().updateCameraOffset();
-        getModel().handleBullets();
-        getModel().getBullets().forEach(bullet -> bulletViewer.draw(gui, bullet, getModel().getCameraOffset()));
-        getModel().getCoins().forEach(coin -> coinViewer.draw(gui, (Coin) coin, getModel().getCameraOffset()));
-        for (Element wall : getModel().getWalls()) {
-            if (wall.getClass() == Wall.class) {
-                wallViewer.draw(gui, (Wall) wall, getModel().getCameraOffset());
-            } else if (wall.getClass() == BreakableWall.class) {
-                breakableWallViewer.draw(gui, (BreakableWall) wall, getModel().getCameraOffset());
-            }
-        }
-        getModel().getEnemies().forEach(enemy -> {
-            if (enemy instanceof NormalEnemy) {
-                normalEnemyViewer.draw(gui, (NormalEnemy) enemy, getModel().getCameraOffset());
-            } else if (enemy instanceof ShellEnemy) {
-                shellEnemyViewer.draw(gui, (ShellEnemy) enemy, getModel().getCameraOffset());
-            } else if (enemy instanceof SpikeEnemy) {
-                spikeEnemyViewer.draw(gui, (SpikeEnemy) enemy, getModel().getCameraOffset());
-            }
-        });
-        getModel().getCollectibles().forEach((collectible -> collectibleViewer.draw(gui, collectible, getModel().getCameraOffset())));
-        playerViewer.draw(gui, getModel().getPlayer(), getModel().getCameraOffset());
-        drawHud(gui);
     }
 }

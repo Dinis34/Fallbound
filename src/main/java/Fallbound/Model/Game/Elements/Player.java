@@ -76,10 +76,6 @@ public class Player extends Element {
         return numBullets;
     }
 
-    public void setNumBullets(int numBullets) {
-        this.numBullets = numBullets;
-    }
-
     public long getLastDamageTime() {
         return lastDamageTime;
     }

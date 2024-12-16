@@ -4,7 +4,6 @@ import Fallbound.Model.Game.Elements.Element;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
-
 public class SpikeEnemy extends Enemy implements Floating, Shootable {
     private final Scene scene;
     private long lastMoveTime = 0;
@@ -15,7 +14,6 @@ public class SpikeEnemy extends Enemy implements Floating, Shootable {
             throw new IllegalArgumentException("Scene can't be null");
         }
         this.scene = scene;
-
     }
 
     @Override
@@ -77,6 +75,4 @@ public class SpikeEnemy extends Enemy implements Floating, Shootable {
         }
         return true;
     }
-
-
 }

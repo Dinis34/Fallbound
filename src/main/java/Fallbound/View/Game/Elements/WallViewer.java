@@ -8,7 +8,7 @@ public class WallViewer implements ElementViewer<Wall> {
 
     @Override
     public void draw(GUI gui, Wall element, int offset) {
-        char coverWallChar = '\u2593';
+        char coverWallChar = '▓';
         String coverWallColor = Theme.FALLBOUND_WHITE;
         gui.drawText(element.getPosition().toPosition().applyOffset(offset), String.valueOf(coverWallChar), coverWallColor);
     }

@@ -39,7 +39,6 @@ public class ShellEnemy extends Enemy implements Stompable {
             canMove = false;
         }
 
-
         if (!canMove) {
             direction = -direction;
         } else {

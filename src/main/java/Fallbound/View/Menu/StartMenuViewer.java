@@ -11,7 +11,7 @@ public class StartMenuViewer extends MenuViewer<StartMenu> {
         super(menu, new Position(4, 26));
     }
 
-    protected void drawBanner(GUI gui, Position position, String color) {
+    protected void drawBanner(GUI gui, Position position) {
         String[] bannerLines = {
                 "                                         .-'''-.",
                 "                   .---..---.           '   _    \\                   _______",
@@ -29,15 +29,15 @@ public class StartMenuViewer extends MenuViewer<StartMenu> {
         };
 
         for (int i = 0; i < bannerLines.length; i++) {
-            gui.drawText(new Position(position.getX(), position.getY() + i), bannerLines[i], color);
+            gui.drawText(new Position(position.getX(), position.getY() + i), bannerLines[i], Theme.FALLBOUND_RED);
         }
     }
 
     @Override
     protected void drawElements(GUI gui, long time) {
         drawOptions(gui);
-        drawBanner(gui, new Position(4, 6), Theme.FALLBOUND_RED);
-        drawMenuTitle(gui, "⁜ START MENU ⁜", Theme.FALLBOUND_RED, new Position(4, 24));
+        drawBanner(gui, new Position(4, 6));
+        drawMenuTitle(gui, "⁜ START MENU ⁜", new Position(4, 24));
     }
 
 }

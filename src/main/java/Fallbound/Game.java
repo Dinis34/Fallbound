@@ -29,11 +29,11 @@ public class Game {
     }
 
     public void setState(GameState gameState) throws IOException {
-        state.UpdateState(gameState);
+        state.updateState(gameState);
     }
 
     public void setPreviousState() throws IOException {
-        state.UpdateToPrevious();
+        state.updateToPrevious();
     }
 
     private void startGame() throws IOException, InterruptedException {

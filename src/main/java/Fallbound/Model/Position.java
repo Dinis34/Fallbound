@@ -10,10 +10,6 @@ public class Position {
         this.y = y;
     }
 
-    public Vector toVector() {
-        return new Vector(this.x, this.y);
-    }
-
     public Position applyOffset(int offset) {
         return new Position(this.getX(), this.getY() - offset);
     }
@@ -40,13 +36,5 @@ public class Position {
             return false;
         }
         return this.x == ((Position) o).x && this.y == ((Position) o).y;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = prime + x;
-        result = prime * result + y;
-        return result;
     }
 }

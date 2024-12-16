@@ -19,14 +19,14 @@ public abstract class MenuViewer<T extends Menu> extends Viewer<T> {
 
         for (int i = 0; i < getModel().getNumberOptions(); i++) {
             if (getModel().isSelected(i)) {
-                gui.drawText(new Position(position.getX(), position.getY() + spacing * i), "\u2592 " + getModel().getOption(i), Theme.FALLBOUND_WHITE);
+                gui.drawText(new Position(position.getX(), position.getY() + spacing * i), "▒ " + getModel().getOption(i), Theme.FALLBOUND_WHITE);
             } else {
                 gui.drawText(new Position(position.getX(), position.getY() + spacing * i), getModel().getOption(i), Theme.FALLBOUND_LIGHT_GRAY);
             }
         }
     }
 
-    protected void drawMenuTitle(GUI gui, String title, String color, Position position) {
-        gui.drawText(position, title, color);
+    protected void drawMenuTitle(GUI gui, String title, Position position) {
+        gui.drawText(position, title, Theme.FALLBOUND_RED);
     }
 }

@@ -57,94 +57,6 @@ public class Scene {
         return cameraOffset;
     }
 
-    private int calculateNumberOfEnemies(long elapsedTime, int interval) {
-        return (int) (elapsedTime / interval);
-    }
-
-    public void buildRandomPlatform(int y) {
-        final int PLATFORM_OFFSET_MAX = 30;
-        final int PLATFORM_WIDTH = 25;
-        final int PLATFORM_HEIGHT = 4;
-        final int PLATFORM_GAP = 40;
-
-        int platformOffset = (int) (Math.random() * PLATFORM_OFFSET_MAX - PLATFORM_OFFSET_MAX / 2.0);
-
-        int leftPlatformWidth = PLATFORM_WIDTH + platformOffset;
-        buildWallBlock(0, y, leftPlatformWidth, PLATFORM_HEIGHT);
-
-        int rightPlatformX = PLATFORM_GAP + leftPlatformWidth;
-        int rightPlatformWidth = PLATFORM_WIDTH - platformOffset;
-        buildWallBlock(rightPlatformX, y, rightPlatformWidth, PLATFORM_HEIGHT);
-
-        final int SMALL_PLATFORM_OFFSET_Y = 10;
-        final int MIN_SMALL_PLATFORM_WIDTH = 10;
-        final int MAX_SMALL_PLATFORM_WIDTH = 20;
-        final int MIN_FIRST_PLATFORM_OFFSET_X = 2;
-        final int MAX_FIRST_PLATFORM_OFFSET_X = 5;
-
-        int firstPlatformWidth = (int) (Math.random() * (MAX_SMALL_PLATFORM_WIDTH - MIN_SMALL_PLATFORM_WIDTH)) + MIN_SMALL_PLATFORM_WIDTH;
-        int firstPlatformOffsetX = (int) (Math.random() * (MAX_FIRST_PLATFORM_OFFSET_X - MIN_FIRST_PLATFORM_OFFSET_X)) + MIN_FIRST_PLATFORM_OFFSET_X;
-
-        int firstPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
-
-        int firstPlatformX = PLATFORM_WIDTH + platformOffset + firstPlatformOffsetX + 1;
-        buildBreakableWallBlock(firstPlatformX, firstPlatformY, firstPlatformWidth);
-
-        int remainingWidth = (int) (PLATFORM_GAP - firstPlatformWidth - firstPlatformOffsetX - 5 - Math.random() * 3);
-        int secondPlatformX = firstPlatformX + firstPlatformWidth + 2;
-        int secondPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
-        buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth);
-
-        long elapsedTime = getCurrentTime();
-
-        int numNormalEnemies = 1 + calculateNumberOfEnemies(elapsedTime, 60000);
-        int numShellEnemies = calculateNumberOfEnemies(elapsedTime, 120000);
-        int numSpikeEnemies = calculateNumberOfEnemies(elapsedTime, 90000);
-
-        for (int i = 0; i < numNormalEnemies; i++) {
-            addNormalEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
-            addNormalEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
-        }
-
-        for (int i = 0; i < numShellEnemies; i++) {
-            addShellEnemy((int) (random() * leftPlatformWidth), y - 1);
-            addShellEnemy((int) (random() * rightPlatformWidth + rightPlatformX), y - 1);
-        }
-
-        for (int i = 0; i < numSpikeEnemies; i++) {
-            addSpikeEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
-            addSpikeEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
-        }
-    }
-
-    public void updateCameraOffset() {
-        int playerY = getPlayer().getPosition().toPosition().getY();
-        if (cameraOffset < playerY - (getHeight() / 2)) {
-            cameraOffset = playerY - (getHeight() / 2);
-            unloadElements(getWalls(), cameraOffset);
-            unloadElements(getCoins(), cameraOffset);
-            unloadElements(getEnemies(), cameraOffset);
-            generatePlatforms(cameraOffset);
-        }
-    }
-
-    private void generatePlatforms(int cameraOffset) {
-        int platformSpacing = 15;
-        int platformOffset = 40;
-
-        if (cameraOffset % platformSpacing == 0) {
-            if (cameraOffset / platformSpacing % 15 == 0) {
-                buildShopPlatform(cameraOffset + platformOffset);
-            } else {
-                buildRandomPlatform(cameraOffset + platformOffset);
-            }
-        }
-    }
-
-    private void unloadElements(List<Element> elements, int cameraOffset) {
-        elements.removeIf(e -> e.getPosition().toPosition().getY() < cameraOffset - 10);
-    }
-
     public void setPaused(boolean paused) {
         if (paused) {
             pauseStartTime = System.currentTimeMillis();
@@ -187,20 +99,16 @@ public class Scene {
         coins.add(new Coin(enemy.getPosition()));
     }
 
-    private void buildWallBlock(int x, int y, int w, int h) {
-        for (int i = 0; i < w; i++) {
-            for (int j = 0; j < h; j++) {
-                this.walls.add(new Wall(new Vector(x + i, y + j)));
-            }
-        }
+    public int getWidth() {
+        return width;
     }
 
-    private void buildBreakableWallBlock(int x, int y, int w) {
-        for (int i = 0; i < w; i++) {
-            for (int j = 0; j < 3; j++) {
-                this.walls.add(new BreakableWall(new Vector(x + i, y + j)));
-            }
-        }
+    public int getHeight() {
+        return height;
+    }
+
+    public void addCollectible(Collectible collectible) {
+        this.collectibles.add(collectible);
     }
 
     public void addNormalEnemy(int x, int y) {
@@ -278,12 +186,92 @@ public class Scene {
         }
     }
 
-    public int getWidth() {
-        return width;
+    public void updateCameraOffset() {
+        int playerY = getPlayer().getPosition().toPosition().getY();
+        if (cameraOffset < playerY - (getHeight() / 2)) {
+            cameraOffset = playerY - (getHeight() / 2);
+            unloadElements(getWalls(), cameraOffset);
+            unloadElements(getCoins(), cameraOffset);
+            unloadElements(getEnemies(), cameraOffset);
+            generatePlatforms(cameraOffset);
+        }
     }
 
-    public int getHeight() {
-        return height;
+    private void generatePlatforms(int cameraOffset) {
+        int platformSpacing = 15;
+        int platformOffset = 40;
+
+        if (cameraOffset % platformSpacing == 0) {
+            if (cameraOffset / platformSpacing % 15 == 0) {
+                buildShopPlatform(cameraOffset + platformOffset);
+            } else {
+                buildRandomPlatform(cameraOffset + platformOffset);
+            }
+        }
+    }
+
+    private void unloadElements(List<Element> elements, int cameraOffset) {
+        elements.removeIf(e -> e.getPosition().toPosition().getY() < cameraOffset - 10);
+    }
+
+    private int calculateNumberOfEnemies(long elapsedTime, int interval) {
+        return (int) (elapsedTime / interval);
+    }
+
+    public void buildRandomPlatform(int y) {
+        final int PLATFORM_OFFSET_MAX = 30;
+        final int PLATFORM_WIDTH = 25;
+        final int PLATFORM_HEIGHT = 4;
+        final int PLATFORM_GAP = 40;
+
+        int platformOffset = (int) (Math.random() * PLATFORM_OFFSET_MAX - PLATFORM_OFFSET_MAX / 2.0);
+
+        int leftPlatformWidth = PLATFORM_WIDTH + platformOffset;
+        buildWallBlock(0, y, leftPlatformWidth, PLATFORM_HEIGHT);
+
+        int rightPlatformX = PLATFORM_GAP + leftPlatformWidth;
+        int rightPlatformWidth = PLATFORM_WIDTH - platformOffset;
+        buildWallBlock(rightPlatformX, y, rightPlatformWidth, PLATFORM_HEIGHT);
+
+        final int SMALL_PLATFORM_OFFSET_Y = 10;
+        final int MIN_SMALL_PLATFORM_WIDTH = 10;
+        final int MAX_SMALL_PLATFORM_WIDTH = 20;
+        final int MIN_FIRST_PLATFORM_OFFSET_X = 2;
+        final int MAX_FIRST_PLATFORM_OFFSET_X = 5;
+
+        int firstPlatformWidth = (int) (Math.random() * (MAX_SMALL_PLATFORM_WIDTH - MIN_SMALL_PLATFORM_WIDTH)) + MIN_SMALL_PLATFORM_WIDTH;
+        int firstPlatformOffsetX = (int) (Math.random() * (MAX_FIRST_PLATFORM_OFFSET_X - MIN_FIRST_PLATFORM_OFFSET_X)) + MIN_FIRST_PLATFORM_OFFSET_X;
+
+        int firstPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
+
+        int firstPlatformX = PLATFORM_WIDTH + platformOffset + firstPlatformOffsetX + 1;
+        buildBreakableWallBlock(firstPlatformX, firstPlatformY, firstPlatformWidth);
+
+        int remainingWidth = (int) (PLATFORM_GAP - firstPlatformWidth - firstPlatformOffsetX - 5 - Math.random() * 3);
+        int secondPlatformX = firstPlatformX + firstPlatformWidth + 2;
+        int secondPlatformY = (int) (y + Math.random() * SMALL_PLATFORM_OFFSET_Y - SMALL_PLATFORM_OFFSET_Y / 2.0 + (double) PLATFORM_HEIGHT / 2);
+        buildBreakableWallBlock(secondPlatformX, secondPlatformY, remainingWidth);
+
+        long elapsedTime = getCurrentTime();
+
+        int numNormalEnemies = 1 + calculateNumberOfEnemies(elapsedTime, 60000);
+        int numShellEnemies = calculateNumberOfEnemies(elapsedTime, 120000);
+        int numSpikeEnemies = calculateNumberOfEnemies(elapsedTime, 90000);
+
+        for (int i = 0; i < numNormalEnemies; i++) {
+            addNormalEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
+            addNormalEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
+        }
+
+        for (int i = 0; i < numShellEnemies; i++) {
+            addShellEnemy((int) (random() * leftPlatformWidth), y - 1);
+            addShellEnemy((int) (random() * rightPlatformWidth + rightPlatformX), y - 1);
+        }
+
+        for (int i = 0; i < numSpikeEnemies; i++) {
+            addSpikeEnemy((int) (random() * leftPlatformWidth), (int) (y - random() * 3));
+            addSpikeEnemy((int) (random() * rightPlatformWidth + rightPlatformX), (int) (y - random() * 3));
+        }
     }
 
     public void buildShopPlatform(int y) {
@@ -307,7 +295,19 @@ public class Scene {
         }
     }
 
-    public void addCollectible(Collectible collectible) {
-        this.collectibles.add(collectible);
+    private void buildWallBlock(int x, int y, int w, int h) {
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                this.walls.add(new Wall(new Vector(x + i, y + j)));
+            }
+        }
+    }
+
+    private void buildBreakableWallBlock(int x, int y, int w) {
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < 3; j++) {
+                this.walls.add(new BreakableWall(new Vector(x + i, y + j)));
+            }
+        }
     }
 }
