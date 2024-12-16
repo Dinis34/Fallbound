@@ -25,9 +25,9 @@
 - `Enter` - confirm selection.
 
 ### ENEMIES
-- [Doppelgängers](..src/main/java/Fallbound/Model/Game/Elements/Enemies/NormalEnemy.java) - this enemy can fly. Can be defeated by bullets or a player's stomp. █
-- [Spikeys](..src/main/java/Fallbound/Model/Game/Elements/Enemies/SpikeEnemy.java) - this enemy can fly and is slower than the others. Can only be defeated by bullets. Δ
-- [Tourthells](..src/main/java/Fallbound/Model/Game/Elements/Enemies/ShellEnemy.java) - this enemy is bound to the platforms. Can only be defeated by stomping. ∩
+- [Doppelgängers (Normal Enemies)](..src/main/java/Fallbound/Model/Game/Elements/Enemies/NormalEnemy.java) - this enemy can fly. Can be defeated by bullets or a player's stomp. █
+- [Spikeys (Spike Enemy)](..src/main/java/Fallbound/Model/Game/Elements/Enemies/SpikeEnemy.java) - this enemy can fly and is slower than the others. Can only be defeated by bullets. Δ
+- [Tourthells (Shell Enemy)](..src/main/java/Fallbound/Model/Game/Elements/Enemies/ShellEnemy.java) - this enemy is bound to the platforms. Can only be defeated by stomping. ∩
 
 ### COLLECTABLES
 - ♡ - EXTRA HEALTH: Increases the player’s max health.
