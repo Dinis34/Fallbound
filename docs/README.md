@@ -170,7 +170,7 @@ This way, we abide by the Single Responsibility Principle and the Open/Closed Pr
 #### Implementation
 Here is where we implemented the Factory method:
 
-- [Collectable](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/Collectible.java) for now doesn't work xd
+- [Collectable](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/CollectibleFactory.java) for now doesn't work xd
 
 #### Consequences of using Collectables
 - Introducing a Factory class adds an additional layer of abstraction. While this can simplify object creation for the scene class, it also makes the codebase more complex overall.
