@@ -24,6 +24,19 @@
 - `Down Arrow` - select next option.
 - `Enter` - confirm selection.
 
+### ENEMIES
+- [Doppelgängers](..src/main/java/Fallbound/Model/Game/Elements/Enemies/NormalEnemy.java) - this enemy can fly. Can be defeated by bullets or a player's stomp.
+- [Spikeys](..src/main/java/Fallbound/Model/Game/Elements/Enemies/SpikeEnemy.java) - this enemy can fly and is slower than the others. Can only be defeated by bullets.
+- [Tourthells](..src/main/java/Fallbound/Model/Game/Elements/Enemies/ShellEnemy.java) - this enemy is bound to the platforms. Can only be defeated by stomping.
+
+### COLLECTABLES
+- ♡ - EXTRA HEALTH: Increases the player’s max health.
+- ↑ - EXTRA JUMP: Increases the player’s max height while jumping.
+- ♥ - HEALTH REFILL: Refills the player’s health.
+- 🗲 - SUPER SPEED: Makes the player move faster.
+- | - EXTRA AMMO: Increases the player’s bullet count.
+- ⇢ - FASTER BULLETS: The player’s bullets move faster.
+
 ### IMPLEMENTED FEATURES
 - **Player Movement** - the player can move left, right, and jump.
 - **Wall Collision** - the player collides with the walls.
