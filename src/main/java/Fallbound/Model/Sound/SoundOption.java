@@ -9,6 +9,7 @@ public enum SoundOption {
     PLAYER_DEATH,
     DING,
     JUMP,
+    MENU_MOVE,
     MENU_SELECT,
     COIN,
     COLLECTIBLE,

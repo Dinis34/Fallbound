@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 public class Sound {
     private Clip sound;
 
-    public Sound(String filename){
+    public Sound(String filename) {
         Path path = Paths.get(filename);
         try {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(path.toFile());
@@ -19,8 +19,8 @@ public class Sound {
         }
     }
 
-    public void play(){
-        if(sound.isRunning()){
+    public void play() {
+        if (sound.isRunning()) {
             stop();
             try {
                 Thread.sleep(10);
@@ -32,30 +32,30 @@ public class Sound {
         sound.start();
     }
 
-    public void playContinuously(){
+    public void playContinuously() {
         sound.setFramePosition(0);
         sound.start();
         sound.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public void stop(){
+    public void stop() {
         sound.stop();
     }
 
-    public void resumePlaying(){
+    public void resumePlaying() {
         sound.start();
         sound.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public boolean isPlaying(){
+    public boolean isPlaying() {
         return sound.isRunning();
     }
 
-    public Clip getSound(){
+    public Clip getSound() {
         return sound;
     }
 
-    public void setSound(Clip sound){
+    public void setSound(Clip sound) {
         this.sound = sound;
     }
 

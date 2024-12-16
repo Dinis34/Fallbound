@@ -4,6 +4,7 @@ import Fallbound.Model.Sound.Sound;
 import Fallbound.Model.Sound.SoundOption;
 
 public class SoundController {
+    private static SoundController soundController;
     private Sound menuMusic;
     private Sound backgroundMusic;
     private Sound bullet;
@@ -12,10 +13,10 @@ public class SoundController {
     private Sound playerDamage;
     private Sound ding;
     private Sound jump;
+    private Sound menuMove;
     private Sound menuSelect;
     private Sound coin;
     private Sound collectible;
-    private static SoundController soundController;
 
     private SoundController() {
         this.menuMusic = new Sound("src/main/resources/sounds/menu_music.wav");
@@ -26,6 +27,7 @@ public class SoundController {
         this.playerDamage = new Sound("src/main/resources/sounds/player_damage.wav");
         this.ding = new Sound("src/main/resources/sounds/ding.wav");
         this.jump = new Sound("src/main/resources/sounds/jump.wav");
+        this.menuMove = new Sound("src/main/resources/sounds/menu_move.wav");
         this.menuSelect = new Sound("src/main/resources/sounds/menu_select.wav");
         this.coin = new Sound("src/main/resources/sounds/coin.wav");
         this.collectible = new Sound("src/main/resources/sounds/collectible.wav");
@@ -48,6 +50,7 @@ public class SoundController {
             case PLAYER_DAMAGE -> playerDamage.play();
             case DING -> ding.play();
             case JUMP -> jump.play();
+            case MENU_MOVE -> menuMove.play();
             case MENU_SELECT -> menuSelect.play();
             case COIN -> coin.play();
             case COLLECTIBLE -> collectible.play();
@@ -64,6 +67,7 @@ public class SoundController {
             case PLAYER_DAMAGE -> playerDamage.stop();
             case DING -> ding.stop();
             case JUMP -> jump.stop();
+            case MENU_MOVE -> menuMove.stop();
             case MENU_SELECT -> menuSelect.stop();
             case COIN -> coin.stop();
             case COLLECTIBLE -> collectible.stop();
@@ -83,6 +87,7 @@ public class SoundController {
         playerDamage.stop();
         ding.stop();
         jump.stop();
+        menuMove.stop();
         menuSelect.stop();
         coin.stop();
         collectible.stop();
@@ -118,6 +123,10 @@ public class SoundController {
 
     public void setJump(Sound jump) {
         this.jump = jump;
+    }
+
+    public void setMenuMove(Sound menuMove) {
+        this.menuMove = menuMove;
     }
 
     public void setMenuSelect(Sound menuSelect) {

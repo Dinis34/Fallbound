@@ -85,6 +85,7 @@ public class State {
                 SoundController.getInstance().playSound(SoundOption.MENU_MUSIC);
                 break;
             case PAUSE_MENU:
+                SoundController.getInstance().playSound(SoundOption.MENU_SELECT);
                 SoundController.getInstance().stopSound(SoundOption.BACKGROUND_MUSIC);
                 PauseMenu pauseMenu = new PauseMenu();
                 this.controller = new PauseMenuController(pauseMenu);
@@ -92,6 +93,7 @@ public class State {
                 break;
             case NEW_GAME:
                 SoundController.getInstance().stopAllSounds();
+                SoundController.getInstance().playSound(SoundOption.MENU_SELECT);
                 scene = new Scene(90, 30);
                 controller = new SceneController(scene);
                 this.sceneController = (SceneController) controller;
@@ -99,6 +101,7 @@ public class State {
                 SoundController.getInstance().playSound(SoundOption.BACKGROUND_MUSIC);
                 break;
             case RESUME_GAME:
+                SoundController.getInstance().playSound(SoundOption.MENU_SELECT);
                 SoundController.getInstance().resumePlayingMusic();
                 controller = sceneController;
                 viewer = new SceneViewer(scene);
@@ -112,6 +115,7 @@ public class State {
                 break;
             case QUIT_GAME:
                 SoundController.getInstance().stopAllSounds();
+                SoundController.getInstance().playSound(SoundOption.MENU_SELECT);
                 break;
         }
     }
