@@ -1,9 +1,11 @@
 package Fallbound.Model.Game;
 
+import Fallbound.Controller.Sound.SoundController;
 import Fallbound.Model.Game.Elements.*;
 import Fallbound.Model.Game.Elements.Collectibles.Collectible;
 import Fallbound.Model.Game.Elements.Collectibles.CollectibleFactory;
 import Fallbound.Model.Game.Elements.Enemies.*;
+import Fallbound.Model.Sound.SoundOption;
 import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
@@ -153,13 +155,14 @@ public class Scene {
                 Enemy enemy = (Enemy) element;
                 if (enemy instanceof Shootable) {
                     if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
+                        SoundController.getInstance().playSound(SoundOption.ENEMY_DEATH);
                         removeEnemy(enemy);
                         iterator.remove();
                         break;
                     }
                 } else {
                     if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
-                        // TODO play "ding" sound effect
+                        SoundController.getInstance().playSound(SoundOption.DING);
                         break;
                     }
                 }
@@ -167,6 +170,7 @@ public class Scene {
             for (Collectible collectible : collectibles) {
                 if (isColliding(bullet.getPosition(), collectible.getPosition().subtract(new Vector(0, getCameraOffset()))) && collectible.getCost() <= player.getCollectedCoins()) {
                     collectible.onCollect(player);
+                    SoundController.getInstance().playSound(SoundOption.COLLECTIBLE);
                     player.setCollectedCoins(player.getCollectedCoins() - collectible.getCost());
                     collectibles.remove(collectible);
                     iterator.remove();

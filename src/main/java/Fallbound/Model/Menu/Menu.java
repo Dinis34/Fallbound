@@ -1,5 +1,8 @@
 package Fallbound.Model.Menu;
 
+import Fallbound.Controller.Sound.SoundController;
+import Fallbound.Model.Sound.SoundOption;
+
 import java.util.List;
 
 public abstract class Menu {
@@ -11,6 +14,7 @@ public abstract class Menu {
         if (selected >= options.size()) {
             selected = 0;
         }
+        SoundController.getInstance().playSound(SoundOption.MENU_MOVE);
     }
 
     public void previousOption() {
@@ -18,6 +22,7 @@ public abstract class Menu {
         if (selected < 0) {
             selected = options.size() - 1;
         }
+        SoundController.getInstance().playSound(SoundOption.MENU_MOVE);
     }
 
     public String getOption(int i) {

@@ -6,12 +6,14 @@ import Fallbound.Controller.Menu.GameOverMenuController;
 import Fallbound.Controller.Menu.MenuController;
 import Fallbound.Controller.Menu.PauseMenuController;
 import Fallbound.Controller.Menu.StartMenuController;
+import Fallbound.Controller.Sound.SoundController;
 import Fallbound.GUI.GUI;
 import Fallbound.Game;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Menu.GameOverMenu;
 import Fallbound.Model.Menu.PauseMenu;
 import Fallbound.Model.Menu.StartMenu;
+import Fallbound.Model.Sound.SoundOption;
 import Fallbound.View.Game.SceneViewer;
 import Fallbound.View.Menu.GameOverMenuViewer;
 import Fallbound.View.Menu.PauseMenuViewer;
@@ -80,28 +82,40 @@ public class State {
                 StartMenu startMenu = new StartMenu();
                 this.controller = new StartMenuController(startMenu);
                 this.viewer = new StartMenuViewer(startMenu);
+                SoundController.getInstance().playSound(SoundOption.MENU_MUSIC);
                 break;
             case PAUSE_MENU:
+                SoundController.getInstance().playSound(SoundOption.MENU_SELECT);
+                SoundController.getInstance().stopSound(SoundOption.BACKGROUND_MUSIC);
                 PauseMenu pauseMenu = new PauseMenu();
                 this.controller = new PauseMenuController(pauseMenu);
                 this.viewer = new PauseMenuViewer(pauseMenu);
                 break;
             case NEW_GAME:
+                SoundController.getInstance().stopAllSounds();
+                SoundController.getInstance().playSound(SoundOption.MENU_SELECT);
                 scene = new Scene(90, 30);
                 controller = new SceneController(scene);
                 this.sceneController = (SceneController) controller;
                 this.viewer = new SceneViewer(scene);
+                SoundController.getInstance().playSound(SoundOption.BACKGROUND_MUSIC);
                 break;
             case RESUME_GAME:
+                SoundController.getInstance().playSound(SoundOption.MENU_SELECT);
+                SoundController.getInstance().resumePlayingMusic();
                 controller = sceneController;
                 viewer = new SceneViewer(scene);
                 break;
             case GAME_OVER:
+                SoundController.getInstance().stopAllSounds();
+                SoundController.getInstance().playSound(SoundOption.PLAYER_DEATH);
                 GameOverMenu gameOverMenu = new GameOverMenu();
                 this.controller = new GameOverMenuController(gameOverMenu);
                 this.viewer = new GameOverMenuViewer(gameOverMenu);
                 break;
             case QUIT_GAME:
+                SoundController.getInstance().stopAllSounds();
+                SoundController.getInstance().playSound(SoundOption.MENU_SELECT);
                 break;
         }
     }

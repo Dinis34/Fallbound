@@ -1,7 +1,9 @@
 package Fallbound.Controller.Menu;
 
+import Fallbound.Controller.Sound.SoundController;
 import Fallbound.Game;
 import Fallbound.Model.Menu.PauseMenu;
+import Fallbound.Model.Sound.SoundOption;
 import Fallbound.State.GameState;
 
 import java.awt.event.KeyEvent;
@@ -28,6 +30,7 @@ public class PauseMenuController extends MenuController<PauseMenu> {
                 game.setState(GameState.NEW_GAME);
             } else if (getModel().isSelectedExit()) {
                 game.setState(GameState.START_MENU);
+                SoundController.getInstance().playSound(SoundOption.MENU_SELECT);
             } else if (getModel().isSelectedExitToDesktop()) {
                 game.setState(GameState.QUIT_GAME);
             }
