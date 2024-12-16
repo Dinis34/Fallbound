@@ -1,9 +1,11 @@
 package Fallbound.Model.Game;
 
+import Fallbound.Controller.Sound.SoundController;
 import Fallbound.Model.Game.Elements.*;
 import Fallbound.Model.Game.Elements.Collectibles.Collectible;
 import Fallbound.Model.Game.Elements.Collectibles.CollectibleFactory;
 import Fallbound.Model.Game.Elements.Enemies.*;
+import Fallbound.Model.Sound.SoundOption;
 import Fallbound.Model.Vector;
 
 import java.util.ArrayList;
@@ -159,7 +161,7 @@ public class Scene {
                     }
                 } else {
                     if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
-                        // TODO play "ding" sound effect
+                        SoundController.getInstance().playSound(SoundOption.DING);
                         break;
                     }
                 }

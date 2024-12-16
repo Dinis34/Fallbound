@@ -1,8 +1,10 @@
 package Fallbound.Model.Game.Elements;
 
+import Fallbound.Controller.Sound.SoundController;
 import Fallbound.Model.Game.Elements.Enemies.Enemy;
 import Fallbound.Model.Game.Elements.Enemies.Stompable;
 import Fallbound.Model.Game.Scene;
+import Fallbound.Model.Sound.SoundOption;
 import Fallbound.Model.Vector;
 
 public class Player extends Element {
@@ -126,6 +128,7 @@ public class Player extends Element {
         lastShotTime = System.currentTimeMillis();
         velocity.setY(jumpForce);
         this.onGround = false;
+        SoundController.getInstance().playSound(SoundOption.JUMP);
     }
 
     public void move() {
