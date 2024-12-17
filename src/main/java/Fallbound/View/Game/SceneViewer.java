@@ -16,6 +16,11 @@ import Fallbound.View.Game.Elements.Enemies.ShellEnemyViewer;
 import Fallbound.View.Game.Elements.Enemies.SpikeEnemyViewer;
 import Fallbound.View.Viewer;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import static Fallbound.Controller.Menu.GameOverMenuController.HIGHSCORE_FILE;
 import static Fallbound.View.Theme.*;
 
 public class SceneViewer extends Viewer<Scene> {
@@ -32,6 +37,19 @@ public class SceneViewer extends Viewer<Scene> {
 
     public SceneViewer(Scene model) {
         super(model);
+    }
+
+    private int loadHighScore() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(HIGHSCORE_FILE))) {
+            String line = reader.readLine();
+            if (line != null) {
+                return Integer.parseInt(line);
+            } else {
+                return 0;
+            }
+        } catch (IOException e) {
+            return 0;
+        }
     }
 
     @Override
@@ -92,7 +110,7 @@ public class SceneViewer extends Viewer<Scene> {
         gui.drawText(new Position(2, 1), "TIME", FALLBOUND_WHITE);
         gui.drawText(new Position(7, 1), getModel().timeToString(getModel().getCurrentTime()), FALLBOUND_WHITE);
         gui.drawText(new Position(2, 2), "HIGHSCORE", FALLBOUND_LIGHT_GRAY);
-        gui.drawText(new Position(12, 2), "17:21:11", FALLBOUND_LIGHT_GRAY); // placeholder
+        gui.drawText(new Position(12, 2), getModel().timeToString(loadHighScore()), FALLBOUND_LIGHT_GRAY); // placeholder
         gui.drawText(new Position(83, 1), "COINS", FALLBOUND_WHITE);
         gui.drawText(new Position(82 - coinCount.length(), 1), coinCount, FALLBOUND_GOLD);
         gui.drawText(new Position(88 - bullets.length(), 2), bullets.toString(), FALLBOUND_GOLD);

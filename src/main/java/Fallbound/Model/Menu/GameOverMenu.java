@@ -3,6 +3,8 @@ package Fallbound.Model.Menu;
 import java.util.Arrays;
 
 public class GameOverMenu extends Menu {
+    private boolean newHighScore;
+
     public GameOverMenu() {
         options = Arrays.asList("restart", "exit to main menu", "exit to desktop");
     }
@@ -17,5 +19,13 @@ public class GameOverMenu extends Menu {
 
     public boolean isSelectedExitToDesktop() {
         return isSelected(2);
+    }
+
+    public boolean isNewHighScore() {
+        return newHighScore;
+    }
+
+    public void setNewHighScore(boolean newHighScore) {
+        this.newHighScore = newHighScore;
     }
 }

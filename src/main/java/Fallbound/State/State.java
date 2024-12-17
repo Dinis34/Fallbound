@@ -110,7 +110,7 @@ public class State {
                 SoundController.getInstance().stopAllSounds();
                 SoundController.getInstance().playSound(SoundOption.PLAYER_DEATH);
                 GameOverMenu gameOverMenu = new GameOverMenu();
-                this.controller = new GameOverMenuController(gameOverMenu);
+                this.controller = new GameOverMenuController(gameOverMenu, (int) scene.getCurrentTime());
                 this.viewer = new GameOverMenuViewer(gameOverMenu);
                 break;
             case QUIT_GAME:

@@ -7,12 +7,17 @@ import Fallbound.Model.Sound.SoundOption;
 import Fallbound.State.GameState;
 
 import java.awt.event.KeyEvent;
-import java.io.IOException;
+import java.io.*;
 import java.util.Set;
 
 public class GameOverMenuController extends MenuController<GameOverMenu> {
-    public GameOverMenuController(GameOverMenu menu) {
+    public static final String HIGHSCORE_FILE = "src/main/resources/highscore.txt";
+    private final int currentScore;
+
+    public GameOverMenuController(GameOverMenu menu, int currentScore) {
         super(menu);
+        this.currentScore = currentScore;
+        checkAndUpdateHighScore();
     }
 
     @Override
@@ -35,5 +40,34 @@ public class GameOverMenuController extends MenuController<GameOverMenu> {
         }
     }
 
-}
+    private void checkAndUpdateHighScore() {
+        boolean isHighScore = false;
+        int highScore = loadHighScore();
+        if (currentScore > highScore) {
+            saveHighScore(currentScore);
+            isHighScore = true;
+        }
+        getModel().setNewHighScore(isHighScore);
+    }
 
+    private void saveHighScore(int score) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(HIGHSCORE_FILE))) {
+            writer.write(String.valueOf(score));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int loadHighScore() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(HIGHSCORE_FILE))) {
+            String line = reader.readLine();
+            if (line != null) {
+                return Integer.parseInt(line);
+            } else {
+                return 0;
+            }
+        } catch (IOException e) {
+            return 0;
+        }
+    }
+}
