@@ -7,6 +7,8 @@ import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Sound.SoundOption;
 import Fallbound.Model.Vector;
 
+import java.util.LinkedList;
+
 public class Player extends Element {
     private final double GRAVITY;
     private final double MAX_FALL_SPEED;
@@ -28,6 +30,8 @@ public class Player extends Element {
     private int collectedCoins = 0;
     private Vector lastPosition;
 
+    private final LinkedList<Vector> lastPositions = new LinkedList<>();
+
     public Player(Vector position, Scene scene) {
         super(position);
         this.scene = scene;
@@ -40,6 +44,10 @@ public class Player extends Element {
         GRAVITY = 0.02;
         MAX_FALL_SPEED = 0.4;
         DAMAGE_COOLDOWN = 3000;
+    }
+
+    public LinkedList<Vector> getLastPositions() {
+        return lastPositions;
     }
 
     public long getShootCooldown() {
@@ -132,6 +140,12 @@ public class Player extends Element {
     }
 
     public void move() {
+
+        if (lastPositions.size() >= 6) {
+            lastPositions.removeFirst();
+        }
+        lastPositions.add(new Vector(getPosition().getX(), getPosition().getY()));
+
         Vector nextPosition = getPosition().add(velocity);
 
         Vector horizontalPosition = new Vector(nextPosition.getX(), getPosition().getY());
