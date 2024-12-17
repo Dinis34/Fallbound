@@ -206,7 +206,7 @@ public class Scene {
         int platformOffset = 40;
 
         if (cameraOffset % platformSpacing == 0) {
-            if (cameraOffset / platformSpacing % 15 == 0) {
+            if (cameraOffset / platformSpacing % 12 == 0) {
                 buildShopPlatform(cameraOffset + platformOffset);
             } else {
                 buildRandomPlatform(cameraOffset + platformOffset);
