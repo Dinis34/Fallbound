@@ -167,7 +167,9 @@ public class Player extends Element {
         for (Element element : scene.getWalls()) {
             if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, -1)))) {
                 velocity.setY(0);
-                // TODO play recharge sound effect
+                if (numBullets != maxNumBullets) {
+                    SoundController.getInstance().playSound(SoundOption.MENU_MOVE);
+                }
                 this.numBullets = maxNumBullets;
                 return true;
             }
