@@ -4,6 +4,7 @@ import Fallbound.GUI.GUI
 import Fallbound.Model.Game.Elements.Enemies.ShellEnemy
 import Fallbound.Model.Game.Scene
 import Fallbound.Model.Vector
+import Fallbound.View.Theme
 import Fallbound.View.Game.Elements.Enemies.ShellEnemyViewer
 import spock.lang.Specification
 
@@ -20,6 +21,6 @@ class ShellEnemyViewerTest extends Specification {
         shellEnemyViewer.draw(gui, shellEnemy, offset)
 
         then:
-        1 * gui.drawText(shellEnemy.getPosition().toPosition().applyOffset(offset), "\u2229", Fallbound.View.Theme.FALLBOUND_RED)
+        1 * gui.drawText(shellEnemy.getPosition().toPosition().applyOffset(offset), "\u2229", Theme.FALLBOUND_RED)
     }
 }

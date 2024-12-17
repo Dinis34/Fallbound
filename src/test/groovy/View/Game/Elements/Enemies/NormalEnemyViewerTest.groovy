@@ -4,6 +4,7 @@ import Fallbound.GUI.GUI
 import Fallbound.Model.Game.Elements.Enemies.NormalEnemy
 import Fallbound.Model.Game.Scene
 import Fallbound.Model.Vector
+import Fallbound.View.Theme
 import Fallbound.View.Game.Elements.Enemies.NormalEnemyViewer
 import spock.lang.Specification
 
@@ -20,6 +21,6 @@ class NormalEnemyViewerTest extends Specification {
         normalEnemyViewer.draw(gui, enemy, offset)
 
         then:
-        1 * gui.drawText(enemy.getPosition().toPosition().applyOffset(offset), "\u2588", Fallbound.View.Theme.FALLBOUND_RED)
+        1 * gui.drawText(enemy.getPosition().toPosition().applyOffset(offset), "\u2588", Theme.FALLBOUND_RED)
     }
 }
