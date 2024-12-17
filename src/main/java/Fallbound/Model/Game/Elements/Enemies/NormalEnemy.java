@@ -69,7 +69,7 @@ public class NormalEnemy extends Enemy implements Shootable, Stompable, Floating
             }
         }
 
-        if (scene.isColliding(nextPosition, scene.getPlayer().getPosition())) {
+        if (scene.isColliding(nextPosition, scene.getPlayer().getPosition()) && scene.isColliding(getPosition(), scene.getPlayer().getPosition().subtract(new Vector(0, 1)))) {
             scene.getPlayer().takeDamage();
             return false;
         }

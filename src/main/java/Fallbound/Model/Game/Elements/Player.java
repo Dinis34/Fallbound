@@ -186,12 +186,11 @@ public class Player extends Element {
         }
     }
 
-    public void checkEnemyCollision() {
+    private void checkEnemyCollision() {
         for (Element enemy : scene.getEnemies()) {
             if (scene.isColliding(getPosition(), enemy.getPosition())) {
-                if (scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(0, 1))) ||
-                        scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(1, 1))) ||
-                        scene.isColliding(lastPosition, enemy.getPosition().subtract(new Vector(-1, 1)))) {
+                boolean isStomping = lastPosition.getY() < enemy.getPosition().getY() - 0.1;
+                if (isStomping) {
                     if (enemy instanceof Stompable) {
                         scene.removeEnemy((Enemy) enemy);
                         SoundController.getInstance().playSound(SoundOption.ENEMY_DEATH);
