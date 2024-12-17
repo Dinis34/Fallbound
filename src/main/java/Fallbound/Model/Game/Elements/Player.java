@@ -262,7 +262,6 @@ public class Player extends Element {
                 SoundController.getInstance().playSound(SoundOption.PLAYER_DAMAGE);
                 health--;
                 lastDamageTime = currentTime;
-                System.out.println("auch! health: " + health);
             }
         }
     }
