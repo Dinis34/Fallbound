@@ -6,112 +6,57 @@ import Fallbound.Model.Sound.SoundOption;
 import Fallbound.Model.Vector;
 
 public class Player extends Element {
-    private final double GRAVITY;
-    private final double MAX_FALL_SPEED;
+    private static final double GRAVITY = 0.02;
+    private static final double MAX_FALL_SPEED = 0.4;
 
-    private final long DAMAGE_COOLDOWN;
+    private static final long DAMAGE_COOLDOWN = 3000;
+    private static final int DEFAULT_MAX_HEALTH = 5;
+    private static final int DEFAULT_MAX_BULLETS = 5;
+    private static final long DEFAULT_SHOOT_COOLDOWN = 350;
+    private static final double DEFAULT_MOVE_SPEED = 0.45;
+    private static final double DEFAULT_JUMP_FORCE = -0.4;
+    private static final double SHOOTING_RECOIL = -0.175;
 
-    private final Vector velocity;
-    private final Scene scene;
+    private Scene scene;
+    private Vector velocity;
+    private Vector lastPosition;
+
     private int health;
     private int maxHealth;
-    private double moveSpeed = 0.45;
-    private long shootCooldown;
-    private double jumpForce = -0.4;
-    private int maxNumBullets;
+    private double moveSpeed;
+    private double jumpForce;
+
     private int numBullets;
-    private long lastShotTime = 0;
-    private long lastDamageTime = 0;
-    private boolean onGround = false;
-    private int collectedCoins = 0;
-    private Vector lastPosition;
+    private int maxNumBullets;
+    private long shootCooldown;
+    private long lastShotTime;
+
+    private boolean onGround;
+    private long lastDamageTime;
+
+    private int collectedCoins;
 
     public Player(Vector position, Scene scene) {
         super(position);
+        initializePlayerState(scene);
+    }
+
+    private void initializePlayerState(Scene scene) {
         this.scene = scene;
         this.velocity = new Vector(0, 0);
-        this.maxHealth = 5;
+
+        this.maxHealth = DEFAULT_MAX_HEALTH;
         this.health = maxHealth;
-        this.maxNumBullets = 5;
+        this.maxNumBullets = DEFAULT_MAX_BULLETS;
         this.numBullets = maxNumBullets;
-        this.shootCooldown = 350;
-        GRAVITY = 0.02;
-        MAX_FALL_SPEED = 0.4;
-        DAMAGE_COOLDOWN = 3000;
-    }
+        this.shootCooldown = DEFAULT_SHOOT_COOLDOWN;
+        this.moveSpeed = DEFAULT_MOVE_SPEED;
+        this.jumpForce = DEFAULT_JUMP_FORCE;
 
-    public long getShootCooldown() {
-        return shootCooldown;
-    }
-
-    public void setShootCooldown(long shootCooldown) {
-        this.shootCooldown = shootCooldown;
-    }
-
-    public double getJumpForce() {
-        return jumpForce;
-    }
-
-    public void setJumpForce(double jumpForce) {
-        this.jumpForce = jumpForce;
-    }
-
-    public double getMoveSpeed() {
-        return moveSpeed;
-    }
-
-    public void setMoveSpeed(double moveSpeed) {
-        this.moveSpeed = moveSpeed;
-    }
-
-    public int getMaxNumBullets() {
-        return maxNumBullets;
-    }
-
-    public void setMaxNumBullets(int maxNumBullets) {
-        this.maxNumBullets = maxNumBullets;
-    }
-
-    public int getNumBullets() {
-        return numBullets;
-    }
-
-    public void setNumBullets(int numBullets) {
-        this.numBullets = numBullets;
-    }
-
-    public long getLastDamageTime() {
-        return lastDamageTime;
-    }
-
-    public void setLastDamageTime(long lastDamageTime) {
-        this.lastDamageTime = lastDamageTime;
-    }
-
-    public long getDamageCooldown() {
-        return DAMAGE_COOLDOWN;
-    }
-
-    public Boolean getOnGround() {
-        return onGround;
-    }
-
-    public Vector getVelocity() {
-        return velocity;
-    }
-
-    public int getCollectedCoins() {
-        return collectedCoins;
-    }
-
-    public void setCollectedCoins(int i) {
-        this.collectedCoins = i;
-    }
-
-    public void gravity() {
-        if (!onGround) {
-            velocity.setY(Math.min(velocity.getY() + GRAVITY, MAX_FALL_SPEED));
-        }
+        this.lastShotTime = 0;
+        this.lastDamageTime = 0;
+        this.onGround = false;
+        this.collectedCoins = 0;
     }
 
     public void moveLeft() {
@@ -133,6 +78,12 @@ public class Player extends Element {
         SoundController.getInstance().playSound(SoundOption.JUMP);
     }
 
+    public void gravity() {
+        if (!onGround) {
+            velocity.setY(Math.min(velocity.getY() + GRAVITY, MAX_FALL_SPEED));
+        }
+    }
+
     public void move() {
         Vector nextPosition = getPosition().add(velocity);
 
@@ -140,33 +91,66 @@ public class Player extends Element {
         if (cantMoveTo(horizontalPosition)) {
             velocity.setX(0);
         } else {
-            this.lastPosition = getPosition();
-            setPosition(new Vector(horizontalPosition.getX(), getPosition().getY()));
+            updatePosition(horizontalPosition);
         }
 
         Vector verticalPosition = new Vector(getPosition().getX(), nextPosition.getY());
         if (cantMoveTo(verticalPosition)) {
             velocity.setY(0);
         } else {
-            this.lastPosition = getPosition();
-            setPosition(new Vector(getPosition().getX(), verticalPosition.getY()));
+            updatePosition(verticalPosition);
         }
+    }
+
+    private void updatePosition(Vector newPosition) {
+        this.lastPosition = getPosition();
+        setPosition(newPosition);
     }
 
     private boolean cantMoveTo(Vector position) {
         if (position.getX() < 0 || position.getX() > scene.getWidth() - 1) {
             return true;
         }
-        for (Element wall : scene.getWalls()) {
-            if (scene.isColliding(position, wall.getPosition())) {
-                return true;
-            }
-        }
-        return false;
+
+        return scene.getWalls().stream()
+                .anyMatch(wall -> scene.isColliding(position, wall.getPosition()));
     }
 
-    public Scene getScene() {
-        return scene;
+    public void shoot() {
+        long currentTime = System.currentTimeMillis();
+        if (canShoot(currentTime)) {
+            performShot(currentTime);
+        }
+    }
+
+    private boolean canShoot(long currentTime) {
+        return numBullets > 0 &&
+                currentTime - lastShotTime >= shootCooldown;
+    }
+
+    private void performShot(long currentTime) {
+        SoundController.getInstance().playSound(SoundOption.BULLET);
+        scene.addBullet(new Bullet(getPosition().add(new Vector(0, -1 - scene.getCameraOffset()))));
+        lastShotTime = currentTime;
+        numBullets--;
+        velocity.setY(SHOOTING_RECOIL);
+    }
+
+    public void takeDamage() {
+        long currentTime = System.currentTimeMillis();
+        if (canTakeDamage(currentTime)) {
+            executeDamage(currentTime);
+        }
+    }
+
+    private boolean canTakeDamage(long currentTime) {
+        return currentTime - lastDamageTime >= DAMAGE_COOLDOWN && health > 0;
+    }
+
+    private void executeDamage(long currentTime) {
+        SoundController.getInstance().playSound(SoundOption.PLAYER_DAMAGE);
+        health--;
+        lastDamageTime = currentTime;
     }
 
     public void update() {
@@ -174,24 +158,76 @@ public class Player extends Element {
         move();
     }
 
-    public double getGRAVITY() {
-        return GRAVITY;
-    }
-
-    public double getMAX_FALL_SPEED() {
-        return MAX_FALL_SPEED;
-    }
-
-    public long getDAMAGE_COOLDOWN() {
+    public static long getDamageCooldown() {
         return DAMAGE_COOLDOWN;
     }
 
-    public long getLastShotTime() {
-        return lastShotTime;
+    public Scene getScene() {
+        return scene;
     }
 
-    public void setLastShotTime(long lastShotTime) {
-        this.lastShotTime = lastShotTime;
+    public Vector getVelocity() {
+        return velocity;
+    }
+
+    public Vector getLastPosition() {
+        return lastPosition;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public double getMoveSpeed() {
+        return moveSpeed;
+    }
+
+    public void setMoveSpeed(double moveSpeed) {
+        this.moveSpeed = moveSpeed;
+    }
+
+    public double getJumpForce() {
+        return jumpForce;
+    }
+
+    public void setJumpForce(double jumpForce) {
+        this.jumpForce = jumpForce;
+    }
+
+    public int getNumBullets() {
+        return numBullets;
+    }
+
+    public void setNumBullets(int numBullets) {
+        this.numBullets = numBullets;
+    }
+
+    public int getMaxNumBullets() {
+        return maxNumBullets;
+    }
+
+    public void setMaxNumBullets(int maxNumBullets) {
+        this.maxNumBullets = maxNumBullets;
+    }
+
+    public long getShootCooldown() {
+        return shootCooldown;
+    }
+
+    public void setShootCooldown(long shootCooldown) {
+        this.shootCooldown = shootCooldown;
     }
 
     public boolean isOnGround() {
@@ -202,60 +238,15 @@ public class Player extends Element {
         this.onGround = onGround;
     }
 
-    public Vector getLastPosition() {
-        return lastPosition;
+    public long getLastDamageTime() {
+        return lastDamageTime;
     }
 
-    public void setLastPosition(Vector lastPosition) {
-        this.lastPosition = lastPosition;
+    public int getCollectedCoins() {
+        return collectedCoins;
     }
 
-    public void shoot() {
-        long currentTime = System.currentTimeMillis();
-        if (numBullets <= 0) {
-            return;
-        }
-        if (currentTime - lastShotTime >= shootCooldown) {
-            SoundController.getInstance().playSound(SoundOption.BULLET);
-            scene.addBullet(new Bullet(getPosition().add(new Vector(0, -1 - scene.getCameraOffset()))));
-            lastShotTime = currentTime;
-            numBullets--;
-            velocity.setY(-0.175); // recoil
-        }
-    }
-
-    public Integer getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public void setHealth(Integer health) {
-        this.health = health;
-    }
-
-    public Integer getMaxHealth() {
-        return maxHealth;
-    }
-
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
-    public void setMaxHealth(Integer maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
-    public void takeDamage() {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastDamageTime >= DAMAGE_COOLDOWN) {
-            if (health > 0) {
-                SoundController.getInstance().playSound(SoundOption.PLAYER_DAMAGE);
-                health--;
-                lastDamageTime = currentTime;
-            }
-        }
+    public void setCollectedCoins(int collectedCoins) {
+        this.collectedCoins = collectedCoins;
     }
 }

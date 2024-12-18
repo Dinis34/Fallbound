@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.util.Set;
 
 public class PlayerController extends Controller<Player> {
+    private static final int[] MOVE_LEFT_KEYS = {KeyEvent.VK_LEFT, KeyEvent.VK_A};
+    private static final int[] MOVE_RIGHT_KEYS = {KeyEvent.VK_RIGHT, KeyEvent.VK_D};
+
     public PlayerController(Player player) {
         super(player);
     }
@@ -28,90 +31,138 @@ public class PlayerController extends Controller<Player> {
     }
 
     private void handlePlayerMovement(Set<Integer> keys) {
+        Player player = getModel();
+
         if (keys.contains(KeyEvent.VK_SPACE)) {
-            if (getModel().getOnGround()) {
-                getModel().jump();
+            if (player.isOnGround()) {
+                player.jump();
             } else {
-                getModel().shoot();
+                player.shoot();
             }
         }
-        if (keys.contains(KeyEvent.VK_LEFT) || keys.contains(KeyEvent.VK_A)) {
-            getModel().moveLeft();
+
+        handleDirectionalMovement(player, keys);
+    }
+
+    private void handleDirectionalMovement(Player player, Set<Integer> keys) {
+        if (isAnyKeyPressed(keys, MOVE_LEFT_KEYS)) {
+            player.moveLeft();
         }
-        if (keys.contains(KeyEvent.VK_RIGHT) || keys.contains(KeyEvent.VK_D)) {
-            getModel().moveRight();
+
+        if (isAnyKeyPressed(keys, MOVE_RIGHT_KEYS)) {
+            player.moveRight();
         }
-        if (!keys.contains(KeyEvent.VK_LEFT) && !keys.contains(KeyEvent.VK_RIGHT)
-                && !keys.contains(KeyEvent.VK_A) && !keys.contains(KeyEvent.VK_D)) {
-            getModel().stop();
+
+        if (!isAnyKeyPressed(keys, MOVE_LEFT_KEYS) &&
+                !isAnyKeyPressed(keys, MOVE_RIGHT_KEYS)) {
+            player.stop();
         }
     }
 
-    private void handlePlayerInteractions(Game game) throws IOException {
-        Player player = getModel();
-        player.update();
-
-        boolean onGround = checkBottomCollision();
-        player.setOnGround(onGround);
-
-        checkCoinCollision();
-        checkEnemyCollision();
-
-        player.getScene().updateEnemies();
-
-        if (player.getHealth() <= 0) {
-            game.setState(GameState.GAME_OVER);
-        }
-    }
-
-    private boolean checkBottomCollision() {
-        Player player = getModel();
-        for (Element element : player.getScene().getWalls()) {
-            if (player.getScene().isColliding(player.getPosition(), element.getPosition().add(new Vector(0, -1)))) {
-                player.getVelocity().setY(0);
-                if (player.getNumBullets() != player.getMaxNumBullets()) {
-                    SoundController.getInstance().playSound(SoundOption.MENU_MOVE);
-                }
-                player.setNumBullets(player.getMaxNumBullets());
+    private boolean isAnyKeyPressed(Set<Integer> keys, int[] targetKeys) {
+        for (int key : targetKeys) {
+            if (keys.contains(key)) {
                 return true;
             }
         }
         return false;
     }
 
-    private void checkCoinCollision() {
+    private void handlePlayerInteractions(Game game) throws IOException {
         Player player = getModel();
+
+        player.update();
+
+        updatePlayerGroundState(player);
+        handleCoinInteractions(player);
+        handleEnemyInteractions(player);
+
+        player.getScene().updateEnemies();
+        checkGameOver(game, player);
+    }
+
+    private void updatePlayerGroundState(Player player) {
+        boolean onGround = checkBottomCollision(player);
+        player.setOnGround(onGround);
+    }
+
+    private boolean checkBottomCollision(Player player) {
+        for (Element element : player.getScene().getWalls()) {
+            if (player.getScene().isColliding(
+                    player.getPosition(),
+                    element.getPosition().add(new Vector(0, -1))
+            )) {
+                player.getVelocity().setY(0);
+
+                replenishBulletsIfNeeded(player);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void replenishBulletsIfNeeded(Player player) {
+        if (player.getNumBullets() != player.getMaxNumBullets()) {
+            SoundController.getInstance().playSound(SoundOption.MENU_MOVE);
+            player.setNumBullets(player.getMaxNumBullets());
+        }
+    }
+
+    private void handleCoinInteractions(Player player) {
         for (Element coin : player.getScene().getCoins()) {
             if (player.getScene().isColliding(coin.getPosition(), player.getPosition())) {
-                player.getScene().removeCoin((Coin) coin);
-                SoundController.getInstance().playSound(SoundOption.COIN);
-                player.setCollectedCoins(player.getCollectedCoins() + 1);
+                collectCoin(player, (Coin) coin);
                 break;
             }
         }
     }
 
-    private void checkEnemyCollision() {
-        Player player = getModel();
+    private void collectCoin(Player player, Coin coin) {
+        player.getScene().removeCoin(coin);
+        SoundController.getInstance().playSound(SoundOption.COIN);
+        player.setCollectedCoins(player.getCollectedCoins() + 1);
+    }
+
+    private void handleEnemyInteractions(Player player) {
         for (Element enemy : player.getScene().getEnemies()) {
             if (player.getScene().isColliding(player.getPosition(), enemy.getPosition())) {
-                boolean isStomping = player.getLastPosition().getY() < enemy.getPosition().getY() - 0.1;
-                if (isStomping) {
-                    if (enemy instanceof Stompable) {
-                        player.getScene().removeEnemy((Enemy) enemy);
-                        SoundController.getInstance().playSound(SoundOption.ENEMY_DEATH);
-                        player.getVelocity().setY(player.getJumpForce() / 1.5);
-                    } else {
-                        player.takeDamage();
-                        player.getVelocity().setY(player.getJumpForce() / 1.5);
-                    }
-                } else {
-                    player.takeDamage();
-                    player.getVelocity().setY(player.getJumpForce() / 1.5);
-                    player.getVelocity().setX(0);
-                }
+                processEnemyCollision(player, enemy);
                 break;
             }
+        }
+    }
+
+    private void processEnemyCollision(Player player, Element enemy) {
+        boolean isStomping = player.getLastPosition().getY() < enemy.getPosition().getY() - 0.1;
+
+        if (isStomping) {
+            handleStompingCollision(player, enemy);
+        } else {
+            handleDirectCollision(player, enemy);
+        }
+    }
+
+    private void handleStompingCollision(Player player, Element enemy) {
+        if (enemy instanceof Stompable) {
+            player.getScene().removeEnemy((Enemy) enemy);
+            SoundController.getInstance().playSound(SoundOption.ENEMY_DEATH);
+            player.getVelocity().setY(player.getJumpForce() / 1.5);
+        } else {
+            player.takeDamage();
+            player.getVelocity().setY(player.getJumpForce() / 1.5);
+        }
+    }
+
+    private void handleDirectCollision(Player player, Element enemy) {
+        player.takeDamage();
+        player.getVelocity().setY(player.getJumpForce() / 1.5);
+        player.getVelocity().setX(0);
+    }
+
+    private void checkGameOver(Game game, Player player) throws IOException {
+        if (player.getHealth() <= 0) {
+            game.setState(GameState.GAME_OVER);
         }
     }
 }

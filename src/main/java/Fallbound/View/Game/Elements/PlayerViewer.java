@@ -8,7 +8,7 @@ public class PlayerViewer implements ElementViewer<Player> {
     @Override
     public void draw(GUI gui, Player element, int offset) {
         long currentTime = System.currentTimeMillis();
-        boolean isInvincible = (currentTime - element.getLastDamageTime()) < element.getDamageCooldown();
+        boolean isInvincible = (currentTime - element.getLastDamageTime()) < Player.getDamageCooldown();
         String color = isInvincible ? Theme.FALLBOUND_LIGHT_GRAY : Theme.FALLBOUND_BLUE;
         gui.drawText(element.getPosition().toPosition().applyOffset(offset), "█", color);
     }
