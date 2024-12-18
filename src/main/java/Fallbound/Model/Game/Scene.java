@@ -16,7 +16,6 @@ import static java.lang.Math.random;
 import static java.lang.Math.round;
 
 public class Scene {
-
     private final int width;
     private final int height;
     private final long startTime;
@@ -35,101 +34,14 @@ public class Scene {
         this.width = width;
         this.height = height;
         this.startTime = System.currentTimeMillis();
+        buildInitialPlatforms();
+    }
 
-        // first platform
+    private void buildInitialPlatforms() {
         buildWallBlock(0, 20, 38, 2);
         buildWallBlock(51, 20, 38, 2);
         buildWallBlock(36, 19, 2, 1);
         buildWallBlock(51, 19, 2, 1);
-    }
-
-    public List<Collectible> getCollectibles() {
-        return collectibles;
-    }
-
-    public List<Bullet> getBullets() {
-        return bullets;
-    }
-
-    public void addBullet(Bullet bullet) {
-        this.bullets.add(bullet);
-    }
-
-    public int getCameraOffset() {
-        return cameraOffset;
-    }
-
-    public void setPaused(boolean paused) {
-        if (paused) {
-            pauseStartTime = System.currentTimeMillis();
-        } else {
-            totalPausedTime += System.currentTimeMillis() - pauseStartTime;
-        }
-        isPaused = paused;
-    }
-
-    public long getCurrentTime() {
-        if (isPaused) {
-            return pauseStartTime - startTime - totalPausedTime;
-        } else {
-            return System.currentTimeMillis() - startTime - totalPausedTime;
-        }
-    }
-
-    public List<Element> getCoins() {
-        return coins;
-    }
-
-    public void removeCoin(Coin coin) {
-        this.coins.remove(coin);
-    }
-
-    public List<Element> getWalls() {
-        return walls;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public List<Element> getEnemies() {
-        return enemies;
-    }
-
-    public void removeEnemy(Enemy enemy) {
-        this.enemies.remove(enemy);
-        coins.add(new Coin(enemy.getPosition()));
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void addCollectible(Collectible collectible) {
-        this.collectibles.add(collectible);
-    }
-
-    public void addNormalEnemy(int x, int y) {
-        enemies.add(new NormalEnemy(new Vector(x, y), this));
-    }
-
-    public void addShellEnemy(int x, int y) {
-        enemies.add(new ShellEnemy(new Vector(x, y), this));
-    }
-
-    public void addSpikeEnemy(int x, int y) {
-        enemies.add(new SpikeEnemy(new Vector(x, y), this));
-    }
-
-    public String timeToString(long time) {
-        long minutes = time / 60000;
-        long seconds = (time % 60000) / 1000;
-        long milliseconds = (time % 1000) / 10;
-        return String.format("%02d:%02d.%02d", minutes, seconds, milliseconds);
     }
 
     public void handleBullets() {
@@ -140,42 +52,55 @@ public class Scene {
             if (bullet.getPosition().getY() < 0 || bullet.getPosition().getY() >= getHeight() + getCameraOffset()) {
                 iterator.remove();
             }
-            Iterator<Element> wallIterator = getWalls().iterator();
-            while (wallIterator.hasNext()) {
-                Element wall = wallIterator.next();
-                if (isColliding(bullet.getPosition(), wall.getPosition().subtract(new Vector(0, getCameraOffset())))) {
-                    if (wall instanceof BreakableWall) {
-                        wallIterator.remove();
-                    }
-                    iterator.remove();
-                    break;
+            handleBulletCollisions(iterator, bullet);
+        }
+    }
+
+    private void handleBulletCollisions(Iterator<Bullet> iterator, Bullet bullet) {
+        handleWallCollisions(iterator, bullet);
+        handleEnemyCollisions(iterator, bullet);
+        handleCollectibleCollisions(iterator, bullet);
+    }
+
+    private void handleWallCollisions(Iterator<Bullet> iterator, Bullet bullet) {
+        Iterator<Element> wallIterator = walls.iterator();
+        while (wallIterator.hasNext()) {
+            Element wall = wallIterator.next();
+            if (isColliding(bullet.getPosition(), wall.getPosition().subtract(new Vector(0, cameraOffset)))) {
+                if (wall instanceof BreakableWall) {
+                    wallIterator.remove();
                 }
+                iterator.remove();
+                break;
             }
-            for (Element element : enemies) {
-                Enemy enemy = (Enemy) element;
+        }
+    }
+
+    private void handleEnemyCollisions(Iterator<Bullet> iterator, Bullet bullet) {
+        for (Element element : enemies) {
+            Enemy enemy = (Enemy) element;
+            if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, cameraOffset)))) {
                 if (enemy instanceof Shootable) {
-                    if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
-                        SoundController.getInstance().playSound(SoundOption.ENEMY_DEATH);
-                        removeEnemy(enemy);
-                        iterator.remove();
-                        break;
-                    }
+                    SoundController.getInstance().playSound(SoundOption.ENEMY_DEATH);
+                    removeEnemy(enemy);
                 } else {
-                    if (isColliding(bullet.getPosition(), enemy.getPosition().subtract(new Vector(0, getCameraOffset())))) {
-                        SoundController.getInstance().playSound(SoundOption.DING);
-                        break;
-                    }
+                    SoundController.getInstance().playSound(SoundOption.DING);
                 }
+                iterator.remove();
+                break;
             }
-            for (Collectible collectible : collectibles) {
-                if (isColliding(bullet.getPosition(), collectible.getPosition().subtract(new Vector(0, getCameraOffset()))) && collectible.getCost() <= player.getCollectedCoins()) {
-                    collectible.onCollect(player);
-                    SoundController.getInstance().playSound(SoundOption.COLLECTIBLE);
-                    player.setCollectedCoins(player.getCollectedCoins() - collectible.getCost());
-                    collectibles.remove(collectible);
-                    iterator.remove();
-                    break;
-                }
+        }
+    }
+
+    private void handleCollectibleCollisions(Iterator<Bullet> iterator, Bullet bullet) {
+        for (Collectible collectible : collectibles) {
+            if (isColliding(bullet.getPosition(), collectible.getPosition().subtract(new Vector(0, cameraOffset))) && collectible.getCost() <= player.getCollectedCoins()) {
+                collectible.onCollect(player);
+                SoundController.getInstance().playSound(SoundOption.COLLECTIBLE);
+                player.setCollectedCoins(player.getCollectedCoins() - collectible.getCost());
+                collectibles.remove(collectible);
+                iterator.remove();
+                break;
             }
         }
     }
@@ -191,12 +116,12 @@ public class Scene {
     }
 
     public void updateCameraOffset() {
-        int playerY = getPlayer().getPosition().toPosition().getY();
-        if (cameraOffset < playerY - (getHeight() / 2)) {
-            cameraOffset = playerY - (getHeight() / 2);
-            unloadElements(getWalls(), cameraOffset);
-            unloadElements(getCoins(), cameraOffset);
-            unloadElements(getEnemies(), cameraOffset);
+        int playerY = player.getPosition().toPosition().getY();
+        if (cameraOffset < playerY - (height / 2)) {
+            cameraOffset = playerY - (height / 2);
+            unloadElements(walls, cameraOffset);
+            unloadElements(coins, cameraOffset);
+            unloadElements(enemies, cameraOffset);
             generatePlatforms(cameraOffset);
         }
     }
@@ -284,12 +209,10 @@ public class Scene {
         final int PLATFORM_GAP = 29;
 
         buildWallBlock(0, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-
         int rightPlatformX = PLATFORM_GAP + PLATFORM_WIDTH;
         buildWallBlock(rightPlatformX, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
 
         Vector basePosition = new Vector(rightPlatformX + 5, y - 1);
-
         List<Collectible> shopCollectibles = CollectibleFactory.getRandomCollectibles(basePosition, this);
 
         for (int i = 0; i < shopCollectibles.size(); i++) {
@@ -302,7 +225,7 @@ public class Scene {
     private void buildWallBlock(int x, int y, int w, int h) {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                this.walls.add(new Wall(new Vector(x + i, y + j)));
+                walls.add(new Wall(new Vector(x + i, y + j)));
             }
         }
     }
@@ -310,8 +233,93 @@ public class Scene {
     private void buildBreakableWallBlock(int x, int y, int w) {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < 3; j++) {
-                this.walls.add(new BreakableWall(new Vector(x + i, y + j)));
+                walls.add(new BreakableWall(new Vector(x + i, y + j)));
             }
         }
+    }
+
+    public List<Collectible> getCollectibles() {
+        return collectibles;
+    }
+
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public void addBullet(Bullet bullet) {
+        bullets.add(bullet);
+    }
+
+    public int getCameraOffset() {
+        return cameraOffset;
+    }
+
+    public void setPaused(boolean paused) {
+        if (paused) {
+            pauseStartTime = System.currentTimeMillis();
+        } else {
+            totalPausedTime += System.currentTimeMillis() - pauseStartTime;
+        }
+        isPaused = paused;
+    }
+
+    public long getCurrentTime() {
+        return isPaused ? pauseStartTime - startTime - totalPausedTime : System.currentTimeMillis() - startTime - totalPausedTime;
+    }
+
+    public List<Element> getCoins() {
+        return coins;
+    }
+
+    public void removeCoin(Coin coin) {
+        coins.remove(coin);
+    }
+
+    public List<Element> getWalls() {
+        return walls;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public List<Element> getEnemies() {
+        return enemies;
+    }
+
+    public void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+        coins.add(new Coin(enemy.getPosition()));
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void addCollectible(Collectible collectible) {
+        collectibles.add(collectible);
+    }
+
+    public void addNormalEnemy(int x, int y) {
+        enemies.add(new NormalEnemy(new Vector(x, y), this));
+    }
+
+    public void addShellEnemy(int x, int y) {
+        enemies.add(new ShellEnemy(new Vector(x, y), this));
+    }
+
+    public void addSpikeEnemy(int x, int y) {
+        enemies.add(new SpikeEnemy(new Vector(x, y), this));
+    }
+
+    public String timeToString(long time) {
+        long minutes = time / 60000;
+        long seconds = (time % 60000) / 1000;
+        long milliseconds = (time % 1000) / 10;
+        return String.format("%02d:%02d.%02d", minutes, seconds, milliseconds);
     }
 }
