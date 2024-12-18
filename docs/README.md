@@ -25,17 +25,17 @@
 - `Enter` - confirm selection.
 
 ### ENEMIES
-- [Normal Enemies](..src/main/java/Fallbound/Model/Game/Elements/Enemies/NormalEnemy.java) - this enemy can fly. Can be defeated by bullets or a player's stomp. █
-- [Spike Enemy](..src/main/java/Fallbound/Model/Game/Elements/Enemies/SpikeEnemy.java) - this enemy can fly and is slower than the others. Can only be defeated by bullets. Δ
-- [Shell Enemy](..src/main/java/Fallbound/Model/Game/Elements/Enemies/ShellEnemy.java) - this enemy is bound to the platforms. Can only be defeated by stomping. ∩
+- █ - [**Normal Enemies**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/NormalEnemy.java): This enemy can fly. Can be defeated by bullets or a player's stomp. 
+- Δ - [**Spike Enemy**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/SpikeEnemy.java) : This enemy can fly and is slower than the others. Can only be defeated by bullets. 
+- ∩ - [**Shell Enemy**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/ShellEnemy.java) : This enemy is bound to the platforms. Can only be defeated by stomping. 
 
 ### COLLECTABLES
-- ♡ - **EXTRA HEALTH**: Increases the player’s max health.
-- ↑ - **EXTRA JUMP**: Increases the player’s max height while jumping.
-- ♥ - **HEALTH REFILL**: Refills the player’s health.
-- 🗲 - **SUPER SPEED**: Makes the player move faster.
-- | - **EXTRA AMMO**: Increases the player’s bullet count.
-- ⇢ - **FASTER BULLETS**: The player’s bullets move faster.
+- ♡ - [**Extra Health**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/MaxHealthCollectible.java): Increases the player’s max health.
+- ↑ - [**Jump Height**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/JumpCollectible.java): Increases the player’s max height while jumping.
+- ♥ - [**Health Refill**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/HealthCollectible.java): Refills the player’s health.
+- 🗲 - [**Speed Boost**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/SpeedCollectible.java): Makes the player move faster.
+- | - [**Extra Bullets**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletCountCollectible.java): Increases the player’s bullet count.
+- ⇢ - [**Faster Bullets**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletSpeedCollectible.java): The player’s bullets move faster.
 
 ### IMPLEMENTED FEATURES
 - **Player Movement** - the player can move left, right, and jump.
@@ -51,8 +51,6 @@
 - **Difficulty progression** - the game will get harder as time passes. Enemies will be faster and stronger.
 - **Item Shop** - the game has a built-in shop with items the player can buy using the coins they collect during the gameplay, these items will consist of power-ups that give an advantage to the player.
 - **Power-ups** - the player will be able to purchase power-ups that will give him special abilities.
-
-todo:
 - **Sound** - the game will have sound effects and background music.
 - **Highscore Functionality** - the game will keep track of a player's score during the playthrough and will display the top scoring players.
 
