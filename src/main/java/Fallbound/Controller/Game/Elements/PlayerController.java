@@ -139,7 +139,7 @@ public class PlayerController extends Controller<Player> {
         if (isStomping) {
             handleStompingCollision(player, enemy);
         } else {
-            handleDirectCollision(player, enemy);
+            handleDirectCollision(player);
         }
     }
 
@@ -154,7 +154,7 @@ public class PlayerController extends Controller<Player> {
         }
     }
 
-    private void handleDirectCollision(Player player, Element enemy) {
+    private void handleDirectCollision(Player player) {
         player.takeDamage();
         player.getVelocity().setY(player.getJumpForce() / 1.5);
         player.getVelocity().setX(0);
