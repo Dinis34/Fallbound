@@ -25,6 +25,8 @@
 - `Enter` - confirm selection.
 
 ## IMPLEMENTED FEATURES
+![Fallbound Features](./img/screenshots/fallboundFeatures.png)
+<hr>
 - **Player Movement** - the player can move left, right, and jump. Movement was very carefully designed to feel smooth and responsive.
 - **Procedural World Generation** - the game has a procedural platform generation system that allows the player to play infinitely.
 - **Wall Collision** - the player collides with the walls.
@@ -39,9 +41,6 @@
 - **Sound** - the game will have sound effects and background music.
 - **Timer** - the game has a timer that counts the time the player has been playing. This is the main score of the game.
 - **Highscore Functionality** - the game will keep a local track of the player's highest score.
-
-![Fallbound Features](./img/screenshots/fallboundFeatures.png)
-<br>
 
 ### ENEMIES
 - █ - [**Normal Enemies**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/NormalEnemy.java): This enemy can fly. Can be defeated by bullets or a player's stomp.
