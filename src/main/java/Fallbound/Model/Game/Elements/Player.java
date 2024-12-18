@@ -1,8 +1,6 @@
 package Fallbound.Model.Game.Elements;
 
 import Fallbound.Controller.Sound.SoundController;
-import Fallbound.Model.Game.Elements.Enemies.Enemy;
-import Fallbound.Model.Game.Elements.Enemies.Stompable;
 import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Sound.SoundOption;
 import Fallbound.Model.Vector;
@@ -78,8 +76,16 @@ public class Player extends Element {
         return numBullets;
     }
 
+    public void setNumBullets(int numBullets) {
+        this.numBullets = numBullets;
+    }
+
     public long getLastDamageTime() {
         return lastDamageTime;
+    }
+
+    public void setLastDamageTime(long lastDamageTime) {
+        this.lastDamageTime = lastDamageTime;
     }
 
     public long getDamageCooldown() {
@@ -88,10 +94,6 @@ public class Player extends Element {
 
     public Boolean getOnGround() {
         return onGround;
-    }
-
-    public void setOnGround(boolean onGround) {
-        this.onGround = onGround;
     }
 
     public Vector getVelocity() {
@@ -163,60 +165,6 @@ public class Player extends Element {
         return false;
     }
 
-    private boolean checkBottomCollision() {
-        for (Element element : scene.getWalls()) {
-            if (scene.isColliding(getPosition(), element.getPosition().add(new Vector(0, -1)))) {
-                velocity.setY(0);
-                if (numBullets != maxNumBullets) {
-                    SoundController.getInstance().playSound(SoundOption.MENU_MOVE);
-                }
-                this.numBullets = maxNumBullets;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void checkCoinCollision() {
-        for (Element coin : scene.getCoins()) {
-            if (scene.isColliding(coin.getPosition(), getPosition())) {
-                scene.removeCoin((Coin) coin);
-                SoundController.getInstance().playSound(SoundOption.COIN);
-                collectedCoins++;
-                break;
-            }
-        }
-    }
-
-    private void checkEnemyCollision() {
-        for (Element enemy : scene.getEnemies()) {
-            if (scene.isColliding(getPosition(), enemy.getPosition())) {
-                boolean isStomping = lastPosition.getY() < enemy.getPosition().getY() - 0.1;
-                if (isStomping) {
-                    if (enemy instanceof Stompable) {
-                        scene.removeEnemy((Enemy) enemy);
-                        SoundController.getInstance().playSound(SoundOption.ENEMY_DEATH);
-                        velocity.setY(jumpForce / 1.5);
-                    } else {
-                        takeDamage();
-                        velocity.setY(jumpForce / 1.5);
-                    }
-                } else {
-                    takeDamage();
-                    velocity.setY(jumpForce / 1.5);
-                    velocity.setX(0);
-                }
-                break;
-            }
-        }
-    }
-
-    private void handleCollisions() {
-        onGround = checkBottomCollision();
-        checkCoinCollision();
-        checkEnemyCollision();
-    }
-
     public Scene getScene() {
         return scene;
     }
@@ -224,7 +172,42 @@ public class Player extends Element {
     public void update() {
         gravity();
         move();
-        handleCollisions();
+    }
+
+    public double getGRAVITY() {
+        return GRAVITY;
+    }
+
+    public double getMAX_FALL_SPEED() {
+        return MAX_FALL_SPEED;
+    }
+
+    public long getDAMAGE_COOLDOWN() {
+        return DAMAGE_COOLDOWN;
+    }
+
+    public long getLastShotTime() {
+        return lastShotTime;
+    }
+
+    public void setLastShotTime(long lastShotTime) {
+        this.lastShotTime = lastShotTime;
+    }
+
+    public boolean isOnGround() {
+        return onGround;
+    }
+
+    public void setOnGround(boolean onGround) {
+        this.onGround = onGround;
+    }
+
+    public Vector getLastPosition() {
+        return lastPosition;
+    }
+
+    public void setLastPosition(Vector lastPosition) {
+        this.lastPosition = lastPosition;
     }
 
     public void shoot() {
@@ -245,12 +228,20 @@ public class Player extends Element {
         return health;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public void setHealth(Integer health) {
         this.health = health;
     }
 
     public Integer getMaxHealth() {
         return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public void setMaxHealth(Integer maxHealth) {
