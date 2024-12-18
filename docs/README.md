@@ -2,14 +2,14 @@
 
 # LDTS_t06g03 - Fallbound 
 
-### the project was developed by:
+### this project was developed by:
 - **Simão Barbosa** (up202306609)
 - **Pedro Araújo** (up202306606)
 - **Martim Cadilhe** (up202307833)
 
 <hr>
 
-**Fallbound** is a 2D platformer game where the player must fall down a series of platforms and gain power while defeating enemies. How far can you fall?
+> **Fallbound** is a 2D platformer game where the player must fall down a series of platforms and gain power while defeating enemies. How far can you fall?
 
 ## CONTROLS
 
@@ -27,6 +27,7 @@
 ## IMPLEMENTED FEATURES
 ![Fallbound Features](./img/screenshots/fallboundFeatures.png)
 <hr>
+
 - **Player Movement** - the player can move left, right, and jump. Movement was very carefully designed to feel smooth and responsive.
 - **Procedural World Generation** - the game has a procedural platform generation system that allows the player to play infinitely.
 - **Wall Collision** - the player collides with the walls.
@@ -38,7 +39,7 @@
 - **Coins** - the player can collect coins to purchase items at the shop.
 - **Shop and Power-Ups** - the player can buy different items at the shop, like the Power-Ups that permanently increase the player's abilities or extra lives.
 - **Menus** - the game has a main menu, a pause menu, and a game over menu.
-- **Sound** - the game will have sound effects and background music.
+- **Sound** - the game has sound effects and music.
 - **Timer** - the game has a timer that counts the time the player has been playing. This is the main score of the game.
 - **Highscore Functionality** - the game will keep a local track of the player's highest score.
 
@@ -65,7 +66,7 @@
 ### STRUCTURE
 
 #### Problem in context
-Design patterns are standardized solutions that developers can apply to address recurring challenges in application or system design. For a project of this nature, it's important to have a good code design to make the project more maintainable and scalable.
+Design patterns are standardized solutions that developers can apply to address recurring challenges in application or system design. For a project of this nature, it's important to have a good code design to make the project more maintainable and scalable. <br>
 When developing software with a user interface, it's crucial to implement a proper structural pattern. The code must be organized and modular to uphold the Single Responsibility Principle.
 
 #### The Pattern
@@ -75,6 +76,7 @@ This pattern organizes the application into three connected components, isolatin
  - Model - represents the data and game logic;
  - View - displays the model and sends actions to the controller;
  - Controller - provides a model to view and interprets user actions.
+
 <br>
 
 ![MVC architecture](./img/uml/mvc.png)
