@@ -24,9 +24,5 @@ public class SceneController extends Controller<Scene> {
         if (keys.contains(KeyEvent.VK_ESCAPE)) {
             game.setState(GameState.PAUSE_MENU);
         }
-
-        if (keys.contains(KeyEvent.VK_Q)) {
-            game.setState(GameState.GAME_OVER); // q for now
-        }
     }
 }
