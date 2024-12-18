@@ -14,8 +14,8 @@
 ## CONTROLS
 
 ### GAMEPLAY
-- `Left Arrow` - move left.
-- `Right Arrow` - move right.
+- `Left Arrow` or `A` - move left.
+- `Right Arrow` or `D` - move right.
 - `Space` - jump.
 - `Escape` - open pause menu.
 
@@ -24,10 +24,29 @@
 - `Down Arrow` - select next option.
 - `Enter` - confirm selection.
 
+## IMPLEMENTED FEATURES
+- **Player Movement** - the player can move left, right, and jump. Movement was very carefully designed to feel smooth and responsive.
+- **Procedural World Generation** - the game has a procedural platform generation system that allows the player to play infinitely.
+- **Wall Collision** - the player collides with the walls.
+- **Bullets** - the player will have bullets that can be used to shoot monsters and traverse the world with its recoil. Bullets are recharged when the player touches the ground.
+- **Breakable Walls** - the player can break some walls by shooting them.
+- **Player Health** - the player has a life counting system. When the player runs out of lives the game ends.
+- **Enemies** - the player will have to defeat several types of enemies, each with their own unique ways to be defeated.
+- **Difficulty progression** - the game will get harder as time passes. Enemies will spawn more frequently and new enemy types will appear.
+- **Coins** - the player can collect coins to purchase items at the shop.
+- **Shop and Power-Ups** - the player can buy different items at the shop, like the Power-Ups that permanently increase the player's abilities or extra lives.
+- **Menus** - the game has a main menu, a pause menu, and a game over menu.
+- **Sound** - the game will have sound effects and background music.
+- **Timer** - the game has a timer that counts the time the player has been playing. This is the main score of the game.
+- **Highscore Functionality** - the game will keep a local track of the player's highest score.
+
+![Fallbound Features](./img/screenshots/fallboundFeatures.png)
+<br>
+
 ### ENEMIES
-- █ - [**Normal Enemies**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/NormalEnemy.java): This enemy can fly. Can be defeated by bullets or a player's stomp. 
-- Δ - [**Spike Enemy**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/SpikeEnemy.java) : This enemy can fly and is slower than the others. Can only be defeated by bullets. 
-- ∩ - [**Shell Enemy**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/ShellEnemy.java) : This enemy is bound to the platforms. Can only be defeated by stomping. 
+- █ - [**Normal Enemies**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/NormalEnemy.java): This enemy can fly. Can be defeated by bullets or a player's stomp.
+- Δ - [**Spike Enemy**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/SpikeEnemy.java) : This enemy can fly and is slower than the others. Can only be defeated by bullets.
+- ∩ - [**Shell Enemy**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/ShellEnemy.java) : This enemy is bound to the platforms. Can only be defeated by stomping.
 
 ### COLLECTABLES
 - ♡ - [**Extra Health**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/MaxHealthCollectible.java): Increases the player’s max health.
@@ -37,27 +56,6 @@
 - | - [**Extra Bullets**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletCountCollectible.java): Increases the player’s bullet count.
 - ⇢ - [**Faster Bullets**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletSpeedCollectible.java): The player’s bullets move faster.
 
-### IMPLEMENTED FEATURES
-- **Player Movement** - the player can move left, right, and jump.
-- **Wall Collision** - the player collides with the walls.
-- **Timer** - the game has a timer that counts the time the player has been playing. This will be the main score of the game.
-- **Coins** - the player can collect coins to increase their power.
-- **Menus** - the game has a main menu and a pause menu. There is also a game over menu that currently is only accessible by pressing the "q" key.
-- **Continue Option** - allow player to unpause game.
-- **Procedural World Generation** - the game has a procedural platform generation system that allows the player to play infinitely.
-- **Player Health** - the player has a life count system, when the player runs out of lives the game ends.
-- **Different Enemies** - the player will have to defeat several types of enemies, each with their own unique ways to be defeated.
-- **Bullets** - the player will have bullets that can be used to shoot monsters and other elements.
-- **Difficulty progression** - the game will get harder as time passes. Enemies will be faster and stronger.
-- **Item Shop** - the game has a built-in shop with items the player can buy using the coins they collect during the gameplay, these items will consist of power-ups that give an advantage to the player.
-- **Power-ups** - the player will be able to purchase power-ups that will give him special abilities.
-- **Sound** - the game will have sound effects and background music.
-- **Highscore Functionality** - the game will keep track of a player's score during the playthrough and will display the top scoring players.
-
-optional :
-- **Boss Battles** - during the playthrough an event is triggered that activates the spawn of a stronger monster.
-- **Player Trail** - the player will have a colorful trail that follows them.
-- **Challenge Mode** - the game has a challenge mode where the player must achieve a maximum score in a limited time.
 
 ## GENERAL STRUCTURE
 

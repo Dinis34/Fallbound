@@ -39,7 +39,7 @@ public class Scene {
 
     private void buildInitialPlatforms() {
         buildWallBlock(0, 20, 38, 2);
-        buildWallBlock(51, 20, 38, 2);
+        buildWallBlock(51, 20, 39, 2);
         buildWallBlock(36, 19, 2, 1);
         buildWallBlock(51, 19, 2, 1);
     }
@@ -209,7 +209,7 @@ public class Scene {
         final int PLATFORM_GAP = 29;
 
         buildWallBlock(0, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        int rightPlatformX = PLATFORM_GAP + PLATFORM_WIDTH;
+        int rightPlatformX = PLATFORM_GAP + PLATFORM_WIDTH + 1;
         buildWallBlock(rightPlatformX, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
 
         Vector basePosition = new Vector(rightPlatformX + 5, y - 1);
