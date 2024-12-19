@@ -49,12 +49,12 @@
 - ∩ - [**Shell Enemy**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/ShellEnemy.java) : This enemy is bound to the platforms. Can only be defeated by stomping.
 
 ### COLLECTABLES
-- ♡ - [**Extra Health**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/MaxHealthCollectible.java): Increases the player’s max health.
-- ↑ - [**Jump Height**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/JumpCollectible.java): Increases the player’s max height while jumping.
-- ♥ - [**Health Refill**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/HealthCollectible.java): Refills the player’s health.
-- 🗲 - [**Speed Boost**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/SpeedCollectible.java): Makes the player move faster.
-- | - [**Extra Bullets**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletCountCollectible.java): Increases the player’s bullet count.
-- ⇢ - [**Faster Bullets**](src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletSpeedCollectible.java): The player’s bullets move faster.
+- ♡ - [**Extra Health**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/MaxHealthCollectible.java): Increases the player’s max health.
+- ↑ - [**Jump Height**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/JumpCollectible.java): Increases the player’s max height while jumping.
+- ♥ - [**Health Refill**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/HealthCollectible.java): Refills the player’s health.
+- 🗲 - [**Speed Boost**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/SpeedCollectible.java): Makes the player move faster.
+- | - [**Extra Bullets**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletCountCollectible.java): Increases the player’s bullet count.
+- ⇢ - [**Faster Bullets**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletSpeedCollectible.java): The player’s bullets move faster.
 
 
 ## GENERAL STRUCTURE
@@ -92,53 +92,10 @@ Here is how we implemented the MVC pattern:
 
 
 #### Consequences of using MVC:
-- Keeps our code organized by separating tasks.
-- Makes it easier to add new features and test parts individually.
-- Improves our code's readability and maintainability.
-
-### HANDLING GAME STATES
-
-#### Problem in Context
-When developing a game, it's important to have a clear way to manage different states, such as the main menu, pause menu or the gameplay. Without proper organization, transitions between these states can become complicated and error-prone.
-There are multiple ways to obtain this, such as creating classes that use several boolean statements to check which state the game is currently on.
-For example, a menu class that changes its behavior according to the state of the application (i.e. pause, game over or start). 
-However, this solution violates two of the principles of Object-Oriented design, the Single Responsibility Principle and the Open-Closed Principle, as having all possible types of menus within the same class, forces them to be dependent on each other. Also, if there is ever need to add another state to the application, it would force the modification of the entire class.
-
-#### State Pattern
-To address this, we decided to use the State Pattern. This pattern simplifies state management by organizing behaviors into several distinct classes that extend an abstract class, in accordance with the Open-Closed Principle and the Single Responsibility Principle, ensuring cleaner, less rigid and more modular code.
-The state class is merely responsible for handling transitions between states not the behavior of the states themselves.
-
-#### Implementation
-Here are some examples of the State Pattern at work:
-
-- [State](../src/main/java/Fallbound/State)
-
-#### Consequences of using States:
-- If not carefully implemented, state transitions might lead to tightly coupled state objects, making changes harder in the long run.
-- Frequent state changes or complex state transitions might introduce performance overhead or make debugging more challenging.
-
-### SINGLE STATE INSTANCE
-
-#### Problem in context
-This game follows the MVC design structure, hereby taking into account multiple components at the same time that interact with each other, such as the UI, the controller and the models.
-With these components, the need to control the game's state consistently across the different components rise.
-
-#### Singleton Pattern
-A solution to this is the use of the Singleton pattern to ensure that a class, in this case, the State class, has only one instance and can be accessed from all parts of the project.
-This simplified design reduces the need for synchronization and simplifies code maintenance by adhering to the Single Responsibility Principle, as only the State class is responsible for game state management.
-
-#### Implementation
-Here is the Singleton pattern at work:
-
-- [State](../src/main/java/Fallbound/State) 
-
-- [Game](../src/main/java/Fallbound/Game.java)
-
-#### Consequences of using Singleton:
-
-- The use of Singleton can make testing more difficult, as the global instance may maintain state between tests.
-- Although convenient, global access can lead to hidden dependencies in the code.
-- Since the Singleton instance is globally accessible, modifying the State class could impact multiple classes, making the design harder to extend without changing existing code, contradicting the Open/Closed Principle.
+- Clear separation of concerns aligns with SOLID principles, making the code easier to extend, test, and debug.
+- Adding features requires minimal changes to existing components.
+- Independent layers ensure efficient unit testing and adherence to SRP.
+- Organized structure improves collaboration and reduces complexity.
 
 ### GAME LOOP
 
@@ -163,32 +120,76 @@ Here are some examples of the Game Loop pattern at work:
 - If not carefully optimized the game loop can consume a lot of processing power, leading to performance issues or excessive battery consumption.
 - As the game grows in complexity the game loop may need to accommodate additional processing. Without scalable design, the loop could become overloaded and rigid, leading to degraded performance or the need for a major refactor.
 
+### HANDLING GAME STATES
+
+#### Problem in Context
+When developing a game, it's important to have a clear way to manage different states, such as the main menu, pause menu or the gameplay. Without proper organization, transitions between these states can become complicated and error-prone. <br>
+There are multiple ways to obtain this, such as creating classes that use several boolean statements to check which state the game is currently on.
+For example, a menu class that changes its behavior according to the state of the application (i.e. pause, game over or start). <br> 
+However, this solution violates two of the principles of Object-Oriented design, the Single Responsibility Principle and the Open-Closed Principle, as having all possible types of menus within the same class, forces them to be dependent on each other. Also, if there is ever need to add another state to the application, it would force the modification of the entire class.
+
+#### State Pattern
+To address this, we decided to use the State Pattern. This pattern simplifies state management by organizing behaviors into several distinct classes that extend an abstract class, in accordance with the Open-Closed Principle and the Single Responsibility Principle, ensuring cleaner, less rigid and more modular code.
+The state class is merely responsible for handling transitions between states not the behavior of the states themselves.
+
+#### Implementation
+Here is an example of the State Pattern at work:
+
+- [State](../src/main/java/Fallbound/State)
+
+#### Consequences of using States:
+- If not carefully implemented, state transitions might lead to tightly coupled state objects, making changes harder in the long run.
+- Frequent state changes or complex state transitions might introduce performance overhead or make debugging more challenging.
+- Each state class has a single responsibility, encapsulating specific behavior, making the code easier to understand and maintain.
+- Adding new states or modifying behaviors doesn’t require changes to existing state classes, supporting scalability and promoting the Open-Closed principle.
+
+### SINGLE STATE INSTANCE
+
+#### Problem in context
+This game follows the MVC design structure, hereby taking into account multiple components at the same time that interact with each other, such as the UI, the controller and the models. <br>
+With these components, the need to control the game's state consistently across the different components rise.
+
+#### Singleton Pattern
+A solution to this is the use of the Singleton pattern to ensure that a class, in this case, the State class, has only one instance and can be accessed from all parts of the project. 
+
+#### Implementation
+Here is the Singleton pattern at work:
+
+- [State](../src/main/java/Fallbound/State) 
+- [Sound Controller](../src/main/java/Fallbound/Controller/Sound/SoundController.java)
+
+#### Consequences of using Singleton:
+
+- The use of Singleton can make testing more difficult, as the global instance may maintain state between tests.
+- Although convenient, global access can lead to hidden dependencies in the code.
+- Since the Singleton instance is globally accessible, modifying the State class could impact multiple classes, making the design harder to extend without changing existing code, contradicting the Open/Closed Principle.
+- This design reduces the need for synchronization.
+- Simplifies code maintenance by adhering to the Single Responsibility Principle, as only the State class is responsible for game state management.
 
 ### Collectables
 
 #### Problem in context
 For our game, we envisioned several collectable items that can be obtained throughout the game, that give the player a certain advantage.
-These collectables, despite giving different advantages, have to behave in a cohesive and organized manner. 
-A way to obtain this would be to let the scene handle the creation of the collectables, via a method similar to the one used for platform generation.
+These collectables, despite giving different advantages, have to behave in a cohesive and organized manner.  <br>
+A way to obtain this would be to let the scene handle the creation of the collectables, via a method similar to the one used for platform generation. <br>
 However, this would violate the Open/Closed principle, as if we ever wanted to add another type of collectable, it would require modification to the entire scene class, which is just unnecessary.
 
 #### Factory Pattern
 The way we chose to deal with this issue is by using the Factory pattern.
-A "factory" class was created to specifically handle the creation of said collectables according to their type and with no need to specify which class the object belongs to.
+A "factory" class was created to specifically handle the creation of said collectables according to their type and with no need to specify which class the object belongs to. <br>
 This way, we abide by the Single Responsibility Principle and the Open/Closed Principle, making our code less susceptible to code decay.
 
 #### Implementation
 Here is where we implemented the Factory method:
 
-- [Collectable](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/CollectibleFactory.java) for now doesn't work xd
+- [Collectable](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/CollectibleFactory.java)
 
 #### Consequences of using Collectables
-- Introducing a Factory class adds an additional layer of abstraction. While this can simplify object creation for the scene class, it also makes the codebase more complex overall.
+- Introducing a Factory class adds a layer of abstraction. While this can simplify object creation for the scene class, it also makes the codebase more complex overall.
 - If collectables were to ever require dynamic parameters or context-specific initialization, the factory pattern can become rigid or cumbersome.
-- While the Factory pattern helps the scene class adhere to OCP, the factory itself might still need modifications when new collectable types are introduced
+- While the Factory pattern helps the scene class adhere to OCP, the factory itself might still need modifications when new collectable types are introduced.
 
-
-#### KNOWN CODE SMELLS
+### KNOWN CODE SMELLS
 - todo
 
 ### TESTING todo
@@ -196,7 +197,6 @@ screenshot
 link to mutation
 
 ### SELF-EVALUATION todo
-como fui eu que fiz esta parte mereço 20 ass: martim
-
-**EXAMPLE**
-martim: 100%
+- **Simão Barbosa**:
+- **Pedro Araújo**:
+- **Martim Cadilhe**:
