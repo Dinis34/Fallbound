@@ -1,4 +1,4 @@
-package View.Game
+package View.Game.Elements
 
 import Fallbound.GUI.GUI
 import Fallbound.Model.Game.Elements.BreakableWall
