@@ -2,14 +2,12 @@
 
 # LDTS_t06g03 - Fallbound 
 
+> **Fallbound** is a 2D platformer game where the player must fall down a series of platforms and gain power while defeating enemies. How far can you fall?
+
 ### this project was developed by:
 - **Simão Barbosa** (up202306609)
 - **Pedro Araújo** (up202306606)
 - **Martim Cadilhe** (up202307833)
-
-<hr>
-
-> **Fallbound** is a 2D platformer game where the player must fall down a series of platforms and gain power while defeating enemies. How far can you fall?
 
 ## CONTROLS
 
@@ -30,12 +28,11 @@
 
 - **Player Movement** - the player can move left, right, and jump. Movement was very carefully designed to feel smooth and responsive.
 - **Procedural World Generation** - the game has a procedural platform generation system that allows the player to play infinitely.
-- **Wall Collision** - the player collides with the walls.
-- **Bullets** - the player will have bullets that can be used to shoot monsters and traverse the world with its recoil. Bullets are recharged when the player touches the ground.
+- **Bullets** - the player has bullets that can be used to shoot monsters and traverse the world with its recoil. Bullets are recharged when the player touches the ground.
 - **Breakable Walls** - the player can break some walls by shooting them.
 - **Player Health** - the player has a life counting system. When the player runs out of lives the game ends.
 - **Enemies** - the player will have to defeat several types of enemies, each with their own unique ways to be defeated.
-- **Difficulty progression** - the game will get harder as time passes. Enemies will spawn more frequently and new enemy types will appear.
+- **Difficulty Progression** - the game will get harder as time passes. Enemies will spawn more frequently and new enemy types will appear.
 - **Coins** - the player can collect coins to purchase items at the shop.
 - **Shop and Power-Ups** - the player can buy different items at the shop, like the Power-Ups that permanently increase the player's abilities or extra lives.
 - **Menus** - the game has a main menu, a pause menu, and a game over menu.
