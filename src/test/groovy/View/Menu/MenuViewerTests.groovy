@@ -62,43 +62,37 @@ class MenuViewerTests extends Specification {
             getModel() >> pauseMenu
         }
 
-        // Select "restart" option
-        pauseMenu.nextOption()  // Moves to second option (restart)
+        pauseMenu.nextOption()
 
         when:
         menuViewer.drawOptions(gui)
 
         then:
         interaction {
-            // "continue" option
             1 * gui.drawText(
                     new Position(4, 25),
                     "continue",
                     Theme.FALLBOUND_LIGHT_GRAY
             )
 
-            // "restart" option (selected)
             1 * gui.drawText(
                     new Position(4, 26),
                     "▒ restart",
                     Theme.FALLBOUND_WHITE
             )
 
-            // "exit to main menu" option
             1 * gui.drawText(
                     new Position(4, 27),
                     "exit to main menu",
                     Theme.FALLBOUND_LIGHT_GRAY
             )
 
-            // "exit to desktop" option
             1 * gui.drawText(
                     new Position(4, 28),
                     "exit to desktop",
                     Theme.FALLBOUND_LIGHT_GRAY
             )
 
-            // Verify no other calls to drawText
             0 * gui.drawText(_, _, _)
         }
 
@@ -117,10 +111,9 @@ class MenuViewerTests extends Specification {
             getModel() >> pauseMenu
         }
 
-        // Select last option (exit to desktop)
-        pauseMenu.nextOption() // to restart
-        pauseMenu.nextOption() // to exit to main menu
-        pauseMenu.nextOption() // to exit to desktop
+        pauseMenu.nextOption()
+        pauseMenu.nextOption()
+        pauseMenu.nextOption()
 
         when:
         menuViewer.drawOptions(gui)
@@ -161,16 +154,4 @@ class MenuViewerTests extends Specification {
         !pauseMenu.isSelectedExit()
     }
 
-    def "Draw Menu Title"(){
-        given:
-        def MenuViewer = Mock(MenuViewer)
-        def gui = Mock(GUI)
-        def position = Mock(Position)
-
-        when:
-        MenuViewer.drawMenuTitle(gui,"123","123",position)
-
-        then:
-        1 * MenuViewer.drawMenuTitle(_,_,_,_)
-    }
 }
