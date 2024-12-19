@@ -24,16 +24,8 @@ public class Game {
         game.startGame();
     }
 
-    public State getState() {
-        return state;
-    }
-
-    public void setState(GameState gameState) throws IOException {
+    public void setState(GameState gameState) {
         state.updateState(gameState);
-    }
-
-    public void setPreviousState() throws IOException {
-        state.updateToPrevious();
     }
 
     private void startGame() throws IOException, InterruptedException {
@@ -44,11 +36,7 @@ public class Game {
             state.step(gui, this, startTime);
             long elapsedTime = System.currentTimeMillis() - startTime;
             long sleepTime = frameTime - elapsedTime;
-            try {
-                if (sleepTime > 0) Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
-                throw e;
-            }
+            if (sleepTime > 0) Thread.sleep(sleepTime);
         }
         gui.close();
     }

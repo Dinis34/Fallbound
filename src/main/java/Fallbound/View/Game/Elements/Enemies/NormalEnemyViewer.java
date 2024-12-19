@@ -8,7 +8,7 @@ public class NormalEnemyViewer extends EnemyViewer {
 
     @Override
     public void draw(GUI gui, Enemy enemy, int offset) {
-        char coverEnemyChar = '\u2588';
+        char coverEnemyChar = '█';
         String coverEnemyColor = Theme.FALLBOUND_RED;
         gui.drawText(enemy.getPosition().toPosition().applyOffset(offset), String.valueOf(coverEnemyChar), coverEnemyColor);
     }
