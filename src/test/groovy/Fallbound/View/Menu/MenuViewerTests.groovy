@@ -1,4 +1,4 @@
-package View.Menu
+package Fallbound.View.Menu
 
 import Fallbound.GUI.GUI
 import Fallbound.Model.Menu.GameOverMenu

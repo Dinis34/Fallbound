@@ -1,4 +1,4 @@
-package View.Game.Enemies
+package Fallbound.View.Game.Enemies
 
 import Fallbound.GUI.GUI
 import Fallbound.Model.Game.Elements.Enemies.NormalEnemy
