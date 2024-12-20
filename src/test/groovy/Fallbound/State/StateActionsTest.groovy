@@ -15,8 +15,8 @@ class StateActionsTest extends Specification {
         def state = State.getInstance()
 
         when:
-        state.UpdateState(GameState.START_MENU)
-        state.StateActions()
+        state.updateState(GameState.START_MENU)
+        state.stateActions()
 
         then:
         state.controller.getClass() == StartMenuController.class
@@ -36,8 +36,8 @@ class StateActionsTest extends Specification {
         state.viewer = viewer
 
         when:
-        state.UpdateState(GameState.PAUSE_MENU)
-        state.StateActions()
+        state.updateState(GameState.PAUSE_MENU)
+        state.stateActions()
 
         then:
         state.controller.getClass() == PauseMenuController.class
@@ -49,8 +49,8 @@ class StateActionsTest extends Specification {
         def state = State.getInstance()
 
         when:
-        state.UpdateState(GameState.NEW_GAME)
-        state.StateActions()
+        state.updateState(GameState.NEW_GAME)
+        state.stateActions()
 
         then:
         state.controller.getClass() == SceneController.class
@@ -64,8 +64,8 @@ class StateActionsTest extends Specification {
         state.sceneController = sceneController
 
         when:
-        state.UpdateState(GameState.RESUME_GAME)
-        state.StateActions()
+        state.updateState(GameState.RESUME_GAME)
+        state.stateActions()
 
         then:
         state.controller == sceneController
@@ -77,8 +77,8 @@ class StateActionsTest extends Specification {
         def state = State.getInstance()
 
         when:
-        state.UpdateState(GameState.GAME_OVER)
-        state.StateActions()
+        state.updateState(GameState.GAME_OVER)
+        state.stateActions()
 
         then:
         state.controller.getClass() == GameOverMenuController.class
@@ -90,8 +90,8 @@ class StateActionsTest extends Specification {
         def state = State.getInstance()
 
         when:
-        state.UpdateState(GameState.QUIT_GAME)
-        state.StateActions()
+        state.updateState(GameState.QUIT_GAME)
+        state.stateActions()
 
         then:
         noExceptionThrown()

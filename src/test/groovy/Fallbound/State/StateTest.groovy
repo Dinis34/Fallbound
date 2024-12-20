@@ -16,7 +16,7 @@ class StateTest extends Specification {
         def state = State.getInstance()
 
         when:
-        state.UpdateState(GameState.NEW_GAME)
+        state.updateState(GameState.NEW_GAME)
 
         then:
         state.getCurrentState() == GameState.NEW_GAME
@@ -32,7 +32,7 @@ class StateTest extends Specification {
         sceneField.set(state, mockScene)
 
         when:
-        state.UpdateState(GameState.PAUSE_MENU)
+        state.updateState(GameState.PAUSE_MENU)
 
         then:
         state.getCurrentState() == GameState.PAUSE_MENU
@@ -52,7 +52,7 @@ class StateTest extends Specification {
         state.setCurrentState(GameState.PAUSE_MENU)
 
         when:
-        state.UpdateState(GameState.NEW_GAME)
+        state.updateState(GameState.NEW_GAME)
 
         then:
         state.getCurrentState() == GameState.NEW_GAME
@@ -65,15 +65,15 @@ class StateTest extends Specification {
         def stateSpy = Spy(state)
 
         when:
-        stateSpy.UpdateState(GameState.START_MENU)
-        stateSpy.UpdateState(GameState.NEW_GAME)
-        stateSpy.UpdateToPrevious()
+        stateSpy.updateState(GameState.START_MENU)
+        stateSpy.updateState(GameState.NEW_GAME)
+        stateSpy.updateToPrevious()
 
         then:
 
         stateSpy.currentState == GameState.START_MENU
         stateSpy.previousState == GameState.NEW_GAME
-        3 * stateSpy.StateActions()
+        3 * stateSpy.stateActions()
     }
 
     def "State Step"() {

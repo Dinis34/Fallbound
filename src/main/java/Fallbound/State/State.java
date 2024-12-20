@@ -123,4 +123,20 @@ public class State {
     public GameState getCurrentState() {
         return currentState;
     }
+
+    public void setCurrentState(GameState currentState) {
+        this.currentState = currentState;
+    }
+
+    public GameState getPreviousState() {
+        return previousState;
+    }
+
+    public void setController(Controller<?> controller) {
+        this.controller = controller;
+    }
+
+    public void setViewer(Viewer<?> viewer) {
+        this.viewer = viewer;
+    }
 }
