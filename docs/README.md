@@ -56,7 +56,7 @@
 
 ## GENERAL STRUCTURE
 
-![project structure](./img/uml/currentUML.png)
+![project structure](./img/uml/FallboundUML.png)
 
 ## CODE DESIGN
 
