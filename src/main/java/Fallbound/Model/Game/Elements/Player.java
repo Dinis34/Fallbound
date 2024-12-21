@@ -41,6 +41,12 @@ public class Player extends Element {
         initializePlayerState(scene);
     }
 
+    @Override
+    public void setPosition(Vector position) {
+        this.lastPosition = this.getPosition();
+        super.setPosition(position);
+    }
+
     public static long getDamageCooldown() {
         return DAMAGE_COOLDOWN;
     }

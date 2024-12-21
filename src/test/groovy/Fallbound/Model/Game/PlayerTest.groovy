@@ -191,5 +191,94 @@ class PlayerTest extends Specification {
         noExceptionThrown()
     }
 
+    def "should get last position"() {
+        given:
+        def initialPosition = new Vector(5.0, 5.0)
+        player = new Player(initialPosition, scene)
+        def newPosition = new Vector(10.0, 10.0)
+        player.setPosition(newPosition)
 
+        when:
+        def lastPosition = player.getLastPosition()
+
+        then:
+        lastPosition == initialPosition
+    }
+
+    def "should set health"() {
+        given:
+        def newHealth = 3
+
+        when:
+        player.setHealth(newHealth)
+
+        then:
+        player.getHealth() == newHealth
+    }
+
+    def "should set max health"() {
+        given:
+        def newMaxHealth = 10
+
+        when:
+        player.setMaxHealth(newMaxHealth)
+
+        then:
+        player.getMaxHealth() == newMaxHealth
+    }
+
+    def "should set move speed"() {
+        given:
+        def newMoveSpeed = 0.6
+
+        when:
+        player.setMoveSpeed(newMoveSpeed)
+
+        then:
+        player.getMoveSpeed() == (double) newMoveSpeed
+    }
+
+    def "should set jump force"() {
+        given:
+        def newJumpForce = -0.5
+
+        when:
+        player.setJumpForce(newJumpForce)
+
+        then:
+        player.getJumpForce() == (double) newJumpForce
+    }
+
+    def "should set max number of bullets"() {
+        given:
+        def newMaxNumBullets = 10
+
+        when:
+        player.setMaxNumBullets(newMaxNumBullets)
+
+        then:
+        player.getMaxNumBullets() == newMaxNumBullets
+    }
+
+    def "should set shoot cooldown"() {
+        given:
+        def newShootCooldown = 500
+
+        when:
+        player.setShootCooldown(newShootCooldown)
+
+        then:
+        player.getShootCooldown() == newShootCooldown
+    }
+
+    def "should set collected coins"() {
+        given:
+        def newCollectedCoins = 15
+
+        when:
+        player.setCollectedCoins(newCollectedCoins)
+
+        then:
+        player.getCollectedCoins() == newCollectedCoins
+    }
 }
