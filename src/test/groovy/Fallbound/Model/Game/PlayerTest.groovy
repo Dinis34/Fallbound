@@ -1,8 +1,8 @@
-package Fallbound.Model
+package Fallbound.Model.Game
 
-import Fallbound.Model.Game.Elements.Player
 import Fallbound.Model.Game.Elements.Coin
-import Fallbound.Model.Game.Scene
+import Fallbound.Model.Game.Elements.Player
+import Fallbound.Model.Vector
 import spock.lang.Specification
 
 class PlayerTest extends Specification {
