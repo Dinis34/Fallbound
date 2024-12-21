@@ -1,4 +1,4 @@
-package Fallbound.Model.Game
+package Fallbound.Model.Game.Collectibles
 
 import Fallbound.Model.Game.Elements.Collectibles.BulletCountCollectible
 import Fallbound.Model.Game.Elements.Collectibles.BulletSpeedCollectible
@@ -6,6 +6,7 @@ import Fallbound.Model.Game.Elements.Collectibles.HealthCollectible
 import Fallbound.Model.Game.Elements.Collectibles.JumpCollectible
 import Fallbound.Model.Game.Elements.Collectibles.MaxHealthCollectible
 import Fallbound.Model.Game.Elements.Collectibles.SpeedCollectible
+import Fallbound.Model.Game.Scene
 import Fallbound.Model.Vector
 import Fallbound.Model.Game.Elements.Player
 
