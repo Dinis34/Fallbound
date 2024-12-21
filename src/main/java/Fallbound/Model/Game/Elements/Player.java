@@ -41,6 +41,10 @@ public class Player extends Element {
         initializePlayerState(scene);
     }
 
+    public static long getDamageCooldown() {
+        return DAMAGE_COOLDOWN;
+    }
+
     private void initializePlayerState(Scene scene) {
         this.scene = scene;
         this.velocity = new Vector(0, 0);
@@ -156,10 +160,6 @@ public class Player extends Element {
     public void update() {
         gravity();
         move();
-    }
-
-    public static long getDamageCooldown() {
-        return DAMAGE_COOLDOWN;
     }
 
     public Scene getScene() {

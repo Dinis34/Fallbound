@@ -6,8 +6,8 @@ import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
 public class FloatingEnemyController extends EnemyController {
-    private long lastMoveTime = 0;
     private final long moveCooldown;
+    private long lastMoveTime = 0;
 
     public FloatingEnemyController(Enemy enemy, Scene scene, long moveCooldown) {
         super(enemy, scene);

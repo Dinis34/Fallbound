@@ -6,8 +6,8 @@ import Fallbound.Model.Game.Scene;
 import Fallbound.Model.Vector;
 
 public abstract class Enemy extends Element {
-    private EnemyController controller;
     private final Scene scene;
+    private EnemyController controller;
 
     public Enemy(Vector position, Scene scene) {
         super(position);
@@ -18,12 +18,12 @@ public abstract class Enemy extends Element {
         return controller;
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
     public void setController(EnemyController controller) {
         this.controller = controller;
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     public void move() {
