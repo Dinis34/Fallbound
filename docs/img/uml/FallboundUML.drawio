@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/25.0.2 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="25.0.2">
   <diagram id="H3lMvGbhZpd5Ndb-k4yC" name="Página-1">
-    <mxGraphModel dx="4609" dy="1489" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="2963" dy="540" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -532,13 +532,13 @@
         <mxCell id="XUuc44zPP8oexQMlsgGl-185" value="&lt;i&gt;Viewer&amp;lt;T&amp;gt;&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="2349" y="1643" width="238" height="119" as="geometry" />
         </mxCell>
-        <mxCell id="XUuc44zPP8oexQMlsgGl-186" value="# model: T" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="XUuc44zPP8oexQMlsgGl-185" vertex="1">
+        <mxCell id="XUuc44zPP8oexQMlsgGl-186" value="- model: T" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="XUuc44zPP8oexQMlsgGl-185" vertex="1">
           <mxGeometry y="26" width="238" height="26" as="geometry" />
         </mxCell>
         <mxCell id="XUuc44zPP8oexQMlsgGl-187" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="XUuc44zPP8oexQMlsgGl-185" vertex="1">
           <mxGeometry y="52" width="238" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="XUuc44zPP8oexQMlsgGl-188" value="&lt;span class=&quot;hljs-bullet&quot;&gt;+&lt;/span&gt; getModel(): T&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;+ draw(gui: GUI, time: long): void&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;+ &lt;i&gt;drawElements&lt;/i&gt;(gui: GUI, time: long): void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="XUuc44zPP8oexQMlsgGl-185" vertex="1">
+        <mxCell id="XUuc44zPP8oexQMlsgGl-188" value="&lt;span class=&quot;hljs-bullet&quot;&gt;+&lt;/span&gt; getModel(): T&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;+ draw(gui: GUI, time: long): void&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;#&amp;nbsp;&lt;i&gt;drawElements&lt;/i&gt;(gui: GUI, time: long): void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="XUuc44zPP8oexQMlsgGl-185" vertex="1">
           <mxGeometry y="60" width="238" height="59" as="geometry" />
         </mxCell>
         <mxCell id="XUuc44zPP8oexQMlsgGl-193" value="&lt;b&gt;Theme&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#dae8fc;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;" parent="1" vertex="1">
@@ -728,7 +728,7 @@
         <mxCell id="XUuc44zPP8oexQMlsgGl-234" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="XUuc44zPP8oexQMlsgGl-232" vertex="1">
           <mxGeometry y="52" width="343" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="XUuc44zPP8oexQMlsgGl-235" value="# drawOptions(gui: GUI): void&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;+ drawMenuTitle(gui: GUI, title: String, position: Position): void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="XUuc44zPP8oexQMlsgGl-232" vertex="1">
+        <mxCell id="XUuc44zPP8oexQMlsgGl-235" value="# drawOptions(gui: GUI): void&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;# drawMenuTitle(gui: GUI, title: String, position: Position): void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="XUuc44zPP8oexQMlsgGl-232" vertex="1">
           <mxGeometry y="60" width="343" height="40" as="geometry" />
         </mxCell>
         <mxCell id="XUuc44zPP8oexQMlsgGl-236" value="StartMenuViewer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
