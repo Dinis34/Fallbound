@@ -11,7 +11,7 @@ import Fallbound.Model.Game.Elements.Player
 
 import spock.lang.Specification
 
-class CollectiblesTest extends Specification {
+class CollectibleTest extends Specification {
 
     def position = Mock(Vector)
 
