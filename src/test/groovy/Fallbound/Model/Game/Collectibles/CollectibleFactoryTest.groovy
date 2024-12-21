@@ -1,6 +1,7 @@
-package Fallbound.Model.Game
+package Fallbound.Model.Game.Collectibles
 
 import Fallbound.Model.Game.Elements.Collectibles.*
+import Fallbound.Model.Game.Scene
 import Fallbound.Model.Vector
 
 import spock.lang.Specification
