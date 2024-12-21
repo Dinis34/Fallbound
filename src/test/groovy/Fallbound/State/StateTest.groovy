@@ -40,7 +40,7 @@ class StateTest extends Specification {
 
     }
 
-    def "Update State when Current State is Pause Menu and New State is not Pause Menu"(){
+    def "Update State when Current State is Pause Menu"(){
         given:
         def state = State.getInstance()
         def mockScene = Mock(Scene)
