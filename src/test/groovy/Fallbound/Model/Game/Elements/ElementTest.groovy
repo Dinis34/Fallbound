@@ -1,6 +1,6 @@
-package Fallbound.Model.Game
+package Fallbound.Model.Game.Elements
 
-import Fallbound.Model.Game.Elements.Element
+
 import Fallbound.Model.Vector
 
 import spock.lang.Specification
