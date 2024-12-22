@@ -187,7 +187,21 @@ Here is where we implemented the Factory method:
 - While the Factory pattern helps the scene class adhere to OCP, the factory itself might still need modifications when new collectable types are introduced.
 
 ### KNOWN CODE SMELLS
-- todo
+After re-analysing our code, we identified 3 code smells within it:
+
+- **Long classes and long methods**: classes related to the scene (i.e; [Scene](../src/main/java/Fallbound/Model/Game/Scene.java) & [SceneViewer](../src/main/java/Fallbound/View/Game/SceneViewer.java)) tend to be quite large, due to their purpose of handling game elements and other attributes.
+    This code smell can also be found in other classes like the [Player](../src/main/java/Fallbound/Model/Game/Elements/Player.java) although in a smaller scale.
+
+
+- **Duplicate Code**: in classes related to view, (i.e; [GameOverMenuViewer](../src/main/java/Fallbound/View/Menu/GameOverMenuViewer.java), [PauseMenuViewer](../src/main/java/Fallbound/View/Menu/PauseMenuViewer.java) and [StartMenuViewer](../src/main/java/Fallbound/View/Menu/StartMenuViewer.java)), some methods were duplicated and only slightly tweaked to fit in to the class they are a viewer of.
+
+
+- **Lengthy switch statements**: Two examples of this code smell can be found in the [State](../src/main/java/Fallbound/State) class and in the [SoundController](../src/main/java/Fallbound/Controller/Sound/SoundController.java).
+    The State class is responsible for managing the different states of the application, meanwhile the SoundController handles everything related to the different sounds and how they behave, therefore justifying the existence of the switch statement.
+    This problem could be fixed by taking into account code polymorphism and dividing the code into several classes that handle each instance's behaviour.
+
+
+
 
 ### TESTING todo
 screenshot

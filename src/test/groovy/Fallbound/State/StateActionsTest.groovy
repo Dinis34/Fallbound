@@ -1,16 +1,19 @@
 package Fallbound.State
 
-import Fallbound.Controller.Menu.*
-import Fallbound.View.Menu.*
 import Fallbound.Controller.Game.SceneController
-import Fallbound.View.Game.SceneViewer
+import Fallbound.Controller.Menu.GameOverMenuController
+import Fallbound.Controller.Menu.PauseMenuController
+import Fallbound.Controller.Menu.StartMenuController
 import Fallbound.Model.Game.Scene
-
+import Fallbound.View.Game.SceneViewer
+import Fallbound.View.Menu.GameOverMenuViewer
+import Fallbound.View.Menu.PauseMenuViewer
+import Fallbound.View.Menu.StartMenuViewer
 import spock.lang.Specification
 
 class StateActionsTest extends Specification {
 
-    def "StateActions Start Menu State" () {
+    def "StateActions Start Menu State"() {
         given:
         def state = State.getInstance()
 
@@ -23,7 +26,7 @@ class StateActionsTest extends Specification {
         state.viewer.getClass() == StartMenuViewer.class
     }
 
-    def "StateActions Pause Menu State" () {
+    def "StateActions Pause Menu State"() {
         given:
         def state = State.getInstance()
         def scene = Mock(Scene)
@@ -44,7 +47,7 @@ class StateActionsTest extends Specification {
         state.viewer.getClass() == PauseMenuViewer.class
     }
 
-    def "StateActions New Game State" () {
+    def "StateActions New Game State"() {
         given:
         def state = State.getInstance()
 
@@ -57,7 +60,7 @@ class StateActionsTest extends Specification {
         state.viewer.getClass() == SceneViewer.class
     }
 
-    def "StateActions Resume Game State" () {
+    def "StateActions Resume Game State"() {
         given:
         def state = State.getInstance()
         def sceneController = Mock(SceneController)

@@ -1,18 +1,9 @@
 package Fallbound.View.Game.Elements
 
 import Fallbound.GUI.GUI
-import Fallbound.Model.Game.Elements.BreakableWall
-import Fallbound.Model.Game.Elements.Bullet
-import Fallbound.Model.Game.Elements.Coin
-import Fallbound.Model.Game.Elements.Player
-import Fallbound.Model.Game.Elements.Wall
+import Fallbound.Model.Game.Elements.*
 import Fallbound.Model.Game.Scene
 import Fallbound.Model.Vector
-import Fallbound.View.Game.Elements.BreakableWallViewer
-import Fallbound.View.Game.Elements.BulletViewer
-import Fallbound.View.Game.Elements.CoinViewer
-import Fallbound.View.Game.Elements.PlayerViewer
-import Fallbound.View.Game.Elements.WallViewer
 import Fallbound.View.Theme
 import spock.lang.Specification
 
@@ -22,7 +13,7 @@ class ElementsViewerTest extends Specification {
         def gui = Mock(GUI)
         def player = new Player(new Vector(0, 0), Mock(Scene) as Scene)
         def playerViewer = new PlayerViewer()
-        def offset = 0;
+        def offset = 0
 
         when:
         playerViewer.draw(gui, player, offset)

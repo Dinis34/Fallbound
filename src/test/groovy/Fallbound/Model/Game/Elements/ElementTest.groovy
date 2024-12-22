@@ -2,7 +2,6 @@ package Fallbound.Model.Game.Elements
 
 
 import Fallbound.Model.Vector
-
 import spock.lang.Specification
 
 class ElementTest extends Specification {
