@@ -24,8 +24,8 @@ class CollectibleFactoryTest extends Specification {
             assert it instanceof HealthCollectible ||
                     it instanceof MaxHealthCollectible ||
                     it instanceof SpeedCollectible        ||
-                    it instanceof BulletCountCollectible  ||
-                    it instanceof BulletSpeedCollectible    ||
+                    it instanceof BulletCountCollectible     ||
+                    it instanceof BulletSpeedCollectible     ||
                     it instanceof JumpCollectible
         }
 
