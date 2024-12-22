@@ -8,7 +8,7 @@ import Fallbound.Model.Position
 import Fallbound.View.Theme
 import spock.lang.Specification
 
-class MenuViewerTests extends Specification {
+class MenuViewerTest extends Specification {
 
     def "draw elements Start Menu"() {
         given:
@@ -17,37 +17,40 @@ class MenuViewerTests extends Specification {
         def startMenuViewer = new StartMenuViewer(menu)
 
         when:
-        startMenuViewer.drawElements(gui, 0)
+        startMenuViewer.drawElements(gui,0)
 
         then:
-        16 * gui.drawText(_, _, _)
+        16 * gui.drawText(_,_,_)
     }
 
-    def "draw elements GameOver Menu"() {
+    def "draw elements GameOver Menu with new high score"(){
         given:
         def gui = Mock(GUI.class)
-        def menu = new GameOverMenu()
+        def menu = Mock(GameOverMenu)
         def gameOverMenuViewer = new GameOverMenuViewer(menu)
+
+        menu.isNewHighScore() >> true
+        menu.getNumberOptions() >> 3
 
         when:
         gameOverMenuViewer.drawElements(gui, 0)
 
         then:
         4 * gui.drawText(_, _, _)
-
+        1 * gui.drawText(new Position(2, 1), "⁜ NEW HIGH SCORE! ⁜", Theme.FALLBOUND_GOLD)
     }
 
-    def "Draw elements Pause Menu"() {
+    def "Draw elements Pause Menu"(){
         given:
         def gui = Mock(GUI.class)
         def menu = new PauseMenu()
         def pauseMenuViewer = new PauseMenuViewer(menu)
 
         when:
-        pauseMenuViewer.drawElements(gui, 0)
+        pauseMenuViewer.drawElements(gui,0)
 
         then:
-        5 * gui.drawText(_, _, _)
+        5 * gui.drawText(_,_,_)
 
     }
 
