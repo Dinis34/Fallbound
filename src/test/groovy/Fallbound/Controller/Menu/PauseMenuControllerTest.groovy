@@ -137,6 +137,4 @@ class PauseMenuControllerTest extends Specification {
         1 * menu.previousOption()
         1 * menu.nextOption()
     }
-
-
 }

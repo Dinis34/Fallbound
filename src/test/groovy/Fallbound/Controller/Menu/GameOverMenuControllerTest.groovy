@@ -2,7 +2,6 @@ package Fallbound.Controller.Menu
 
 import Fallbound.Game
 import Fallbound.Model.Menu.GameOverMenu
-import Fallbound.Model.Menu.StartMenu
 import Fallbound.State.GameState
 import spock.lang.Specification
 
