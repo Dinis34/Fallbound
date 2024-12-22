@@ -1,15 +1,15 @@
 package Fallbound.Model.Game
 
+import Fallbound.Controller.Sound.SoundController
+import Fallbound.Model.Game.Elements.Bullet
+import Fallbound.Model.Game.Elements.Player
+import Fallbound.Model.Game.Elements.Wall
+import Fallbound.Model.Sound.SoundOption
+import Fallbound.Model.Vector
 import org.mockito.MockedStatic
 import org.mockito.Mockito
 import spock.lang.Specification
 import spock.lang.Subject
-import Fallbound.Model.Game.Elements.Player
-import Fallbound.Model.Game.Elements.Bullet
-import Fallbound.Model.Vector
-import Fallbound.Controller.Sound.SoundController
-import Fallbound.Model.Sound.SoundOption
-import Fallbound.Model.Game.Elements.Wall
 
 class PlayerTest extends Specification {
     @Subject

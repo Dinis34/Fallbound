@@ -3,7 +3,6 @@ package Fallbound.Model.Game.Collectibles
 import Fallbound.Model.Game.Elements.Collectibles.*
 import Fallbound.Model.Game.Scene
 import Fallbound.Model.Vector
-
 import spock.lang.Specification
 
 class CollectibleFactoryTest extends Specification {
@@ -24,9 +23,9 @@ class CollectibleFactoryTest extends Specification {
         collectibles.each {
             assert it instanceof HealthCollectible ||
                     it instanceof MaxHealthCollectible ||
-                    it instanceof SpeedCollectible ||
-                    it instanceof BulletCountCollectible ||
-                    it instanceof BulletSpeedCollectible ||
+                    it instanceof SpeedCollectible        ||
+                    it instanceof BulletCountCollectible  ||
+                    it instanceof BulletSpeedCollectible    ||
                     it instanceof JumpCollectible
         }
 

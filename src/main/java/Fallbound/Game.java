@@ -19,16 +19,25 @@ public class Game {
         this.state = State.getInstance();
     }
 
+    public Game(State state, GUI gui) {
+        this.state = state;
+        this.gui = gui;
+    }
+
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
         Game game = new Game();
         game.startGame();
+    }
+
+    public State getState() {
+        return state;
     }
 
     public void setState(GameState gameState) {
         state.updateState(gameState);
     }
 
-    private void startGame() throws IOException, InterruptedException {
+    void startGame() throws IOException, InterruptedException {
         int FPS = 60;
         int frameTime = 1000 / FPS;
         while (this.state.getCurrentState() != GameState.QUIT_GAME) {
@@ -36,8 +45,14 @@ public class Game {
             state.step(gui, this, startTime);
             long elapsedTime = System.currentTimeMillis() - startTime;
             long sleepTime = frameTime - elapsedTime;
-            if (sleepTime > 0) Thread.sleep(sleepTime);
+            sleep(sleepTime);
         }
         gui.close();
     }
+
+
+    protected void sleep(long sleepTime) throws InterruptedException {
+        if (sleepTime > 0) Thread.sleep(sleepTime);
+    }
+
 }

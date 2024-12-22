@@ -6,9 +6,6 @@ import Fallbound.Model.Menu.PauseMenu
 import Fallbound.Model.Menu.StartMenu
 import Fallbound.Model.Position
 import Fallbound.View.Theme
-import Fallbound.View.Menu.GameOverMenuViewer
-import Fallbound.View.Menu.PauseMenuViewer
-import Fallbound.View.Menu.StartMenuViewer
 import spock.lang.Specification
 
 class MenuViewerTests extends Specification {
@@ -20,37 +17,37 @@ class MenuViewerTests extends Specification {
         def startMenuViewer = new StartMenuViewer(menu)
 
         when:
-        startMenuViewer.drawElements(gui,0)
+        startMenuViewer.drawElements(gui, 0)
 
         then:
-        16 * gui.drawText(_,_,_)
+        16 * gui.drawText(_, _, _)
     }
 
-    def "draw elements GameOver Menu"(){
+    def "draw elements GameOver Menu"() {
         given:
         def gui = Mock(GUI.class)
         def menu = new GameOverMenu()
         def gameOverMenuViewer = new GameOverMenuViewer(menu)
 
         when:
-        gameOverMenuViewer.drawElements(gui,0)
+        gameOverMenuViewer.drawElements(gui, 0)
 
         then:
-        4 * gui.drawText(_,_,_)
+        4 * gui.drawText(_, _, _)
 
     }
 
-    def "Draw elements Pause Menu"(){
+    def "Draw elements Pause Menu"() {
         given:
         def gui = Mock(GUI.class)
         def menu = new PauseMenu()
         def pauseMenuViewer = new PauseMenuViewer(menu)
 
         when:
-        pauseMenuViewer.drawElements(gui,0)
+        pauseMenuViewer.drawElements(gui, 0)
 
         then:
-        5 * gui.drawText(_,_,_)
+        5 * gui.drawText(_, _, _)
 
     }
 

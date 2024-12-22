@@ -20,7 +20,7 @@ class SoundControllerTest extends Specification {
     def coinSound = Mock(Sound)
     def collectibleSound = Mock(Sound)
 
-    def setup(){
+    def setup() {
         soundController = SoundController.getInstance()
         soundController.setMenuMusic(menuMusic)
         soundController.setBackgroundMusic(backgroundMusic)
@@ -37,91 +37,91 @@ class SoundControllerTest extends Specification {
         soundControllerSpy = Spy(soundController)
     }
 
-    def "Should play the menu music"(){
+    def "Should play the menu music"() {
         when:
         soundControllerSpy.playSound(SoundOption.MENU_MUSIC)
         then:
         1 * menuMusic.playContinuously()
     }
 
-    def "Should play the background music"(){
+    def "Should play the background music"() {
         when:
         soundControllerSpy.playSound(SoundOption.BACKGROUND_MUSIC)
         then:
         1 * backgroundMusic.playContinuously()
     }
 
-    def "Should play the bullet sound"(){
+    def "Should play the bullet sound"() {
         when:
         soundControllerSpy.playSound(SoundOption.BULLET)
         then:
         1 * bulletSound.play()
     }
 
-    def "Should play the Enemy death sound"(){
+    def "Should play the Enemy death sound"() {
         when:
         soundControllerSpy.playSound(SoundOption.ENEMY_DEATH)
         then:
         1 * enemyDeathSound.play()
     }
 
-    def "Should play the Player death sound"(){
+    def "Should play the Player death sound"() {
         when:
         soundControllerSpy.playSound(SoundOption.PLAYER_DEATH)
         then:
         1 * playerDeathSound.play()
     }
 
-    def "Should play the Player damage sound"(){
+    def "Should play the Player damage sound"() {
         when:
         soundControllerSpy.playSound(SoundOption.PLAYER_DAMAGE)
         then:
         1 * playerDamageSound.play()
     }
 
-    def "Should play the ding"(){
+    def "Should play the ding"() {
         when:
         soundControllerSpy.playSound(SoundOption.DING)
         then:
         1 * dingSound.play()
     }
 
-    def "Should play the jump sound"(){
+    def "Should play the jump sound"() {
         when:
         soundControllerSpy.playSound(SoundOption.JUMP)
         then:
         1 * jumpSound.play()
     }
 
-    def "Should play the Menu move sound"(){
+    def "Should play the Menu move sound"() {
         when:
         soundControllerSpy.playSound(SoundOption.MENU_MOVE)
         then:
         1 * menuMoveSound.play()
     }
 
-    def "Should play the menu select sound"(){
+    def "Should play the menu select sound"() {
         when:
         soundControllerSpy.playSound(SoundOption.MENU_SELECT)
         then:
         1 * menuSelectSound.play()
     }
 
-    def "Should play the coin sound"(){
+    def "Should play the coin sound"() {
         when:
         soundControllerSpy.playSound(SoundOption.COIN)
         then:
-        1* coinSound.play()
+        1 * coinSound.play()
     }
 
-    def "Should play the collectable sound"(){
+    def "Should play the collectable sound"() {
         when:
         soundControllerSpy.playSound(SoundOption.COLLECTIBLE)
         then:
         1 * collectibleSound.play()
     }
 
-    def "Should stop all sounds"(){
+    def "Should stop all sounds"() {
         when:
         soundControllerSpy.stopAllSounds()
         then:
@@ -139,82 +139,91 @@ class SoundControllerTest extends Specification {
         1 * collectibleSound.stop()
     }
 
-    def "Should stop menu music"(){
+    def "Should stop menu music"() {
         when:
         soundControllerSpy.stopSound(SoundOption.MENU_MUSIC)
         then:
         1 * menuMusic.stop()
     }
-    def "Should stop background music"(){
+
+    def "Should stop background music"() {
         when:
         soundControllerSpy.stopSound(SoundOption.BACKGROUND_MUSIC)
         then:
         1 * backgroundMusic.stop()
     }
-    def "Should stop bullet sound"(){
+
+    def "Should stop bullet sound"() {
         when:
         soundControllerSpy.stopSound(SoundOption.BULLET)
         then:
         1 * bulletSound.stop()
     }
-    def "Should stop enemy death sound"(){
+
+    def "Should stop enemy death sound"() {
         when:
         soundControllerSpy.stopSound(SoundOption.ENEMY_DEATH)
         then:
         1 * enemyDeathSound.stop()
 
     }
-    def "Should stop player death sound"(){
+
+    def "Should stop player death sound"() {
         when:
         soundControllerSpy.stopSound(SoundOption.PLAYER_DEATH)
         then:
         1 * playerDeathSound.stop()
     }
-    def "Should stop player damage sound"(){
+
+    def "Should stop player damage sound"() {
         when:
         soundControllerSpy.stopSound(SoundOption.PLAYER_DAMAGE)
         then:
         1 * playerDamageSound.stop()
     }
-    def "Should stop ding"(){
+
+    def "Should stop ding"() {
         when:
         soundControllerSpy.stopSound(SoundOption.DING)
         then:
         1 * dingSound.stop()
     }
-    def "Should stop jump sound"(){
+
+    def "Should stop jump sound"() {
         when:
         soundControllerSpy.stopSound(SoundOption.JUMP)
         then:
         1 * jumpSound.stop()
     }
-    def "Should stop menu move sound"(){
+
+    def "Should stop menu move sound"() {
         when:
         soundControllerSpy.stopSound(SoundOption.MENU_MOVE)
         then:
         1 * menuMoveSound.stop()
 
     }
-    def "Should stop menu select sound"(){
+
+    def "Should stop menu select sound"() {
         when:
         soundControllerSpy.stopSound(SoundOption.MENU_SELECT)
         then:
         1 * menuSelectSound.stop()
     }
-    def "Should stop coin sound"(){
+
+    def "Should stop coin sound"() {
         when:
         soundControllerSpy.stopSound(SoundOption.COIN)
         then:
         1 * coinSound.stop()
     }
-    def "Should stop collectable sound"(){
+
+    def "Should stop collectable sound"() {
         when:
         soundControllerSpy.stopSound(SoundOption.COLLECTIBLE)
         then:
         1 * collectibleSound.stop()
     }
-
-
 
 
 }

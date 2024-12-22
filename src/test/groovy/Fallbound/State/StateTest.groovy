@@ -1,17 +1,16 @@
 package Fallbound.State
 
-import Fallbound.Model.Game.Scene
+import Fallbound.Controller.Controller
+import Fallbound.Controller.Menu.MenuController
 import Fallbound.GUI.GUI
 import Fallbound.Game
-import Fallbound.Controller.Controller
+import Fallbound.Model.Game.Scene
 import Fallbound.View.Viewer
-import Fallbound.Controller.Menu.MenuController
-
 import spock.lang.Specification
 
 class StateTest extends Specification {
 
-    def "Update State"(){
+    def "Update State"() {
         given:
         def state = State.getInstance()
 
@@ -22,7 +21,7 @@ class StateTest extends Specification {
         state.getCurrentState() == GameState.NEW_GAME
     }
 
-    def "Update State when New State is Pause Menu"(){
+    def "Update State when New State is Pause Menu"() {
         given:
         def state = State.getInstance()
         def mockScene = Mock(Scene)
@@ -40,7 +39,7 @@ class StateTest extends Specification {
 
     }
 
-    def "Update State when Current State is Pause Menu"(){
+    def "Update State when Current State is Pause Menu"() {
         given:
         def state = State.getInstance()
         def mockScene = Mock(Scene)
@@ -59,7 +58,7 @@ class StateTest extends Specification {
         1 * mockScene.setPaused(false)
     }
 
-    def "Update to Previous"(){
+    def "Update to Previous"() {
         given:
         def state = State.getInstance()
         def stateSpy = Spy(state)
