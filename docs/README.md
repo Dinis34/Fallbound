@@ -187,25 +187,15 @@ Here is where we implemented the Factory method:
 - While the Factory pattern helps the scene class adhere to OCP, the factory itself might still need modifications when new collectable types are introduced.
 
 ### KNOWN CODE SMELLS
-After re-analysing our code, we identified 3 code smells within it:
+Throughout the development process and after a re-analysis of our code, we identified some code smells that could be improved:
 
-- **Long classes and long methods**: classes related to the scene (i.e; [Scene](../src/main/java/Fallbound/Model/Game/Scene.java) & [SceneViewer](../src/main/java/Fallbound/View/Game/SceneViewer.java)) tend to be quite large, due to their purpose of handling game elements and other attributes.
-    This code smell can also be found in other classes like the [Player](../src/main/java/Fallbound/Model/Game/Elements/Player.java) although in a smaller scale.
+- **God Class**: The [Scene](../src/main/java/Fallbound/Model/Game/Scene.java) class handles numerous responsibilities, including player management, bullet movement, collision detection, enemy spawning, and platform generation. In hindsight, this centralization of logic makes the class overly complex and harder to maintain, and could probably be fixed with some more time by breaking it down into smaller classes.
+- **Duplicate Code**: There is some duplicated logic, such as the handling of key events in [PlayerController](../src/main/java/Fallbound/Controller/Game/Elements/PlayerController.java) and [SceneController](../src/main/java/Fallbound/Controller/Game/SceneController.java). In retrospective, this could be refactored into a common utility or base class.
+- **Lengthy switch statements**: Big switch statements in the [State](../src/main/java/Fallbound/State/State.java) and [SoundController](../src/main/java/Fallbound/Controller/Sound/SoundController.java) classes manage application states and sound behaviors, respectively. While justified by their responsibilities, this could be improved by using polymorphism to delegate behavior to specialized classes.
 
+### TESTING
 
-- **Duplicate Code**: in classes related to view, (i.e; [GameOverMenuViewer](../src/main/java/Fallbound/View/Menu/GameOverMenuViewer.java), [PauseMenuViewer](../src/main/java/Fallbound/View/Menu/PauseMenuViewer.java) and [StartMenuViewer](../src/main/java/Fallbound/View/Menu/StartMenuViewer.java)), some methods were duplicated and only slightly tweaked to fit in to the class they are a viewer of.
-
-
-- **Lengthy switch statements**: Two examples of this code smell can be found in the [State](../src/main/java/Fallbound/State) class and in the [SoundController](../src/main/java/Fallbound/Controller/Sound/SoundController.java).
-    The State class is responsible for managing the different states of the application, meanwhile the SoundController handles everything related to the different sounds and how they behave, therefore justifying the existence of the switch statement.
-    This problem could be fixed by taking into account code polymorphism and dividing the code into several classes that handle each instance's behaviour.
-
-
-
-
-### TESTING todo
-screenshot
-link to mutation
+#### Test Coverage
 
 ### SELF-EVALUATION todo
 - **Simão Barbosa**:
