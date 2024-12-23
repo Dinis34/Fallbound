@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class GameOverMenuTest extends Specification {
 
-    def "isSelectedRestart is true"(){
+    def "isSelectedRestart is true"() {
         given:
         def menu = Spy(GameOverMenu)
 
@@ -15,7 +15,7 @@ class GameOverMenuTest extends Specification {
         menu.isSelectedRestart()
     }
 
-    def "isSelectedRestart is false"(){
+    def "isSelectedRestart is false"() {
         given:
         def menu = Spy(GameOverMenu)
 
@@ -26,7 +26,7 @@ class GameOverMenuTest extends Specification {
         !menu.isSelectedRestart()
     }
 
-    def "isSelectedExit is true"(){
+    def "isSelectedExit is true"() {
         given:
         def menu = Spy(GameOverMenu)
 
@@ -37,7 +37,7 @@ class GameOverMenuTest extends Specification {
         menu.isSelectedExit()
     }
 
-    def "isSelectedExit is false"(){
+    def "isSelectedExit is false"() {
         given:
         def menu = Spy(GameOverMenu)
 
@@ -48,7 +48,7 @@ class GameOverMenuTest extends Specification {
         !menu.isSelectedExit()
     }
 
-    def "isSelectedExitToDesktop is true"(){
+    def "isSelectedExitToDesktop is true"() {
         given:
         def menu = Spy(GameOverMenu)
 
@@ -59,7 +59,7 @@ class GameOverMenuTest extends Specification {
         menu.isSelectedExitToDesktop()
     }
 
-    def "isSelectedExitToDesktop is false"(){
+    def "isSelectedExitToDesktop is false"() {
         given:
         def menu = Spy(GameOverMenu)
 
@@ -70,7 +70,7 @@ class GameOverMenuTest extends Specification {
         !menu.isSelectedExitToDesktop()
     }
 
-    def "isNewHighScore is true"(){
+    def "isNewHighScore is true"() {
         given:
         def menu = new GameOverMenu()
 
@@ -81,7 +81,7 @@ class GameOverMenuTest extends Specification {
         menu.isNewHighScore()
     }
 
-    def "isNewHighScore is false"(){
+    def "isNewHighScore is false"() {
         given:
         def menu = new GameOverMenu()
 

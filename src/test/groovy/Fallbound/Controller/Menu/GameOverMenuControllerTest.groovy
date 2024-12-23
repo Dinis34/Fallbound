@@ -7,7 +7,7 @@ import spock.lang.Specification
 
 import java.awt.event.KeyEvent
 
-class GameOverMenuControllerTest extends Specification{
+class GameOverMenuControllerTest extends Specification {
     def "should not update high score when current score is lower"() {
         given:
         def menu = Mock(GameOverMenu)
@@ -23,11 +23,11 @@ class GameOverMenuControllerTest extends Specification{
 
     def "should update high score when current score is higher"() {
         given:
-            def menu = Mock(GameOverMenu)
+        def menu = Mock(GameOverMenu)
         when:
-            GameOverMenuController controller = new GameOverMenuController(menu, 100000)
+        GameOverMenuController controller = new GameOverMenuController(menu, 100000)
         then:
-            1 * menu.setNewHighScore(true)
+        1 * menu.setNewHighScore(true)
     }
 
     def "test if goes up"() {
@@ -42,6 +42,7 @@ class GameOverMenuControllerTest extends Specification{
         then:
         1 * menu.previousOption()
     }
+
     def "test if goes down"() {
         given:
         GameOverMenu menu = Mock(GameOverMenu)

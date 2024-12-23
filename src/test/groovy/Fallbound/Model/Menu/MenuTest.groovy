@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class MenuTest extends Specification {
 
-    def "Next Option"(){
+    def "Next Option"() {
         given:
         def menu = new StartMenu()
 
@@ -15,7 +15,7 @@ class MenuTest extends Specification {
         menu.isSelected(1)
     }
 
-    def "Next Option selected >= options.size()"(){
+    def "Next Option selected >= options.size()"() {
         given:
         def menu = new StartMenu()
         menu.selected = 3
@@ -27,7 +27,7 @@ class MenuTest extends Specification {
         menu.isSelected(0)
     }
 
-    def "Previous Option" (){
+    def "Previous Option"() {
         given:
         def menu = new StartMenu()
         menu.selected = 1
@@ -39,7 +39,7 @@ class MenuTest extends Specification {
         menu.isSelected(0)
     }
 
-    def "Previous Option selected < 0"(){
+    def "Previous Option selected < 0"() {
         given:
         def menu = new StartMenu()
         menu.selected = 0

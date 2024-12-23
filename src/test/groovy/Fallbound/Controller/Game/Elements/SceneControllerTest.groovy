@@ -1,15 +1,15 @@
 package Fallbound.Controller.Game.Elements
 
-import java.lang.reflect.Field
-import spock.lang.Specification
 import Fallbound.Controller.Game.SceneController
-import Fallbound.Model.Game.Elements.Player
-import Fallbound.Model.Game.Elements.Enemies.Enemy
-import Fallbound.Model.Game.Scene
 import Fallbound.Game
+import Fallbound.Model.Game.Elements.Enemies.Enemy
+import Fallbound.Model.Game.Elements.Player
+import Fallbound.Model.Game.Scene
 import Fallbound.State.GameState
+import spock.lang.Specification
 
 import java.awt.event.KeyEvent
+import java.lang.reflect.Field
 
 class SceneControllerTest extends Specification {
 

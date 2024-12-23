@@ -1,9 +1,10 @@
+import Fallbound.Controller.Menu.PauseMenuController
 import Fallbound.Game
+import Fallbound.Model.Menu.PauseMenu
 import Fallbound.State.GameState
 import spock.lang.Specification
+
 import java.awt.event.KeyEvent
-import Fallbound.Model.Menu.PauseMenu
-import Fallbound.Controller.Menu.PauseMenuController
 
 class PauseMenuControllerTest extends Specification {
     def "test if goes up"() {

@@ -1,10 +1,11 @@
 package Fallbound.Controller.Menu
 
 import Fallbound.Game
+import Fallbound.Model.Menu.StartMenu
 import Fallbound.State.GameState
 import spock.lang.Specification
+
 import java.awt.event.KeyEvent
-import Fallbound.Model.Menu.StartMenu
 
 class StartMenuControllerTest extends Specification {
 

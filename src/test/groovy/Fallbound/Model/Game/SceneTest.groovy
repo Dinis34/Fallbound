@@ -1,27 +1,28 @@
 package Fallbound.Model.Game
 
+import Fallbound.Model.Game.Elements.Bullet
 import Fallbound.Model.Game.Elements.Coin
 import Fallbound.Model.Game.Elements.Collectibles.Collectible
-import Fallbound.Model.Game.Elements.Enemies.*
+import Fallbound.Model.Game.Elements.Enemies.NormalEnemy
+import Fallbound.Model.Game.Elements.Enemies.ShellEnemy
+import Fallbound.Model.Game.Elements.Enemies.SpikeEnemy
 import Fallbound.Model.Game.Elements.Wall
-import Fallbound.Model.Game.Elements.Bullet
 import Fallbound.Model.Vector
-
 import spock.lang.Specification
 
 class SceneTest extends Specification {
 
-    def "width"(){
+    def "width"() {
         given:
-        def scene = new Scene(10,10)
+        def scene = new Scene(10, 10)
 
         expect:
         scene.getWidth() == 10
     }
 
-    def "height"(){
+    def "height"() {
         given:
-        def scene = new Scene(10,10)
+        def scene = new Scene(10, 10)
 
         expect:
         scene.getHeight() == 10
@@ -92,13 +93,13 @@ class SceneTest extends Specification {
         scene.timeToString(input) == expected
 
         where:
-        input     || expected
-        0         || "00:00.00"
-        1000      || "00:01.00"
-        60000     || "01:00.00"
-        61000     || "01:01.00"
-        123456    || "02:03.45"
-        3599999   || "59:59.99"
+        input   || expected
+        0       || "00:00.00"
+        1000    || "00:01.00"
+        60000   || "01:00.00"
+        61000   || "01:01.00"
+        123456  || "02:03.45"
+        3599999 || "59:59.99"
     }
 
     def "removeEnemy removes the enemy and adds a coin at the same position"() {

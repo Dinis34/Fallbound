@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class StartMenuTest extends Specification {
 
-    def "isSelectedPlay is True"(){
+    def "isSelectedPlay is True"() {
         given:
         def menu = Spy(StartMenu)
 
@@ -15,7 +15,7 @@ class StartMenuTest extends Specification {
         menu.isSelectedPlay()
     }
 
-    def "isSelectedPlay is false"(){
+    def "isSelectedPlay is false"() {
         given:
         def menu = Spy(StartMenu)
 
@@ -27,7 +27,7 @@ class StartMenuTest extends Specification {
 
     }
 
-    def "isSelectedExit is true"(){
+    def "isSelectedExit is true"() {
         given:
         def menu = Spy(StartMenu)
 
@@ -38,7 +38,7 @@ class StartMenuTest extends Specification {
         menu.isSelectedExit()
     }
 
-    def "isSelectedExit is false"(){
+    def "isSelectedExit is false"() {
         given:
         def menu = Spy(StartMenu)
 
