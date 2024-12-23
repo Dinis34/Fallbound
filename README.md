@@ -1,8 +1,13 @@
 ![bannerFallbound](./docs/img/bannerFallbound.png)
 
-# LDTS t06g03 - Fallbound
+# LDTS_t06g03 - Fallbound
 
 > **Fallbound** is a 2D platformer game where the player must fall down a series of platforms and gain power while defeating enemies. How far can you fall?
+
+### this project was developed for LDTS 2024⁄25 by:
+- **Simão Barbosa** (up202306609)
+- **Pedro Araújo** (up202306606)
+- **Martim Cadilhe** (up202307833)
 
 ## THE IDEA
 
