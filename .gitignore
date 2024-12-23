@@ -7,7 +7,7 @@ build/
 gradle/
 gradlew.bat
 gradlew
-src/main/resources/highscore.txt
+*/highscore.txt
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

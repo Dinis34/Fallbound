@@ -197,6 +197,14 @@ Throughout the development process and after a re-analysis of our code, we ident
 
 #### Test Coverage
 
+![Screenshot of coverage report](./img/testing/coverage.png)
+
+#### Pitest Mutation Testing
+
+- To ensure effective mutation testing, we excluded the [LanternaGUI](../src/main/java/Fallbound/GUI/LanternaGUI.java) and [Game](../src/main/java/Fallbound/Game.java) classes. LanternaGUI could conflict with Pitest due to its use of Lanterna, while testing the Game class, which runs the main function and game loop, would be unnecessary and problematic.
+
+![mutations.png](./img/testing/mutations.png)
+
 ### SELF-EVALUATION todo
 - **Simão Barbosa**:
 - **Pedro Araújo**:
