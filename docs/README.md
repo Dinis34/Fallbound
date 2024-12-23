@@ -14,7 +14,7 @@
 ### GAMEPLAY
 - `Left Arrow` or `A` - move left.
 - `Right Arrow` or `D` - move right.
-- `Space` - jump.
+- `Space` - jump and shoot.
 - `Escape` - open pause menu.
 
 ### MENUS
@@ -28,14 +28,14 @@
 
 - **Player Movement** - the player can move left, right, and jump. Movement was very carefully designed to feel smooth and responsive.
 - **Procedural World Generation** - the game has a procedural platform generation system that allows the player to play infinitely.
-- **Bullets** - the player has bullets that can be used to shoot monsters and traverse the world with its recoil. Bullets are recharged when the player touches the ground.
+- **Bullets** - the player has bullets that can be used to shoot monsters and traverse the world with its recoil. Bullets can only be shot when the player is in the air and are recharged when the player touches the ground.
 - **Breakable Walls** - the player can break some walls by shooting them.
 - **Player Health** - the player has a life counting system. When the player runs out of lives the game ends.
 - **Enemies** - the player will have to defeat several types of enemies, each with their own unique ways to be defeated.
 - **Difficulty Progression** - the game will get harder as time passes. Enemies will spawn more frequently and new enemy types will appear.
 - **Coins** - the player can collect coins to purchase items at the shop.
 - **Shop and Power-Ups** - the player can buy different items at the shop, like the Power-Ups that permanently increase the player's abilities or extra lives.
-- **Menus** - the game has a main menu, a pause menu, and a game over menu.
+- **Menus** - the game has a main menu, a pause menu and a game over menu.
 - **Sound** - the game has sound effects and music.
 - **Timer** - the game has a timer that counts the time the player has been playing. This is the main score of the game.
 - **Highscore Functionality** - the game will keep a local track of the player's highest score.
@@ -46,12 +46,12 @@
 - ∩ - [**Shell Enemy**](../src/main/java/Fallbound/Model/Game/Elements/Enemies/ShellEnemy.java) : This enemy is bound to the platforms. Can only be defeated by stomping.
 
 ### COLLECTABLES
-- ♡ - [**Extra Health**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/MaxHealthCollectible.java): Increases the player’s max health.
-- ↑ - [**Jump Height**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/JumpCollectible.java): Increases the player’s max height while jumping.
-- ♥ - [**Health Refill**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/HealthCollectible.java): Refills the player’s health.
+- ♡ - [**Extra Health**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/MaxHealthCollectible.java): Increases the player's max health.
+- ↑ - [**Jump Height**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/JumpCollectible.java): Increases the player's max height while jumping.
+- ♥ - [**Health Refill**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/HealthCollectible.java): Refills the player's health.
 - 🗲 - [**Speed Boost**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/SpeedCollectible.java): Makes the player move faster.
-- | - [**Extra Bullets**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletCountCollectible.java): Increases the player’s bullet count.
-- ⇢ - [**Faster Bullets**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletSpeedCollectible.java): The player’s bullets move faster.
+- | - [**Extra Bullets**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletCountCollectible.java): Increases the player's bullet count.
+- ⇢ - [**Faster Bullets**](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/BulletSpeedCollectible.java): The player's bullets move faster.
 
 
 ## GENERAL STRUCTURE
@@ -158,7 +158,6 @@ Here is the Singleton pattern at work:
 #### Consequences of using Singleton:
 
 - The use of Singleton can make testing more difficult, as the global instance may maintain state between tests.
-- Although convenient, global access can lead to hidden dependencies in the code.
 - Since the Singleton instance is globally accessible, modifying the State class could impact multiple classes, making the design harder to extend without changing existing code, contradicting the Open/Closed Principle.
 - This design reduces the need for synchronization.
 - Simplifies code maintenance by adhering to the Single Responsibility Principle, as only the State class is responsible for game state management.
@@ -189,7 +188,7 @@ Here is where we implemented the Factory method:
 ### KNOWN CODE SMELLS
 Throughout the development process and after a re-analysis of our code, we identified some code smells that could be improved:
 
-- **God Class**: The [Scene](../src/main/java/Fallbound/Model/Game/Scene.java) class handles numerous responsibilities, including player management, bullet movement, collision detection, enemy spawning, and platform generation. In hindsight, this centralization of logic makes the class overly complex and harder to maintain, and could probably be fixed with some more time by breaking it down into smaller classes.
+- **God Class**: The [Scene](../src/main/java/Fallbound/Model/Game/Scene.java) class handles numerous responsibilities, including player management, bullet movement, collision detection, enemy spawning, and platform generation. In hindsight, this centralization of logic makes the class overly complex and harder to maintain, and could probably be fixed with some more time by breaking it down into smaller classes, like we did for [Collectable Factory](../src/main/java/Fallbound/Model/Game/Elements/Collectibles/CollectibleFactory.java).
 - **Duplicate Code**: There is some duplicated logic, such as the handling of key events in [PlayerController](../src/main/java/Fallbound/Controller/Game/Elements/PlayerController.java) and [SceneController](../src/main/java/Fallbound/Controller/Game/SceneController.java). In retrospective, this could be refactored into a common utility or base class.
 - **Lengthy switch statements**: Big switch statements in the [State](../src/main/java/Fallbound/State/State.java) and [SoundController](../src/main/java/Fallbound/Controller/Sound/SoundController.java) classes manage application states and sound behaviors, respectively. While justified by their responsibilities, this could be improved by using polymorphism to delegate behavior to specialized classes.
 
