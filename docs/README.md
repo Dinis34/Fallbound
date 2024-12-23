@@ -206,6 +206,6 @@ Throughout the development process and after a re-analysis of our code, we ident
 ![mutations.png](./img/testing/mutations.png)
 
 ### SELF-EVALUATION todo
-- **Simão Barbosa**:
-- **Pedro Araújo**:
-- **Martim Cadilhe**:
+- **Simão Barbosa**: 60%
+- **Pedro Araújo**: 20%
+- **Martim Cadilhe**: 20%
