@@ -39,17 +39,9 @@ We wanted a game that was simple and fun to play. We decided to create a 2D plat
 - **Timer** - the game has a timer that counts the time the player has been playing. This is the main score of the game.
 - **Highscore Functionality** - the game will keep a local track of the player's highest score.
 
-## MOCKUPS AND SCREENSHOTS
+## GAMEPLAY DEMO
 
-### Game Mockups
-
-![Fallbound Mockup](./docs/img/mockups/figmaMockup.png)
-
-### Game Screenshots
-
-![Fallbound Features](./docs/img/screenshots/fallboundFeatures.png)
-
-### Gameplay
+![Fallbound Gameplay](./docs/img/screenshots/gameplay.gif)
 
 
 
