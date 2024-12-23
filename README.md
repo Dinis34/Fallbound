@@ -6,7 +6,7 @@
 
 ## THE IDEA
 
-We wanted a game that was simple and fun to play. We decided to create a 2D platformer game where the player falls through a series of platforms while shooting down enemies. For this, the player movement must be refined to feel smooth and responsive. Your objective is to survive as long as possible. 
+We wanted a simple, fun game with clean, well-written code. To achieve this, we explored Java design patterns to ensure the code is clear and effective. We designed a 2D platformer where the player falls through platforms, shooting enemies and trying to survive as long as possible. For this, the player movement must be refined to feel smooth and responsive. Your objective is to survive as long as possible.
 
 ## CONTROLS
 
@@ -43,7 +43,9 @@ We wanted a game that was simple and fun to play. We decided to create a 2D plat
 
 ![Fallbound Gameplay](./docs/img/screenshots/gameplay.gif)
 
+## UML DIAGRAM
 
+![Fallbound UML](./docs/img/uml/FallboundUML.png)
 
 
 
