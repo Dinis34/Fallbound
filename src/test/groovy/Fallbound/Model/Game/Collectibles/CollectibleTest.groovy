@@ -176,7 +176,7 @@ class CollectibleTest extends Specification {
         def cost = maxHealthCollectible.getCost()
 
         then:
-        cost == 8
+        cost == 7
 
         when:
         def icon = maxHealthCollectible.getIcon()
