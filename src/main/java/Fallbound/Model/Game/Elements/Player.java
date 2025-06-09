@@ -45,6 +45,12 @@ public class Player extends Element {
         return DAMAGE_COOLDOWN;
     }
 
+    @Override
+    public void setPosition(Vector position) {
+        this.lastPosition = this.getPosition();
+        super.setPosition(position);
+    }
+
     private void initializePlayerState(Scene scene) {
         this.scene = scene;
         this.velocity = new Vector(0, 0);
@@ -143,18 +149,14 @@ public class Player extends Element {
     public void takeDamage() {
         long currentTime = System.currentTimeMillis();
         if (canTakeDamage(currentTime)) {
-            executeDamage(currentTime);
+            SoundController.getInstance().playSound(SoundOption.PLAYER_DAMAGE);
+            health--;
+            lastDamageTime = currentTime;
         }
     }
 
     private boolean canTakeDamage(long currentTime) {
         return currentTime - lastDamageTime >= DAMAGE_COOLDOWN && health > 0;
-    }
-
-    private void executeDamage(long currentTime) {
-        SoundController.getInstance().playSound(SoundOption.PLAYER_DAMAGE);
-        health--;
-        lastDamageTime = currentTime;
     }
 
     public void update() {

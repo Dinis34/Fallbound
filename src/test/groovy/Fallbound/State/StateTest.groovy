@@ -1,17 +1,16 @@
 package Fallbound.State
 
-import Fallbound.Model.Game.Scene
+import Fallbound.Controller.Controller
+import Fallbound.Controller.Menu.MenuController
 import Fallbound.GUI.GUI
 import Fallbound.Game
-import Fallbound.Controller.Controller
+import Fallbound.Model.Game.Scene
 import Fallbound.View.Viewer
-import Fallbound.Controller.Menu.MenuController
-
 import spock.lang.Specification
 
 class StateTest extends Specification {
 
-    def "Update State"(){
+    def "Update State"() {
         given:
         def state = State.getInstance()
 
@@ -22,7 +21,7 @@ class StateTest extends Specification {
         state.getCurrentState() == GameState.NEW_GAME
     }
 
-    def "Update State when New State is Pause Menu"(){
+    def "Update State when New State is Pause Menu"() {
         given:
         def state = State.getInstance()
         def mockScene = Mock(Scene)
@@ -40,7 +39,7 @@ class StateTest extends Specification {
 
     }
 
-    def "Update State when Current State is Pause Menu"(){
+    def "Update State when Current State is Pause Menu"() {
         given:
         def state = State.getInstance()
         def mockScene = Mock(Scene)
@@ -59,7 +58,7 @@ class StateTest extends Specification {
         1 * mockScene.setPaused(false)
     }
 
-    def "Update to Previous"(){
+    def "Update to Previous"() {
         given:
         def state = State.getInstance()
         def stateSpy = Spy(state)
@@ -103,22 +102,22 @@ class StateTest extends Specification {
         def game = Mock(Game)
         def state = State.getInstance()
         def viewer = Mock(Viewer)
-        def controller = null
+        def controller = Mock(Controller)
         def stateSpy = Spy(state)
 
         stateSpy.setController(controller)
         stateSpy.setViewer(viewer)
 
-        gui.getNextAction() >> null
+        gui.getNextAction() >> new HashSet<>()
+        gui.getNextSingleAction() >> new HashSet<>()
 
         when:
         stateSpy.step(gui, game, 0)
 
         then:
-        1 * stateSpy.StateActions()
         1 * gui.getNextAction()
-        1 * viewer.draw(_, _)
-        0 * controller.step(_, _, _)
+        1 * controller.step(game, _, 0)
+        1 * viewer.draw(gui, 0)
     }
 
     def "State Step when Controller is MenuController"() {

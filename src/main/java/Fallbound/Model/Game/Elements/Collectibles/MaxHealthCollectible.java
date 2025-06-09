@@ -11,7 +11,7 @@ public class MaxHealthCollectible extends Collectible {
 
     @Override
     public int getCost() {
-        return 8;
+        return 7;
     }
 
     @Override
@@ -27,5 +27,8 @@ public class MaxHealthCollectible extends Collectible {
     @Override
     public void onCollect(Player player) {
         player.setMaxHealth(player.getMaxHealth() + 1);
+        if (player.getHealth() < player.getMaxHealth()) {
+            player.setHealth(player.getHealth() + 1);
+        }
     }
 }

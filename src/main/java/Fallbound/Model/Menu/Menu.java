@@ -36,6 +36,4 @@ public abstract class Menu {
     public int getNumberOptions() {
         return options.size();
     }
-
-
 }
